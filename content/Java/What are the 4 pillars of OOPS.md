@@ -5,8 +5,6 @@ difficulty: easy
 date: 2025-06-22
 ---
 
-## Answer: 4 Pillars of OOP (Object-Oriented Programming)
-
 The four fundamental pillars of OOP are:
 
 1. **Abstraction**  

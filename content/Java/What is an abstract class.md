@@ -5,8 +5,6 @@ difficulty: easy
 date: 2025-06-22
 ---
 
-## What is an Abstract Class?
-
 An **abstract class** is a class that is declared using the `abstract` keyword. It can contain:
 
 - **Abstract methods** (methods without a body)

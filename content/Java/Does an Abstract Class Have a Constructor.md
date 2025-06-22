@@ -5,8 +5,6 @@ difficulty: easy
 date: 2025-06-22
 ---
 
-## Does an Abstract Class Have a Constructor?
-
 Yes — this is a common interview question, and the answer is:
 
 > ✅ **Yes, abstract classes in Java do have constructors.**  
