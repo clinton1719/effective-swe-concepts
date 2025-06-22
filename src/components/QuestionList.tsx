@@ -1,4 +1,4 @@
-import questions from '@/data/questions.json';
+import { useFuzzySearch } from '@/lib/useFuzzySearch';
 import { QuestionCard } from './QuestionCard';
 
 type Props = {
@@ -16,18 +16,14 @@ export function QuestionList({
   toggleTag,
   sortOrder,
 }: Props) {
-  const filtered = questions.filter((q) => {
-    const matchesTopic = !selectedTopic || q.topic === selectedTopic;
-    const query = search.toLowerCase();
-    const matchesSearch =
-      q.title.toLowerCase().includes(query) ||
-      q.tags.some((tag) => tag.toLowerCase().includes(query));
+  const fuzzyResults = useFuzzySearch(search);
 
+  const filtered = fuzzyResults.filter((q) => {
+    const matchesTopic = !selectedTopic || q.topic === selectedTopic;
     const matchesTags =
       selectedTags.length === 0 ||
       selectedTags.every((tag) => q.tags.includes(tag));
-
-    return matchesTopic && matchesSearch && matchesTags;
+    return matchesTopic && matchesTags;
   });
 
   const sorted = [...filtered].sort((a, b) => {
