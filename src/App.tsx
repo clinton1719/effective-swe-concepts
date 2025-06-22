@@ -68,6 +68,18 @@ export default function App() {
           <ThemeToggle />
         </div>
       </div>
+      <div className="md:hidden flex flex-wrap gap-2 mt-4 justify-end px-4">
+        <Button variant="outline" size="sm" onClick={handleDownloadPDF}>
+          Export PDF
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setExpandAll(!expandAll)}
+        >
+          {expandAll ? 'Collapse all answers' : 'Expand all answers'}
+        </Button>
+      </div>
 
       <div className="hidden md:flex p-2 items-center border-r">
         <Button
