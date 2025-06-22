@@ -1,0 +1,43 @@
+[
+  {
+    "slug": "G:\\projects\\effective-swe-concepts\\content\\AWS\\s3-versioning",
+    "title": "Enabling Versioning in Amazon S3",
+    "tags": [
+      "aws",
+      "s3",
+      "versioning",
+      "durability"
+    ],
+    "difficulty": "medium",
+    "date": "2025-06-25T00:00:00.000Z",
+    "content": "\r\n### 📌 Question  \r\nHow do you enable and use versioning in an S3 bucket?\r\n\r\n---\r\n\r\n### 🧠 Answer\r\n\r\nVersioning in S3 allows you to preserve, retrieve, and restore **every version of every object** stored in a bucket.\r\n\r\nThis helps:\r\n- Protect against accidental overwrites or deletes\r\n- Implement backup & restore strategies\r\n- Support eventual archival (via Glacier)\r\n\r\n---\r\n\r\n### ⚙️ Enabling Versioning (CLI)\r\n\r\n```bash\r\naws s3api put-bucket-versioning \\\r\n  --bucket my-bucket-name \\\r\n  --versioning-configuration Status=Enabled\r\n```\r\n\r\n```terraform\r\nresource \"aws_s3_bucket\" \"main\" {\r\n  bucket = \"my-bucket-name\"\r\n}\r\n\r\nresource \"aws_s3_bucket_versioning\" \"versioning\" {\r\n  bucket = aws_s3_bucket.main.id\r\n\r\n  versioning_configuration {\r\n    status = \"Enabled\"\r\n  }\r\n}\r\n```",
+    "topic": "AWS"
+  },
+  {
+    "slug": "G:\\projects\\effective-swe-concepts\\content\\HLD\\url-shortener",
+    "title": "High-Level Design of a URL Shortener",
+    "tags": [
+      "hld",
+      "system-design",
+      "scalability",
+      "caching"
+    ],
+    "difficulty": "medium",
+    "date": "2025-06-23T00:00:00.000Z",
+    "content": "\r\n### 📌 Question  \r\nDesign a scalable, fault-tolerant URL shortener service like Bitly.\r\n\r\n---\r\n\r\n### 🧠 Key Requirements\r\n\r\n- Convert long URLs to short codes (e.g., bit.ly/abc123)\r\n- Must handle high read volume\r\n- Ensure low latency redirection\r\n- Should expire or delete links if needed\r\n\r\n---\r\n\r\n### 🧱 System Components\r\n\r\n| Component       | Role                            |\r\n|-----------------|---------------------------------|\r\n| API Gateway     | Public entry for REST API       |\r\n| Lambda (or EC2) | Handle create and redirect logic|\r\n| DynamoDB        | Stores mapping: short -> long   |\r\n| Redis           | Caches most popular URLs        |\r\n| S3 + CloudFront | Optional: serve static redirects|\r\n\r\n---\r\n\r\n### 🧭 Flow (Create Short URL)\r\n\r\n1. Client sends POST `/shorten` with long URL.\r\n2. Backend generates a hash or base62-encoded ID.\r\n3. Store (shortCode → longURL) in DB.\r\n4. Return `https://yourapp.io/abc123`.\r\n\r\n---\r\n\r\n### 🔁 Flow (Redirect)\r\n\r\n1. Client visits `/abc123`.\r\n2. Backend looks up `abc123` in Redis → DynamoDB fallback.\r\n3. Issue HTTP 301 redirect to original long URL.\r\n\r\n---\r\n\r\n### 🖼️ Diagram\r\n\r\n![URL Shortener HLD](../images/url-shortener-hld.png)\r\n\r\n---\r\n\r\n### 🧪 Optional: DynamoDB Schema\r\n\r\n| Partition Key | Sort Key | TTL       | Redirect URL       |\r\n|---------------|----------|-----------|--------------------|\r\n| shortCode     | null     | timestamp | https://long...com |\r\n\r\n---\r\n\r\n### ⚠️ Interview Traps\r\n\r\n- 🔒 **Collision Handling**: How to ensure no duplicate short codes? (Use UUID, hash + retry, or a central counter)\r\n- ⚡ **Hot Key Problem**: Popular shortCodes can cause Redis cache skew.\r\n- 📉 **Analytics**: Should you store click metrics? Then consider Kafka or Firehose.\r\n\r\n---\r\n\r\n### 🛡️ Scalability Notes\r\n\r\n- Use a **base62** encoding of a global counter for predictable short codes.\r\n- For horizontal scaling, avoid DB auto-increment — use Snowflake ID or UUID v7.\r\n- Use **CloudFront + S3 static site** for ultra-fast link redirects if mapping is pre-generated.\r\n\r\n---\r\n\r\n### 📚 References\r\n\r\n- [Designing Bitly – System Design Primer](https://github.com/donnemartin/system-design-primer)\r\n- [AWS Architecture Blog – Serverless URL shortener](https://aws.amazon.com/blogs/compute/building-a-serverless-url-shortener/)\r\n",
+    "topic": "HLD"
+  },
+  {
+    "slug": "G:\\projects\\effective-swe-concepts\\content\\Java\\string-vs-stringbuilder",
+    "title": "Difference between String and StringBuilder",
+    "tags": [
+      "java",
+      "strings",
+      "performance"
+    ],
+    "difficulty": "easy",
+    "date": "2025-06-21T00:00:00.000Z",
+    "content": "\r\n### 📌 Question  \r\nWhat is the difference between `String`, `StringBuilder`, and `StringBuffer` in Java?\r\n\r\n### 🧠 Answer\r\n\r\n- `String`: Immutable, every modification creates a new object.\r\n- `StringBuilder`: Mutable and not thread-safe.\r\n- `StringBuffer`: Mutable and thread-safe (synchronized).\r\n\r\n### ⚙️ Code Example\r\n\r\n```java\r\npublic class Example {\r\n  public static void main(String[] args) {\r\n    String s = \"Hello\";\r\n    s += \" World\"; // Creates new object\r\n\r\n    StringBuilder sb = new StringBuilder(\"Hello\");\r\n    sb.append(\" World\"); // Modifies same object\r\n  }\r\n}\r\n```\r\n\r\n![image](/images/image.jpg)\r\n\r\n### 📊 Comparison Table\r\n\r\n| Feature        | String     | StringBuilder | StringBuffer |\r\n|----------------|------------|---------------|--------------|\r\n| Mutable        | ❌ No      | ✅ Yes        | ✅ Yes       |\r\n| Thread-safe    | ✅ N/A     | ❌ No         | ✅ Yes       |\r\n| Performance    | 🚫 Slow    | 🚀 Fast       | ⛔ Slower    |\r\n\r\n### 🔥 When to Use What?\r\n\r\n- Use `String` when the value won't change.\r\n- Use `StringBuilder` in **single-threaded** environments where performance matters.\r\n- Use `StringBuffer` if you need **thread safety** but don't want to manage synchronization manually.\r\n\r\n### 🧪 Real-World Tip\r\n\r\nString concatenation in loops is inefficient:\r\n\r\n```java\r\nString result = \"\";\r\nfor (int i = 0; i < 1000; i++) {\r\n    result += i; // Very inefficient!\r\n}\r\n```\r\n\r\nUse StringBuilder instead:\r\n\r\n```java\r\nStringBuilder result = new StringBuilder();\r\nfor (int i = 0; i < 1000; i++) {\r\n    result.append(i);\r\n}\r\n```\r\n\r\n",
+    "topic": "Java"
+  }
+]
