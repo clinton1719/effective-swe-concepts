@@ -129,7 +129,7 @@ Design a scalable, fault-tolerant URL shortener service like Bitly.\r
 \r
 ### 🖼️ Diagram\r
 \r
-![URL Shortener HLD](../images/url-shortener-hld.png)\r
+![URL Shortener HLD](/effective-swe-concepts/images/url-shortener-hld.jpg)\r
 \r
 ---\r
 \r
@@ -185,7 +185,7 @@ public class Example {\r
 }\r
 \`\`\`\r
 \r
-![image](/images/image.jpg)\r
+![image](/effective-swe-concepts/images/image.jpg)\r
 \r
 ### 📊 Comparison Table\r
 \r
