@@ -74,10 +74,12 @@ export function QuestionCard({
         </div>
 
         {expanded && (
-          <div className="prose prose-sm max-w-none dark:prose-invert">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {question.content}
-            </ReactMarkdown>
+          <div className="overflow-x-auto">
+            <div className="prose prose-sm max-w-none dark:prose-invert">
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {question.content}
+              </ReactMarkdown>
+            </div>
           </div>
         )}
       </CardContent>
