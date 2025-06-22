@@ -1,6 +1,8 @@
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
+import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -16,10 +18,18 @@ type Question = {
 export function QuestionCard({
   question,
   toggleTag,
+  expand,
 }: {
   question: Question;
   toggleTag: (tag: string) => void;
+  expand: boolean;
 }) {
+  const [expanded, setExpanded] = useState(expand || false);
+
+  useEffect(() => {
+    setExpanded(expand || false);
+  }, [expand]);
+
   return (
     <Card
       className={cn(
@@ -53,11 +63,23 @@ export function QuestionCard({
           <Badge>{question.topic}</Badge>
         </div>
 
-        <div className="prose prose-sm max-w-none dark:prose-invert">
-          <ReactMarkdown remarkPlugins={[remarkGfm]}>
-            {question.content}
-          </ReactMarkdown>
+        <div className="text-right">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setExpanded(!expanded)}
+          >
+            {expanded ? 'Hide Answer' : 'Show Answer'}
+          </Button>
         </div>
+
+        {expanded && (
+          <div className="prose prose-sm max-w-none dark:prose-invert">
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {question.content}
+            </ReactMarkdown>
+          </div>
+        )}
       </CardContent>
     </Card>
   );

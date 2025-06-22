@@ -3,20 +3,37 @@ import { SearchBar } from '@/components/SearchBar';
 import { Sidebar } from '@/components/Sidebar';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import html2pdf from 'html2pdf.js';
 import { Menu } from 'lucide-react';
 import { useState } from 'react';
 import { SortDropdown } from './components/SortDropdown';
-import { ThemeToggle } from './components/ThemeToggle';
 import { TagFilter } from './components/TagFilter';
+import { ThemeToggle } from './components/ThemeToggle';
 
 export default function App() {
   const [selectedTopic, setSelectedTopic] = useState<string | null>(null);
   const [search, setSearch] = useState('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [showSidebar, setShowSidebar] = useState(true);
+  const [expandAll, setExpandAll] = useState(false);
   const [sortOrder, setSortOrder] = useState<
     'newest' | 'oldest' | 'difficulty-asc' | 'difficulty-desc' | 'title'
   >('newest');
+
+  function handleDownloadPDF() {
+    const element = document.getElementById('print-area');
+    if (!element) return;
+
+    const opt = {
+      margin: 0.5,
+      filename: `swe-questions-${new Date().toISOString().slice(0, 10)}.pdf`,
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+
+    html2pdf().set(opt).from(element).save();
+  }
 
   const toggleTag = (tag: string) => {
     setSelectedTags((prev) =>
@@ -76,20 +93,33 @@ export default function App() {
 
       {/* Main Content */}
       <main className="flex-1 p-4 md:p-6 overflow-y-auto max-h-screen">
-        <div className="hidden md:flex justify-end mb-4">
+        <div className="flex justify-end mb-4 gap-2 sm:flex no-print">
           <ThemeToggle />
+          <Button variant="outline" size="sm" onClick={handleDownloadPDF}>
+            Export PDF
+          </Button>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setExpandAll(!expandAll)}
+          >
+            {expandAll ? 'Collapse all answers' : 'Expand all answers'}
+          </Button>
         </div>
 
         <SearchBar search={search} setSearch={setSearch} />
         <SortDropdown sortOrder={sortOrder} setSortOrder={setSortOrder} />
         <TagFilter selectedTags={selectedTags} toggleTag={toggleTag} />
-        <QuestionList
-          selectedTopic={selectedTopic}
-          search={search}
-          selectedTags={selectedTags}
-          toggleTag={toggleTag}
-          sortOrder={sortOrder}
-        />
+        <div id="print-area">
+          <QuestionList
+            selectedTopic={selectedTopic}
+            search={search}
+            selectedTags={selectedTags}
+            toggleTag={toggleTag}
+            sortOrder={sortOrder}
+            expandAll={expandAll}
+          />
+        </div>
       </main>
     </div>
   );

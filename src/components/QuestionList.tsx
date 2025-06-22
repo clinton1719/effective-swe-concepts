@@ -7,6 +7,7 @@ type Props = {
   search: string;
   toggleTag: (tag: string) => void;
   sortOrder: string;
+  expandAll: boolean;
 };
 
 export function QuestionList({
@@ -15,6 +16,7 @@ export function QuestionList({
   selectedTags,
   toggleTag,
   sortOrder,
+  expandAll
 }: Props) {
   const fuzzyResults = useFuzzySearch(search);
 
@@ -41,7 +43,7 @@ export function QuestionList({
     <div>
       {sorted.map((q, i) => (
         <div key={i} className="mb-6">
-          <QuestionCard question={q} toggleTag={toggleTag} />
+          <QuestionCard question={q} toggleTag={toggleTag} expand={expandAll}/>
           {i < sorted.length - 1 && (
             <div className="border-t-2 border-gray-500 mt-6" />
           )}
