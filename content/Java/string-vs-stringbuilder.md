@@ -28,7 +28,7 @@ public class Example {
 }
 ```
 
-![image](/images/image.jpg)
+![image](/effective-swe-concepts/images/image.jpg)
 
 ### 📊 Comparison Table
 

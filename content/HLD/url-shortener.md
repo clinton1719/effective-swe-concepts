@@ -50,7 +50,7 @@ Design a scalable, fault-tolerant URL shortener service like Bitly.
 
 ### 🖼️ Diagram
 
-![URL Shortener HLD](../images/url-shortener-hld.png)
+![URL Shortener HLD](/effective-swe-concepts/images/url-shortener-hld.jpg)
 
 ---
 
