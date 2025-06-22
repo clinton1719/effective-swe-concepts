@@ -43,7 +43,6 @@ export default function App() {
 
   return (
     <div className="flex flex-col md:flex-row min-h-screen text-foreground bg-background">
-      {/* Mobile Sidebar Menu */}
       <div className="md:hidden p-4 flex items-center justify-between border-b">
         <Sheet>
           <SheetTrigger asChild>
@@ -65,10 +64,11 @@ export default function App() {
             />
           </SheetContent>
         </Sheet>
-        <ThemeToggle />
+        <div className="md:hidden">
+          <ThemeToggle />
+        </div>
       </div>
 
-      {/* Collapse toggle button (Desktop only) */}
       <div className="hidden md:flex p-2 items-center border-r">
         <Button
           variant="ghost"
@@ -79,7 +79,6 @@ export default function App() {
         </Button>
       </div>
 
-      {/* Desktop Sidebar */}
       {showSidebar && (
         <aside className="hidden md:block w-64 border-r">
           <Sidebar
@@ -91,9 +90,8 @@ export default function App() {
         </aside>
       )}
 
-      {/* Main Content */}
       <main className="flex-1 p-4 md:p-6 overflow-y-auto max-h-screen">
-        <div className="flex justify-end mb-4 gap-2 sm:flex no-print">
+        <div className="hidden md:flex justify-end mb-4 gap-2 no-print">
           <ThemeToggle />
           <Button variant="outline" size="sm" onClick={handleDownloadPDF}>
             Export PDF
