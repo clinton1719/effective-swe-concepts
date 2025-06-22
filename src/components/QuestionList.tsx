@@ -40,7 +40,12 @@ export function QuestionList({
   return (
     <div>
       {sorted.map((q, i) => (
-        <QuestionCard key={i} question={q} toggleTag={toggleTag} />
+        <div key={i} className="mb-6">
+          <QuestionCard question={q} toggleTag={toggleTag} />
+          {i < sorted.length - 1 && (
+            <div className="border-t-2 border-gray-500 mt-6" />
+          )}
+        </div>
       ))}
     </div>
   );
