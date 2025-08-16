@@ -5,12 +5,8 @@ difficulty: easy
 date: 2025-08-16
 ---
 
-I’m currently working as a Software Engineer at Principal Global Services, where I’ve been involved in building and maintaining enterprise applications with a focus on scalable, secure solutions. Over the last few years, I’ve gained strong hands-on experience in [Java / NodeJS / ReactJS], and worked on projects that required collaboration with global teams and direct interaction with business stakeholders.
+I would describe my management style as collaborative and outcome-oriented. Even though I’m not in a formal managerial role yet, I believe in taking ownership, setting clear goals, and supporting the team to achieve them. For example, at Principal Global, I initiated a knowledge-sharing session on AWS Lambda Power Tools. My approach was to simplify a complex concept, encourage questions, and ensure everyone walked away with something practical to apply.
 
-Before this, I started my career at TCS, where I worked with ICICI Prudential as a client. That gave me a solid foundation in financial services technology—understanding both the technical challenges and the domain side of insurance and financial products.
+I also believe in being proactive — if I see inefficiencies, I don’t wait for someone to assign it, I step in to propose solutions, like when I consolidated duplicate KMS keys, which saved 60% in AWS costs.
 
-Academically, I have a B.Tech in Computer Science, which gave me the core technical grounding to build my career.
-
-At this stage, I’m looking for opportunities that give me more responsibility, exposure to end-to-end solution design, and the chance to grow my career further. Barclays stood out to me because of its strong presence in both financial services and technology, and the way it positions India as a global capability hub. I see it as a place where I can contribute meaningfully, while also learning and taking on bigger challenges.
-
-Gandu sala madarchod
+So overall, my style is about combining technical depth with clear communication, encouraging collaboration, and making sure we’re aligned on delivering value to the business. I aspire to grow into a leadership role where I can continue this balance of technical contribution and enabling others.
