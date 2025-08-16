@@ -1,20 +1,90 @@
 [
   {
-    "slug": "G:\\projects\\effective-swe-concepts\\content\\AWS\\s3-versioning",
-    "title": "Enabling Versioning in Amazon S3",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about a time you came up against an obstacle or were faced with confrontation",
+    "title": "Tell us about a time you came up against an obstacle or were faced with confrontation?",
     "tags": [
-      "aws",
-      "s3",
-      "versioning",
-      "durability"
+      "interview",
+      "interview-basics"
     ],
-    "difficulty": "medium",
-    "date": "2025-06-25T00:00:00.000Z",
-    "content": "\r\n### 📌 Question  \r\nHow do you enable and use versioning in an S3 bucket?\r\n\r\n---\r\n\r\n### 🧠 Answer\r\n\r\nVersioning in S3 allows you to preserve, retrieve, and restore **every version of every object** stored in a bucket.\r\n\r\nThis helps:\r\n- Protect against accidental overwrites or deletes\r\n- Implement backup & restore strategies\r\n- Support eventual archival (via Glacier)\r\n\r\n---\r\n\r\n### ⚙️ Enabling Versioning (CLI)\r\n\r\n```bash\r\naws s3api put-bucket-versioning \\\r\n  --bucket my-bucket-name \\\r\n  --versioning-configuration Status=Enabled\r\n```\r\n\r\n```terraform\r\nresource \"aws_s3_bucket\" \"main\" {\r\n  bucket = \"my-bucket-name\"\r\n}\r\n\r\nresource \"aws_s3_bucket_versioning\" \"versioning\" {\r\n  bucket = aws_s3_bucket.main.id\r\n\r\n  versioning_configuration {\r\n    status = \"Enabled\"\r\n  }\r\n}\r\n```",
-    "topic": "AWS"
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nAt Principal Global, we faced a critical production issue in one of our applications—the system was hitting third-party API rate limits, which caused intermittent failures for end users. This was escalated quickly, and there was pressure from stakeholders to find a fast resolution.”\r\n\r\nAction:\r\n“I led the investigation, working closely with both the internal team and the external API provider. Rather than applying a quick patch, I proposed and implemented an exponential backoff strategy to handle retries gracefully. This meant redesigning parts of the client logic, coordinating with QA to test edge cases under load, and keeping stakeholders informed with clear, non-technical updates so they understood the risk and the plan.”\r\n\r\nResult:\r\n“The change was deployed successfully, and since then we’ve had zero production issues related to rate limiting. Beyond resolving the incident, it also increased the team’s confidence in my ability to handle high-pressure situations. What I learned was the importance of balancing technical depth with clear communication, especially when dealing with critical incidents",
+    "topic": "Interview"
   },
   {
-    "slug": "G:\\projects\\effective-swe-concepts\\content\\Java\\Does an Abstract Class Have a Constructor",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about a time you managed a project, or showed leadership or innovation",
+    "title": "Tell us about a time you managed a project, or showed leadership or innovation?",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nAt Principal Global Services, I noticed our AWS costs were trending significantly higher than expected. On investigation, I found that we had multiple redundant KMS keys being used across environments. This wasn’t part of my assigned work, but I saw it as a problem that was impacting both cost and maintainability.”\r\n\r\nAction:\r\n“I took the initiative to deep-dive into the issue, analyzing our key usage across accounts. I designed a consolidation strategy to migrate to a single Customer Master Key without breaking existing integrations. Since this involved potential risk, I created a phased migration plan, tested it thoroughly, and presented the proposal to stakeholders to get buy-in. I also highlighted the long-term governance benefits.”\r\n\r\nResult:\r\n“As a result, we achieved a 60% reduction in AWS KMS costs, improved our overall security posture, and standardized our key management. The success of this project was recognized at a team level, and it gave me opportunities to present the solution in wider forums. What I took away from this was that leadership isn’t only about managing people—it’s about spotting opportunities, taking ownership, and influencing others to deliver business value.",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about yourself",
+    "title": "Tell us about yourself",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nI’m currently working as a Software Engineer at Principal Global Services, where I’ve been involved in building and maintaining enterprise applications with a focus on scalable, secure solutions. Over the last few years, I’ve gained strong hands-on experience in [Java / NodeJS / ReactJS], and worked on projects that required collaboration with global teams and direct interaction with business stakeholders.\r\n\r\nBefore this, I started my career at TCS, where I worked with ICICI Prudential as a client. That gave me a solid foundation in financial services technology—understanding both the technical challenges and the domain side of insurance and financial products.\r\n\r\nAcademically, I have a B.Tech in Computer Science, which gave me the core technical grounding to build my career.\r\n\r\nAt this stage, I’m looking for opportunities that give me more responsibility, exposure to end-to-end solution design, and the chance to grow my career further. Barclays stood out to me because of its strong presence in both financial services and technology, and the way it positions India as a global capability hub. I see it as a place where I can contribute meaningfully, while also learning and taking on bigger challenges.\r\n\r\n",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What do you consider your key achievements, What are you most proud of",
+    "title": "What do you consider your key achievements, What are you most proud of?.md",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nOne of the achievements I’m most proud of in my current role at Principal Global Services was automating a manual process for updating office data in our digital Request for Proposal application. I built a custom Spring Boot application that could dynamically read and update lists, which significantly reduced manual effort and improved efficiency for the operations team. What I liked about this achievement was not just the technical solution, but the direct business impact.\r\n\r\nAnother highlight was when I designed and implemented a custom load testing service using Helidon, AWS ECS, Lambda, and SQS in a serverless, event-driven architecture. This gave the team an automated way to stress-test our applications, improving reliability and scalability before releases. It was a chance to think end-to-end and architect a system, not just code it.\r\n\r\nI’m also particularly proud of a cost optimization initiative where I identified redundant AWS KMS keys and consolidated them, which cut cloud costs by around 60%. I didn’t just execute the fix — I presented my analysis to stakeholders and got buy-in, which built my confidence in driving technical decisions at a larger scale.\r\n\r\nEarlier in my career at TCS, working with ICICI Prudential as a client, I delivered over 140 requirements including several microservices, and even helped migrate legacy systems to AWS. That experience gave me both technical grounding and exposure to how large-scale financial systems operate.\r\n\r\nAcross both roles, what I’m proud of is not just delivering code, but finding ways to make systems faster, cheaper, and more reliable, while also contributing to team knowledge-sharing.\r\n\r\n",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What have you been told are your areas for development",
+    "title": "What have you been told are your areas for development?",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nOne area for development that was identified for me earlier in my career was around presentation and stakeholder communication.\r\n\r\nSituation/Task: At TCS, I was delivering technical work reliably, but during reviews and client demos, my manager pointed out that I was very focused on the technical details and not always tailoring my communication for business stakeholders.\r\n\r\nAction: I took that feedback seriously. I started preparing for client demos by framing my updates in terms of business impact rather than just technical changes. More recently at Principal Global, I actively volunteered to present topics during knowledge-sharing sessions—for example, I did a session on AWS Lambda Power Tools at a Tech Leads meeting.\r\n\r\nResult: This practice has made me much more confident in communicating with both technical and non-technical audiences. It’s helped me not only explain my work more clearly but also get buy-in for initiatives like AWS cost optimization, where I successfully presented the analysis to stakeholders.\r\n\r\nSo I’d say it’s still a skill I continue to refine, but it’s already developed into a strength that lets me bridge technical work with business outcomes.\r\n",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What is your management style",
+    "title": "What is your management style?",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nI’m currently working as a Software Engineer at Principal Global Services, where I’ve been involved in building and maintaining enterprise applications with a focus on scalable, secure solutions. Over the last few years, I’ve gained strong hands-on experience in [Java / NodeJS / ReactJS], and worked on projects that required collaboration with global teams and direct interaction with business stakeholders.\r\n\r\nBefore this, I started my career at TCS, where I worked with ICICI Prudential as a client. That gave me a solid foundation in financial services technology—understanding both the technical challenges and the domain side of insurance and financial products.\r\n\r\nAcademically, I have a B.Tech in Computer Science, which gave me the core technical grounding to build my career.\r\n\r\nAt this stage, I’m looking for opportunities that give me more responsibility, exposure to end-to-end solution design, and the chance to grow my career further. Barclays stood out to me because of its strong presence in both financial services and technology, and the way it positions India as a global capability hub. I see it as a place where I can contribute meaningfully, while also learning and taking on bigger challenges.\r\n\r\nGandu sala madarchod",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Why are you interested in us and the role on offer",
+    "title": "Why are you interested in us and the role on offer?",
+    "tags": [
+      "interview",
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "Barclays stood out to me because of its strong presence in both financial services and technology, and the way it positions India as a global capability hub. I see it as a place where I can contribute meaningfully, while also learning and taking on bigger challenges.\r\n\r\nFrom what I’ve read and researched, Barclays has been focusing on areas like automation, cloud, cost optimization, and resiliency—exactly the kind of challenges I’ve tackled in my current role\r\n\r\nAt a personal level, I’m looking for a role where I can move beyond just delivering features, and instead take on end-to-end ownership and contribute to innovation at scale. Barclays’ culture of innovation and its global footprint make it the right environment for me to grow while adding value to the team.\r\n",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Does an Abstract Class Have a Constructor",
     "title": "Does Abstract class have constructor?",
     "tags": [
       "java",
@@ -26,11 +96,10 @@
     "topic": "Java"
   },
   {
-    "slug": "G:\\projects\\effective-swe-concepts\\content\\Java\\What are the 4 pillars of OOPS",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\What are the 4 pillars of OOPS",
     "title": "What are the 4 pillars of OOPS?",
     "tags": [
       "java",
-      "OOP",
       "java-basics"
     ],
     "difficulty": "easy",
@@ -39,7 +108,7 @@
     "topic": "Java"
   },
   {
-    "slug": "G:\\projects\\effective-swe-concepts\\content\\Java\\What is an abstract class",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\What is an abstract class",
     "title": "What is an abstract class?",
     "tags": [
       "java",
