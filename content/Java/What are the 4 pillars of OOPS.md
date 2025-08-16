@@ -1,6 +1,6 @@
 ---
 title: What are the 4 pillars of OOPS?
-tags: [java, OOP, java-basics]
+tags: [java, java-basics]
 difficulty: easy
 date: 2025-06-22
 ---
