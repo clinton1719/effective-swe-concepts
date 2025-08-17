@@ -1,6 +1,6 @@
 ---
 title: What is your management style?
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---

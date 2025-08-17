@@ -1,6 +1,6 @@
 ---
 title: What do you consider your key achievements, What are you most proud of?.md
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---

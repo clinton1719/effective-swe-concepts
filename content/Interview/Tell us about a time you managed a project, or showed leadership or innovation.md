@@ -1,6 +1,6 @@
 ---
 title: Tell us about a time you managed a project, or showed leadership or innovation?
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---

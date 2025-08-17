@@ -1,6 +1,6 @@
 ---
 title: What have you been told are your areas for development?
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---

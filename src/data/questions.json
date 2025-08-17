@@ -1,9 +1,52 @@
 [
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\As an employee, how could I exceed your\\the company’s expectations",
+    "title": "As an employee, how could I exceed your/the company’s expectations?",
+    "tags": [
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nTo me, meeting expectations would mean delivering quality work on time. To exceed expectations, I’d look at how I can go a step further:\r\n\r\nProactive problem-solving: Not just completing assigned tasks, but identifying inefficiencies, risks, or opportunities for improvement — whether in performance, cost optimization, or automation — and proposing solutions.\r\n\r\nKnowledge sharing: Actively contributing to team learning by sharing best practices, mentoring peers, or presenting useful tools and frameworks that can raise overall capability.\r\n\r\nBusiness alignment: Always keeping the bigger picture in mind — ensuring my work supports Barclays’ priorities of resilience, compliance, and digital transformation, rather than just focusing on the technical piece.\r\n\r\nIn short, I’d aim to exceed expectations by being someone who not only delivers, but also helps the team and company move forward faster and smarter",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\How does this role fit into the company’s longer-term plans",
+    "title": "How does this role fit into the company’s longer-term plans?",
+    "tags": [
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nFrom what I understand, Barclays is heavily focused on digital transformation, cloud adoption, operational resilience, and cost efficiency to remain competitive in the financial services industry while meeting strict regulatory requirements.\r\n\r\nThis role as a Software Engineer directly supports those long-term plans by ensuring the systems and applications we deliver are scalable, secure, and efficient. The work involves not just building features, but also driving automation, improving performance, and optimizing cloud usage — all of which align with Barclays’ long-term goals of modernizing infrastructure and improving customer and client experience.\r\n\r\nIn that sense, I see this role as part of the foundation that enables Barclays to innovate safely at scale, and I believe my background in AWS cost optimization, serverless architectures, and automation fits well into that vision.",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\How would you define success for this position",
+    "title": "How would you define success for this position?",
+    "tags": [
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nI’d define success in this role on three levels.\r\n\r\nPersonally, success means ramping up quickly on Barclays’ systems, processes, and culture so I can become a reliable contributor within the first few months.\r\n\r\nAt the team level, it would mean being a dependable teammate — delivering high-quality code, automating where possible, sharing knowledge, and helping the team achieve sprint and project goals consistently.\r\n\r\nFrom a business impact perspective, success means contributing to applications and services that are not only functional, but also scalable, cost-efficient, secure, and resilient — aligning with Barclays’ long-term objectives of digital transformation and operational excellence.\r\n\r\nIn short, success would be when I’m seen as someone who adds measurable value — technically, collaboratively, and strategically.",
+    "topic": "Interview"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\If I got this role, what would you see as my priorities in the first e.g. 3 months",
+    "title": "If I got this role, what would you see as my priorities in the first e.g. 3 months?",
+    "tags": [
+      "interview-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-16T00:00:00.000Z",
+    "content": "\r\nIf I were to join Barclays, I’d see my first three months as a mix of learning, integrating, and contributing.\r\n\r\nFirst Month – Learn & Integrate:\r\nI’d focus on understanding the Barclays technology stack, processes, and governance standards. Building relationships with my team, stakeholders, and business partners would also be a priority.\r\n\r\nSecond Month – Contribute in Delivery:\r\nOnce I’m comfortable, I’d aim to start contributing to deliverables — whether it’s taking ownership of small features, supporting ongoing initiatives, or helping with troubleshooting. I’d also look for areas where my past experience with AWS optimization and automation could add immediate value.\r\n\r\nThird Month – Add Value Beyond Delivery:\r\nBy this stage, I’d want to go beyond assigned tasks — for example, identifying potential inefficiencies, proposing improvements, or leading a knowledge-sharing session, much like I’ve done in my current role. The goal would be to establish myself as someone who is reliable, proactive, and able to strengthen the team.\r\n",
+    "topic": "Interview"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about a time you came up against an obstacle or were faced with confrontation",
     "title": "Tell us about a time you came up against an obstacle or were faced with confrontation?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -15,7 +58,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about a time you managed a project, or showed leadership or innovation",
     "title": "Tell us about a time you managed a project, or showed leadership or innovation?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -27,7 +69,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Tell us about yourself",
     "title": "Tell us about yourself",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -39,7 +80,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What cultural differences do you think you will face between your previous or current employer  and this one",
     "title": "What cultural differences do you think you will face between your previous/current employer and this one?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -51,7 +91,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What do you consider your key achievements, What are you most proud of",
     "title": "What do you consider your key achievements, What are you most proud of?.md",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -63,7 +102,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What have you been told are your areas for development",
     "title": "What have you been told are your areas for development?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -75,7 +113,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\What is your management style",
     "title": "What is your management style?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",
@@ -87,7 +124,6 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\Why are you interested in us and the role on offer",
     "title": "Why are you interested in us and the role on offer?",
     "tags": [
-      "interview",
       "interview-basics"
     ],
     "difficulty": "easy",

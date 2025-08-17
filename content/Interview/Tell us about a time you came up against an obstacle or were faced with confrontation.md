@@ -1,6 +1,6 @@
 ---
 title: Tell us about a time you came up against an obstacle or were faced with confrontation?
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---

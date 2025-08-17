@@ -1,6 +1,6 @@
 ---
 title: What cultural differences do you think you will face between your previous/current employer and this one?
-tags: [interview, interview-basics]
+tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
 ---
