@@ -1,5 +1,49 @@
 [
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Agile\\How do you measure success in Agile",
+    "title": "How do you measure success in Agile?",
+    "tags": [
+      "agile-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-17T00:00:00.000Z",
+    "content": "\r\nSuccess in Agile is measured by delivering working, high-quality software that provides value to the business — not just by completing tasks. In my team, we look at metrics like story completion within the sprint, reduced defects, and feedback from stakeholders. Retrospectives also help us continuously improve our way of working",
+    "topic": "Agile"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Agile\\What Agile practices have you followed in your current project",
+    "title": "What Agile practices have you followed in your current project?",
+    "tags": [
+      "agile-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-17T00:00:00.000Z",
+    "content": "\r\nIn my current project, we follow weekly sprints. Every Tuesday, we have sprint planning where stories are discussed, estimated, and prioritized. We track work on a Kanban board, moving items from To Do → In Progress → Done, which gives good visibility of progress. We also do daily stand-ups to sync up on progress and blockers, and retrospectives to improve our process. This helps us stay aligned and adapt quickly if requirements change.",
+    "topic": "Agile"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Agile\\What challenges have you faced while working in Agile How did you handle them",
+    "title": "What challenges have you faced while working in Agile? How did you handle them?",
+    "tags": [
+      "agile-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-17T00:00:00.000Z",
+    "content": "\r\nOne challenge was when requirements were not clear during sprint planning. Instead of blocking progress, we broke the story into smaller spikes to investigate, and raised clarifications with the Product Owner early. This allowed us to keep delivering while reducing rework.",
+    "topic": "Agile"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Agile\\What do you understand by Agile methodology",
+    "title": "What do you understand by Agile methodology?",
+    "tags": [
+      "agile-basics"
+    ],
+    "difficulty": "easy",
+    "date": "2025-08-17T00:00:00.000Z",
+    "content": "\r\nAgile is a way of working where development is done in short iterations with continuous feedback. The focus is on delivering working software quickly, collaborating closely with stakeholders, and adapting to change. In practice, this means breaking work into smaller stories, prioritizing them, and delivering value incrementally rather than waiting for a big release",
+    "topic": "Agile"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Interview\\As an employee, how could I exceed your or the company’s expectations",
     "title": "As an employee, how could I exceed your/the company’s expectations?",
     "tags": [
