@@ -1,5 +1,5 @@
 ---
-title: What do you consider your key achievements, What are you most proud of?.md
+title: What do you consider your key achievements, What are you most proud of?
 tags: [interview-basics]
 difficulty: easy
 date: 2025-08-16
