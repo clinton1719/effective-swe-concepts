@@ -1,6 +1,6 @@
 ---
 title: What to Choose – Interface or Abstract Class?
-tags: [java, java-basics, design]
+tags: [java, java-basics, oops]
 difficulty: medium
 date: 2025-09-08
 ---
@@ -9,7 +9,7 @@ This is a very common design-oriented interview question. The answer is:
 
 ✅ Choose an interface when you want to define a contract for unrelated classes, and choose an abstract class when you want to provide shared state or partial implementation.
 
-When to Use an Abstract Class:
+## When to Use an Abstract Class:
 
 When you want to provide default implementations for some methods while keeping others abstract.
 
@@ -19,7 +19,7 @@ When new methods are expected to be added frequently — because you can provide
 
 Example: AbstractList in Java Collections Framework provides skeletal implementations that subclasses can reuse.
 
-When to Use an Interface:
+## When to Use an Interface:
 
 When you want to define a contract that multiple, potentially unrelated, classes can implement.
 
@@ -29,7 +29,7 @@ When you are designing APIs that should be flexible and loosely coupled.
 
 Example: List, Set, and Queue interfaces define behaviors that can be implemented by many classes.
 
-Java 8+ Consideration:
+## Java 8+ Consideration:
 
 From Java 8 onwards, interfaces can have default and static methods, which makes them slightly closer to abstract classes. However:
 
@@ -39,7 +39,7 @@ Abstract classes are better if you need to share stateful logic.
 
 Interfaces remain the go-to choice when you need polymorphism across unrelated types.
 
-Best Practice:
+## Best Practice:
 
 Prefer interfaces when in doubt, especially for API design.
 

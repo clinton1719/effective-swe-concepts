@@ -1,6 +1,6 @@
 ---
 title: What is an Interface?
-tags: [java, java-basics]
+tags: [java, java-basics, oops]
 difficulty: easy
 date: 2025-09-08
 ---

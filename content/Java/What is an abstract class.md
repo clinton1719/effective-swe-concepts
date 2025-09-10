@@ -1,6 +1,6 @@
 ---
 title: What is an abstract class?
-tags: [java, java-basics]
+tags: [java, java-basics, oops]
 difficulty: easy
 date: 2025-06-22
 ---
