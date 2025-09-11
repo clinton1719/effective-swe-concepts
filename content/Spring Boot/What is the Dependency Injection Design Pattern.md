@@ -1,7 +1,7 @@
 ---
 title: What is the Dependency Injection Design Pattern?
-tags: [java, design-patterns, dependency-injection, spring]
-difficulty: medium
+tags: [spring]
+difficulty: easy
 date: 2025-09-09
 ---
 
