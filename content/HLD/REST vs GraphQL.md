@@ -1,6 +1,6 @@
 ---
 title: REST API vs GraphQL
-tags: [hld]
+tags: []
 difficulty: easy
 date: 2025-09-11
 ---

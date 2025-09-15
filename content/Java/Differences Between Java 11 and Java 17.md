@@ -1,5 +1,5 @@
 ---
-title: Differences Between Java 11 and Java 17 (Expanded with Concepts)
+title: Differences Between Java 11 and Java 17 
 tags: [java-17]
 difficulty: medium
 date: 2025-09-15
