@@ -1,6 +1,6 @@
 ---
 title: What to Choose – Interface or Abstract Class?
-tags: [java, java-basics, oops]
+tags: [java-basics, oops]
 difficulty: medium
 date: 2025-09-08
 ---

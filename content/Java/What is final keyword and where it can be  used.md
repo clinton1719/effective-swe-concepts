@@ -1,6 +1,6 @@
 ---
 title: What is the `final` Keyword and Where Can It Be Used?
-tags: [java, java-basics]
+tags: [oops]
 difficulty: easy
 date: 2025-09-10
 ---

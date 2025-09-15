@@ -1,6 +1,6 @@
 ---
 title: Why Java Does Not Allow Multiple Inheritance?
-tags: [java, oops, inheritance]
+tags: [oops, inheritance]
 difficulty: easy
 date: 2025-09-09
 ---

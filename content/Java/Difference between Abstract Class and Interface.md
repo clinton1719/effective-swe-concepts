@@ -1,6 +1,6 @@
 ---
 title: Difference between Abstract Class and Interface
-tags: [java, java-basics, oops]
+tags: [java-basics, oops]
 difficulty: medium
 date: 2025-09-08
 ---

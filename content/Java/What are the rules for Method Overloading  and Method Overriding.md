@@ -1,6 +1,6 @@
 ---
 title: What are the Rules for Method Overloading and Method Overriding?
-tags: [java, oops]
+tags: [oops]
 difficulty: medium
 date: 2025-09-10
 ---

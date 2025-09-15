@@ -1,6 +1,6 @@
 ---
 title: Types of Exceptions in Java
-tags: [java, error-handling]
+tags: [error-handling]
 difficulty: easy
 date: 2025-09-10
 ---

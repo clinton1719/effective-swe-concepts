@@ -1,6 +1,6 @@
 ---
 title: Why Java 8 Introduced Default Methods?
-tags: [java, java-8, oops, java-basics]
+tags: [java-8, oops, java-basics]
 difficulty: medium
 date: 2025-09-08
 ---
