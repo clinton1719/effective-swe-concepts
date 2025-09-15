@@ -75,5 +75,6 @@ System.out.println(sb); // "Hello World"
 If asked *"When should I use each?"*:  
 - **String** → Immutable data (constants, config, keys, tokens).  
 - **StringBuffer** → Concurrent string modifications.  
-- **StringBuilder** → Fast string modifications in single-threaded apps.  
+- **StringBuilder** → Fast string modifications in single-threaded apps. 
+## **StringBuffer and StringBuilder does not override equals and hashcode methods and therefore an equals method of same 2 string variables returns false unlike true in case of string**
 
