@@ -117,7 +117,7 @@ Below are the 12 guiding principles behind the Agile Manifesto — each describi
 
 ## 🚀 Summary
 
-![alt text](/effective-swe-concepts/image.png)
+![image not loaded](/effective-swe-concepts/agile-principles.png)
 
 | Aspect | Agile Manifesto Emphasis |
 |--------|---------------------------|
