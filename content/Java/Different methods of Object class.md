@@ -2,7 +2,7 @@
 title: Different methods of Object class
 tags: [java, object-class, oops]
 difficulty: easy
-date: 2025-09-10
+date: 2026-01-01
 ---
 
 ## Methods of the Object Class in Java
