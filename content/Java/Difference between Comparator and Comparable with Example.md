@@ -86,23 +86,37 @@ class Employee {
     }
 }
 
-public class ComparatorExample {
-    public static void main(String[] args) {
-        List<Employee> employees = List.of(
-            new Employee(3, "Alice"),
-            new Employee(1, "Bob"),
-            new Employee(2, "Charlie")
-        );
+class EmployeeComparators {
 
-        List<Employee> sortedByName = new ArrayList<>(employees);
-        sortedByName.sort(Comparator.comparing(emp -> emp.name));
-        System.out.println("Sorted by name: " + sortedByName);
+    public static final Comparator<Employee> BY_NAME_THEN_ID =
+        Comparator.comparing((Employee e) -> e.name)
+                  .thenComparingInt(e -> e.id);
 
-        List<Employee> sortedByIdDesc = new ArrayList<>(employees);
-        sortedByIdDesc.sort((e1, e2) -> Integer.compare(e2.id, e1.id));
-        System.out.println("Sorted by ID desc: " + sortedByIdDesc);
-    }
+    public static final Comparator<Employee> BY_SALARY_DESC =
+        Comparator.comparingDouble((Employee e) -> e.salary)
+                  .reversed();
+
+    public static final Comparator<Employee> BY_ID =
+        Comparator.comparingInt(e -> e.id);
 }
+
+
+
+List<Employee> employees = List.of(
+    new Employee(3, "Alice", 90000),
+    new Employee(1, "Bob", 120000),
+    new Employee(2, "Alice", 95000)
+);
+
+List<Employee> byName = new ArrayList<>(employees);
+byName.sort(EmployeeComparators.BY_NAME_THEN_ID);
+
+List<Employee> bySalary = new ArrayList<>(employees);
+bySalary.sort(EmployeeComparators.BY_SALARY_DESC);
+
+System.out.println(byName);
+System.out.println(bySalary);
+
 ```
 
 **Output**
