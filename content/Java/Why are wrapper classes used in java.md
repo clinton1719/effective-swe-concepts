@@ -1,5 +1,5 @@
 ---
-title: Explain Auto-boxing and Un-boxing
+title: Why are wrapper classes used in java?
 tags: [java]
 difficulty: easy
 date: 2026-01-05

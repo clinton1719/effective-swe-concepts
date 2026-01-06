@@ -332,6 +332,18 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Explain static keyword in Java",
+    "title": "Explain static keyword in Java",
+    "tags": [
+      "java",
+      "oops"
+    ],
+    "difficulty": "easy",
+    "date": "2026-01-06T00:00:00.000Z",
+    "content": "\r\nIn Java, the **static** keyword means “belonging to the class, not to any particular object.” A static member is shared across all instances and can often be accessed using the class name directly.\r\n\r\n---\r\n\r\n## Where can static be used?\r\n\r\nThe static keyword can be applied to:\r\n\r\n- Static variable (class variable)  \r\n- Static method  \r\n- Static block  \r\n- Static nested class  \r\n\r\nThese members are loaded and handled at the class level rather than per object.\r\n\r\n---\r\n\r\n## Static variables (class variables)\r\n\r\n- A static variable is **shared** by all instances of the class.  \r\n- Only **one copy** of a static variable exists in the JVM, created when the class is loaded.  \r\n- Static variables are typically used for **common properties** of all objects (like a company name shared by all Employee objects).\r\n\r\nExample idea:\r\n- All Employee objects share the same companyName static variable instead of each object storing its own copy.\r\n\r\nKey points:\r\n\r\n- Memory is allocated once when the class is loaded.  \r\n- Accessed using ClassName.variableName (though instance access is also allowed, it is not recommended).\r\n\r\n---\r\n\r\n## Static methods\r\n\r\n- A static method **belongs to the class**, not to any object.  \r\n- It can be called using the class name without creating an object (for example, `Math.max(...)` or `ClassName.methodName()`).\r\n\r\nImportant rules:\r\n\r\n- A static method **cannot access non-static (instance) members directly**, because it does not have an instance (`this`) to work with.  \r\n- `this` and `super` **cannot** be used in a static context.  \r\n- The `main` method (`public static void main(String[] args)`) is static so that the JVM can call it **without creating an object** of the class.\r\n\r\n---\r\n\r\n## Static blocks\r\n\r\n- A static block is a block of code marked with the `static` keyword inside a class.  \r\n- It runs **exactly once**, when the class is first loaded by the JVM.  \r\n- Commonly used to **initialize static variables** or perform one-time setup.\r\n\r\nExample idea:\r\n\r\n- Load configuration or initialize static resources in a static block, which runs before any object is created or any static method is called.\r\n\r\n---\r\n\r\n## Static nested classes\r\n\r\n- A static nested class is a **static inner class** declared inside another class.  \r\n- It can be created **without an instance** of the outer class.\r\n\r\nKey properties:\r\n\r\n- A static nested class can **only access static members** of the outer class directly.  \r\n- It improves **organization and readability** when the nested class is logically tied to the outer class but does not need an outer instance.\r\n\r\nObject creation syntax:\r\n\r\nOuterClass.StaticNestedClass nestedObject = new OuterClass.StaticNestedClass();\r\n\r\nNotes:\r\n\r\n- A normal (non-static) inner class requires an instance of the outer class to be created.  \r\n- A static nested class does **not** require an outer class object; it behaves more like a top-level class scoped inside another class.\r\n\r\n---\r\n\r\n## Summary-style interview tips\r\n\r\n- Use **static variables** for data shared by all objects (like constants or global config).  \r\n- Use **static methods** for utility/helper behavior that does not depend on instance state (for example, factory methods, math helpers).  \r\n- Use **static blocks** for one-time static initialization.  \r\n- Use **static nested classes** when the nested type is related to the outer class but does not need access to its instance data.\r\n",
+    "topic": "Java"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\How to Create a Thread in Java",
     "title": "How to Create a Thread in Java?",
     "tags": [
@@ -531,7 +543,7 @@
   },
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Why are wrapper classes used in java",
-    "title": "Explain Auto-boxing and Un-boxing",
+    "title": "Why are wrapper classes used in java?",
     "tags": [
       "java"
     ],
