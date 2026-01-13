@@ -19,7 +19,7 @@ Variable shadowing occurs when a **local variable** has the **same name** as an 
 - Occurs with **instance variables vs local variables**
 - The local variable **shadows** the instance variable in the current method scope
 - Access instance variable using `this.variableName`
-
+```
 class Student {
     int age = 20;  // Instance variable
     
@@ -38,7 +38,7 @@ s.display();
 Output:
 Local age: 25
 Instance age: 20
-
+```
 ---
 
 ## 2. Variable Hiding
@@ -50,7 +50,7 @@ Variable hiding occurs when a **static variable** (or instance variable) in a **
 - The child class variable **hides** the parent class variable
 - Access parent variable using `SuperClassName.variableName`
 - Different from **method overriding** (overriding is for methods, hiding is for variables)
-
+```
 class Parent {
     static int count = 10;  // Parent static variable
 }
@@ -65,7 +65,7 @@ System.out.println("Child count: " + Child.count);    // 20
 
 Child c = new Child();
 System.out.println("Via object: " + c.count);         // 20 (static, so class-level)
-
+```
 ---
 
 ## Key Differences
