@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply font-sans bg-white text-gray-900;
+    @apply font-sans bg-white text-gray-900 text-6xl;
   }
   :root {
 
@@ -114,7 +114,7 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-border md:text-lg;
   }
   body {
     @apply bg-background text-foreground;

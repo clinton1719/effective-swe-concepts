@@ -75,7 +75,7 @@ export function QuestionCard({
 
         {expanded && (
           <div className="overflow-x-auto">
-            <div className="prose prose-sm max-w-none dark:prose-invert">
+            <div className="prose md:prose-lg max-w-none dark:prose-invert">
               <ReactMarkdown remarkPlugins={[remarkGfm]}>
                 {question.content}
               </ReactMarkdown>
