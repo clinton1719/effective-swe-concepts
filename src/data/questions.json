@@ -357,6 +357,20 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Externalizable with Inheritance",
+    "title": "Externalizable with Inheritance",
+    "tags": [
+      "java",
+      "serialization",
+      "externalizable",
+      "inheritance"
+    ],
+    "difficulty": "medium",
+    "date": "2026-03-02T00:00:00.000Z",
+    "content": "\r\n## Problem Statement\r\n\r\nIf a class implements **Externalizable** and also has a **parent class**, how can we:\r\n- **Save (serialize)** the data of the parent class, and  \r\n- **Recover (deserialize)** it back correctly?\r\n\r\n---\r\n\r\n## Key Idea\r\n\r\nWith **Externalizable**, **nothing is serialized automatically** – not even the fields of the current class, and definitely not the parent's fields.\r\n\r\nSo, if a child class implements `Externalizable`:\r\n\r\n- You are responsible for **manually writing**:\r\n  - Parent fields\r\n  - Child fields  \r\n- And **manually reading** them back in **the same order**.\r\n\r\nThe parent class itself **does not need** to implement `Serializable` or `Externalizable` for its fields to be saved – you can access them via getters/setters or directly (if visible) and handle them in `writeExternal`/`readExternal`.\r\n\r\n---\r\n\r\n## Example Setup\r\n\r\n### Parent Class (No Serialization Interface)\r\n```\r\nclass ClassA {\r\n    private int deptId;\r\n    private String deptName;\r\n    \r\n    public ClassA() {\r\n    }\r\n    \r\n    public ClassA(int deptId, String deptName) {\r\n        this.deptId = deptId;\r\n        this.deptName = deptName;\r\n    }\r\n    \r\n    public int getDeptId() {\r\n        return deptId;\r\n    }\r\n    \r\n    public void setDeptId(int deptId) {\r\n        this.deptId = deptId;\r\n    }\r\n    \r\n    public String getDeptName() {\r\n        return deptName;\r\n    }\r\n    \r\n    public void setDeptName(String deptName) {\r\n        this.deptName = deptName;\r\n    }\r\n}\r\n```\r\n### Child Class (Implements Externalizable)\r\n```\r\nclass ClassB extends ClassA implements Externalizable {\r\n    private String empId;\r\n    private String empName;\r\n    \r\n    // 1. Mandatory public no-arg constructor\r\n    public ClassB() {\r\n        // Important: parent no-arg constructor gets called automatically\r\n    }\r\n    \r\n    public ClassB(int deptId, String deptName, String empId, String empName) {\r\n        super(deptId, deptName);  // initialize parent fields\r\n        this.empId = empId;\r\n        this.empName = empName;\r\n    }\r\n    \r\n    public String getEmpId() {\r\n        return empId;\r\n    }\r\n    \r\n    public void setEmpId(String empId) {\r\n        this.empId = empId;\r\n    }\r\n    \r\n    public String getEmpName() {\r\n        return empName;\r\n    }\r\n    \r\n    public void setEmpName(String empName) {\r\n        this.empName = empName;\r\n    }\r\n    \r\n    // 2. Custom serialization logic\r\n    @Override\r\n    public void writeExternal(ObjectOutput out) throws IOException {\r\n        // Write parent fields manually\r\n        out.writeInt(getDeptId());\r\n        out.writeObject(getDeptName());\r\n        \r\n        // Write child fields\r\n        out.writeObject(getEmpId());\r\n        out.writeObject(getEmpName());\r\n    }\r\n    \r\n    // 3. Custom deserialization logic\r\n    @Override\r\n    public void readExternal(ObjectInput in) throws IOException, ClassNotFoundException {\r\n        // Read parent fields in EXACTLY the same order\r\n        setDeptId(in.readInt());\r\n        setDeptName((String) in.readObject());\r\n        \r\n        // Read child fields\r\n        setEmpId((String) in.readObject());\r\n        setEmpName((String) in.readObject());\r\n    }\r\n}\r\n\r\n### Usage Example\r\n\r\nclass TestExternalizableInheritance {\r\n    public static void main(String[] args) {\r\n        ClassB original = new ClassB(101, \"IT\", \"E001\", \"Alice\");\r\n        \r\n        // Serialize\r\n        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(\"b.ser\"))) {\r\n            oos\r\n```",
+    "topic": "Java"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\How to Create a Thread in Java",
     "title": "How to Create a Thread in Java?",
     "tags": [
@@ -756,6 +770,17 @@
     "difficulty": "medium",
     "date": "2026-02-26T00:00:00.000Z",
     "content": "\r\n![Explain W3C Trace Context in distributed tracing](/effective-swe-concepts/w3c-trace-context.png)",
+    "topic": "LLD"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\What are classes and objects",
+    "title": "What are classes and objects?",
+    "tags": [
+      "oops"
+    ],
+    "difficulty": "medium",
+    "date": "2026-02-26T00:00:00.000Z",
+    "content": "\r\n![What are classes and objects](/effective-swe-concepts/w3c-trace-context.png)",
     "topic": "LLD"
   },
   {
