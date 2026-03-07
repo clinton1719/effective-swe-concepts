@@ -825,17 +825,6 @@
     "topic": "LLD"
   },
   {
-    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\What are classes and objects",
-    "title": "What are classes and objects?",
-    "tags": [
-      "oops"
-    ],
-    "difficulty": "medium",
-    "date": "2026-02-26T00:00:00.000Z",
-    "content": "\r\n![What are classes and objects](/effective-swe-concepts/w3c-trace-context.png)",
-    "topic": "LLD"
-  },
-  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\What is a JWT token",
     "title": "What is a JWT Token?",
     "tags": [
