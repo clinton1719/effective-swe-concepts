@@ -803,6 +803,17 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\classes",
+    "title": "Classes and Objects",
+    "tags": [
+      "oops"
+    ],
+    "difficulty": "easy",
+    "date": "2025-03-07T00:00:00.000Z",
+    "content": "\r\n![Classes and Objects](classesAndObjects.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Explain W3C Trace Context in distributed tracing",
     "title": "Explain W3C Trace Context in distributed tracing",
     "tags": [
