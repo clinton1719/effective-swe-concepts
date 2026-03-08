@@ -1,5 +1,5 @@
 ---
-title: Classes and Objects
+title: Enums
 tags: [oops, enum]
 difficulty: easy
 date: 2025-03-08
