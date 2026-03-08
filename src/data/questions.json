@@ -817,7 +817,7 @@
     "topic": "Java"
   },
   {
-    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\classes",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Classes",
     "title": "Classes and Objects",
     "tags": [
       "oops"
@@ -825,6 +825,18 @@
     "difficulty": "easy",
     "date": "2025-03-07T00:00:00.000Z",
     "content": "\r\n![Classes and Objects](classesAndObjects.png)",
+    "topic": "LLD"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Enums",
+    "title": "Classes and Objects",
+    "tags": [
+      "oops",
+      "enum"
+    ],
+    "difficulty": "easy",
+    "date": "2025-03-08T00:00:00.000Z",
+    "content": "\r\n![Enums](enums.png)",
     "topic": "LLD"
   },
   {
