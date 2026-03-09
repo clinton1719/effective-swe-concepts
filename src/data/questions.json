@@ -867,6 +867,18 @@
     "topic": "LLD"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Interfaces",
+    "title": "Interfaces",
+    "tags": [
+      "oops",
+      "interface"
+    ],
+    "difficulty": "easy",
+    "date": "2025-03-09T00:00:00.000Z",
+    "content": "\r\n![interfaces](interfaces.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\What is a JWT token",
     "title": "What is a JWT Token?",
     "tags": [
