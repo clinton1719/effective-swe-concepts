@@ -241,6 +241,7 @@ Advantages:
 - Thread-safe
 - Protects against **serialization issues**
 - Protects against **reflection attacks**
+- Protects against **cloning attacks** (Java ensures that enum constants are instantiated only once, and their clone() method is final and throws an exception, preventing them from ever being cloned.)
 - Very simple
 
 ---
