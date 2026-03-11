@@ -906,6 +906,18 @@
     "topic": "LLD"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\encapsulation",
+    "title": "Encapsulation",
+    "tags": [
+      "oops",
+      "encapsulation"
+    ],
+    "difficulty": "easy",
+    "date": "2025-03-11T00:00:00.000Z",
+    "content": "\r\n![encapsulation](encapsulation.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Enums",
     "title": "Enums",
     "tags": [
