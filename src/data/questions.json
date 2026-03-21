@@ -311,6 +311,21 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Difference Between wait() and sleep() in Java",
+    "title": "Difference Between wait() and sleep() in Java",
+    "tags": [
+      "java",
+      "multithreading",
+      "wait",
+      "sleep",
+      "concurrency"
+    ],
+    "difficulty": "easy",
+    "date": "2026-03-14T00:00:00.000Z",
+    "content": "\r\n## Overview\r\n\r\nBoth **wait()** and **sleep()** are used to pause thread execution, but they serve **completely different purposes** in Java concurrency.\r\n\r\n- `wait()` → used for **thread communication and synchronization**\r\n- `sleep()` → used for **pausing execution for a fixed time**\r\n\r\n---\r\n\r\n## Key Differences\r\n\r\n| Feature | wait() | sleep() |\r\n|---|---|---|\r\n| Class | Object class | Thread class |\r\n| Purpose | Inter-thread communication | Pause execution |\r\n| Lock Release | Releases lock | Does NOT release lock |\r\n| Requires synchronized | Yes | No |\r\n| Wake-up mechanism | notify()/notifyAll() | Time completion |\r\n| State | Waiting state | Timed waiting state |\r\n\r\n---\r\n\r\n## 1. wait() Method\r\n\r\n`wait()` is used when a thread needs to **wait until a condition is met by another thread**.\r\n\r\nBehavior:\r\n\r\n- Releases the **monitor lock**\r\n- Moves thread to **waiting state**\r\n- Waits until `notify()` or `notifyAll()` is called\r\n\r\nExample:\r\n```\r\nsynchronized(obj) {\r\n\r\n    while(!condition) {\r\n        obj.wait();\r\n    }\r\n\r\n}\r\n```\r\nImportant points:\r\n\r\n- Must be called inside a **synchronized block**\r\n- Always used with **shared objects**\r\n\r\n---\r\n\r\n## 2. sleep() Method\r\n\r\n`sleep()` pauses execution for a **specific amount of time**.\r\n\r\nExample:\r\n```\r\nThread.sleep(1000);  // sleep for 1 second\r\n```\r\nBehavior:\r\n\r\n- Does **not release any locks**\r\n- Thread remains blocked for the specified time\r\n- Automatically resumes after time expires\r\n\r\n---\r\n\r\n## Example Comparison\r\n\r\n### Using sleep()\r\n```\r\nsynchronized(obj) {\r\n\r\n    Thread.sleep(1000);\r\n\r\n}\r\n```\r\nEffect:\r\n\r\n- Thread sleeps\r\n- Lock is still held\r\n- Other threads cannot access `obj`\r\n\r\n---\r\n\r\n### Using wait()\r\n```\r\nsynchronized(obj) {\r\n\r\n    obj.wait();\r\n\r\n}\r\n```\r\nEffect:\r\n\r\n- Thread waits\r\n- Lock is released\r\n- Other threads can enter synchronized block\r\n\r\n---\r\n\r\n## Practical Difference\r\n\r\n### wait()\r\n\r\nUsed when:\r\n\r\n- Thread depends on another thread’s action\r\n- Example: Producer–Consumer problem\r\n\r\n---\r\n\r\n### sleep()\r\n\r\nUsed when:\r\n\r\n- Delay is required\r\n- Example: Retry mechanism, polling, animation delay\r\n\r\n---\r\n\r\n## Important Notes\r\n\r\n### wait() releases lock\r\n\r\nAllows other threads to proceed.\r\n\r\n---\r\n\r\n### sleep() does NOT release lock\r\n\r\nCan cause blocking issues if used inside synchronized blocks.\r\n\r\n---\r\n\r\n### wait() requires notify()\r\n\r\nThread remains waiting indefinitely unless notified.\r\n\r\n---\r\n\r\n### sleep() auto-resumes\r\n\r\nAfter specified time, thread continues execution.\r\n\r\n---\r\n\r\n## Common Mistake\r\n\r\nUsing `sleep()` instead of `wait()` for coordination.\r\n\r\nProblem:\r\n\r\n- No communication between threads\r\n- Leads to inefficient polling\r\n\r\nCorrect approach:\r\n\r\nUse `wait()` + `notify()` for coordination.\r\n\r\n---\r\n\r\n## Quick Interview Summary\r\n\r\n`wait()` is used for **inter-thread communication** and releases the object's lock, while `sleep()` is used to **pause execution for a fixed duration** and does not release any locks. `wait()` must be called inside a synchronized block, whereas `sleep()` can be called anywhere.\r\n\r\n---",
+    "topic": "Java"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Differences Between Java 11 and Java 17",
     "title": "Differences Between Java 11 and Java 17",
     "tags": [
