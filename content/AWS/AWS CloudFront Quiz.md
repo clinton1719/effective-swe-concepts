@@ -1,6 +1,6 @@
 ---
-title: CloudFront & AWS Global Accelerator Quiz
-tags: [aws, cloudfront, global-accelerator]
+title: CloudFront Quiz
+tags: [aws, cloudfront]
 difficulty: easy
 date: 2026-03-29
 ---
