@@ -617,6 +617,21 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Reentrant Synchronization in Java (Synchronized Methods Calling Each Other)",
+    "title": "Reentrant Synchronization in Java (Synchronized Methods Calling Each Other)",
+    "tags": [
+      "java",
+      "multithreading",
+      "synchronization",
+      "reentrancy",
+      "locks"
+    ],
+    "difficulty": "medium",
+    "date": "2026-04-03T00:00:00.000Z",
+    "content": "\r\n## Overview\r\n\r\nWhen one **synchronized method calls another synchronized method in the same class**, Java allows it **without blocking or deadlock**.\r\n\r\nThis behavior is possible because Java’s intrinsic locks are **reentrant**.\r\n\r\n---\r\n\r\n## What is Reentrancy?\r\n\r\nA **reentrant lock** means:\r\n\r\nA thread that already holds a lock can **acquire the same lock again without getting blocked**.\r\n\r\n---\r\n\r\n## Example\r\n```\r\nclass Test {\r\n\r\n    public synchronized void method1() {\r\n        System.out.println(\"Method1 start\");\r\n        method2();\r\n        System.out.println(\"Method1 end\");\r\n    }\r\n\r\n    public synchronized void method2() {\r\n        System.out.println(\"Method2 execution\");\r\n    }\r\n\r\n}\r\n```\r\nUsage:\r\n```\r\nTest t = new Test();\r\nt.method1();\r\n```\r\n---\r\n\r\n## Execution Flow\r\n\r\n1. Thread enters `method1()`\r\n2. Acquires lock on object `t`\r\n3. Inside method1 → calls `method2()`\r\n4. method2 also requires same lock (`t`)\r\n5. Thread **already owns the lock**, so it enters directly\r\n\r\nNo blocking occurs.\r\n\r\n---\r\n\r\n## Output\r\n```\r\nMethod1 start  \r\nMethod2 execution  \r\nMethod1 end  \r\n```\r\n---\r\n\r\n## Why No Deadlock Occurs\r\n\r\nBecause:\r\n\r\n- Same thread already holds the lock\r\n- JVM maintains a **lock count (hold count)**\r\n\r\nLock behavior:\r\n\r\nFirst entry → lock count = 1  \r\nSecond entry → lock count = 2  \r\n\r\nWhen methods exit:\r\n\r\nmethod2 exits → count = 1  \r\nmethod1 exits → count = 0 → lock released\r\n\r\n---\r\n\r\n## What Would Happen Without Reentrancy?\r\n\r\nIf locks were NOT reentrant:\r\n\r\n- Thread enters method1 and locks object\r\n- Calls method2\r\n- method2 tries to acquire same lock\r\n- Thread blocks itself → **deadlock**\r\n\r\nJava avoids this using reentrant locks.\r\n\r\n---\r\n\r\n## Works for Static Methods Too\r\n\r\nExample:\r\n```\r\nclass Test {\r\n\r\n    public static synchronized void method1() {\r\n        method2();\r\n    }\r\n\r\n    public static synchronized void method2() {}\r\n\r\n}\r\n```\r\nHere:\r\n\r\n- Lock is on `Test.class`\r\n- Same reentrant behavior applies\r\n\r\n---\r\n\r\n## Important Notes\r\n\r\n### Same Thread → No Problem\r\n\r\nReentrancy applies only when **same thread re-enters**.\r\n\r\n---\r\n\r\n### Different Threads → Blocking Happens\r\n\r\nIf:\r\n\r\nThread A → inside method1  \r\nThread B → tries method2  \r\n\r\nThread B will be **blocked**.\r\n\r\n---\r\n\r\n### Applies to Synchronized Blocks Too\r\n```\r\nsynchronized(this) {\r\n\r\n    synchronized(this) {\r\n        // allowed\r\n    }\r\n\r\n}\r\n```\r\n---\r\n\r\n## Real-World Significance\r\n\r\nReentrancy allows:\r\n\r\n- Nested method calls\r\n- Recursive calls with synchronization\r\n- Cleaner design without worrying about self-deadlock\r\n\r\n---\r\n\r\n## Quick Interview Summary\r\n\r\nWhen one synchronized method calls another synchronized method in the same class, the same thread can re-acquire the lock because Java synchronization is **reentrant**. This prevents self-deadlocks and allows nested synchronized calls to execute smoothly.\r\n\r\n---",
+    "topic": "Java"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Rules for Declaring Exceptions in Child Classes (Checked vs Unchecked",
     "title": "Rules for Declaring Exceptions in Child Classes (Checked vs Unchecked)",
     "tags": [
