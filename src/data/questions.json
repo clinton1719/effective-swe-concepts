@@ -688,6 +688,21 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\Static vs Instance Synchronization – Thread Interaction Scenarios",
+    "title": "Static vs Instance Synchronization – Thread Interaction Scenarios",
+    "tags": [
+      "java",
+      "multithreading",
+      "synchronization",
+      "static",
+      "concurrency"
+    ],
+    "difficulty": "medium",
+    "date": "2026-03-18T00:00:00.000Z",
+    "content": "\r\n## Overview\r\n\r\nUnderstanding how threads behave with **static synchronized** and **instance synchronized** methods depends on **which lock is being used**.\r\n\r\nKey rule:\r\n\r\n- Static synchronized → **Class-level lock (ClassName.class)**\r\n- Instance synchronized → **Object-level lock (this)**\r\n\r\n---\r\n\r\n## Scenario 1  \r\n### Two threads calling two different static synchronized methods\r\n\r\n### Example\r\n```\r\nclass Test {\r\n\r\n    public static synchronized void methodA() {\r\n        System.out.println(\"Method A start\");\r\n        try { Thread.sleep(1000); } catch (Exception e) {}\r\n        System.out.println(\"Method A end\");\r\n    }\r\n\r\n    public static synchronized void methodB() {\r\n        System.out.println(\"Method B start\");\r\n        try { Thread.sleep(1000); } catch (Exception e) {}\r\n        System.out.println(\"Method B end\");\r\n    }\r\n\r\n}\r\n```\r\nThreads:\r\n```\r\nThread t1 = new Thread(() -> Test.methodA());\r\nThread t2 = new Thread(() -> Test.methodB());\r\n```\r\n---\r\n\r\n## What Happens?\r\n\r\n- Both methods are **static synchronized**\r\n- Both require lock on: **Test.class**\r\n- Only **one thread can hold the class lock at a time**\r\n\r\n---\r\n\r\n## Execution Flow\r\n\r\n1. Thread t1 enters methodA → acquires `Test.class` lock\r\n2. Thread t2 tries methodB → blocked (waiting for same lock)\r\n3. t1 finishes → releases lock\r\n4. t2 acquires lock → executes methodB\r\n\r\n---\r\n\r\n## Conclusion\r\n\r\nEven though methods are different:\r\n\r\nThey **cannot run in parallel**.\r\n\r\nReason:\r\n\r\nSame **class-level lock** is used.\r\n\r\n---\r\n\r\n## Scenario 2  \r\n### One thread calls static synchronized, another calls instance synchronized\r\n\r\n### Example\r\n```\r\nclass Test {\r\n\r\n    public static synchronized void staticMethod() {\r\n        System.out.println(\"Static method\");\r\n        try { Thread.sleep(1000); } catch (Exception e) {}\r\n    }\r\n\r\n    public synchronized void instanceMethod() {\r\n        System.out.println(\"Instance method\");\r\n        try { Thread.sleep(1000); } catch (Exception e) {}\r\n    }\r\n\r\n}\r\n```\r\nThreads:\r\n```\r\nTest obj = new Test();\r\n\r\nThread t1 = new Thread(() -> Test.staticMethod());\r\nThread t2 = new Thread(() -> obj.instanceMethod());\r\n```\r\n---\r\n\r\n## What Happens?\r\n\r\n- staticMethod() → locks **Test.class**\r\n- instanceMethod() → locks **obj (this)**\r\n\r\n---\r\n\r\n## Execution Flow\r\n\r\n1. Thread t1 acquires **class-level lock**\r\n2. Thread t2 acquires **object-level lock**\r\n3. Both locks are different → no conflict\r\n4. Both threads execute **simultaneously**\r\n\r\n---\r\n\r\n## Conclusion\r\n\r\nThey **can run in parallel**.\r\n\r\nReason:\r\n\r\nDifferent locks:\r\n\r\n- Class lock\r\n- Object lock\r\n\r\n---\r\n\r\n## Visual Summary\r\n\r\n| Scenario | Lock Used | Can Run in Parallel? |\r\n|---|---|---|\r\n| Two static synchronized methods | Same class lock | ❌ No |\r\n| Static + instance synchronized | Different locks | ✔ Yes |\r\n\r\n---\r\n\r\n## Important Insight\r\n\r\nLocks depend on **what is being synchronized**, not just the keyword.\r\n\r\nSame lock → blocking  \r\nDifferent locks → parallel execution\r\n\r\n---\r\n\r\n## Common Mistake\r\n\r\nAssuming all synchronized methods block each other.\r\n\r\nWrong:\r\n\r\nOnly methods sharing the **same lock** block each other.\r\n\r\n---\r\n\r\n## Quick Interview Summary\r\n\r\nTwo threads calling different static synchronized methods will block each other because both require the **same class-level lock**. However, a static synchronized method and an instance synchronized method can execute concurrently because they use **different locks (class vs object)**.\r\n\r\n---",
+    "topic": "Java"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Java\\String vs StringBuffer vs StringBuilder in Java",
     "title": "String vs StringBuffer vs StringBuilder in Java",
     "tags": [
@@ -1108,6 +1123,17 @@
     "topic": "Java"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Abstraction",
+    "title": "Abstraction",
+    "tags": [
+      "oops"
+    ],
+    "difficulty": "easy",
+    "date": "2026-04-04T00:00:00.000Z",
+    "content": "\r\n![Abstraction](abstraction.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Classes",
     "title": "Classes and Objects",
     "tags": [
@@ -1119,7 +1145,7 @@
     "topic": "LLD"
   },
   {
-    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\encapsulation",
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Encapsulation",
     "title": "Encapsulation",
     "tags": [
       "oops",
