@@ -1,5 +1,5 @@
 ---
-title: CloudFront Quiz
+title: AWS Storage Quiz
 tags: [aws, aws-storage, s3]
 difficulty: medium
 date: 2026-03-29

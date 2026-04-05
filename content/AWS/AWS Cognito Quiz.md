@@ -1,5 +1,5 @@
 ---
-title: AWS DynamoDB Quiz
+title: AWS Cognito Quiz
 tags: [aws, aws-cognito]
 difficulty: medium
 date: 2026-04-05

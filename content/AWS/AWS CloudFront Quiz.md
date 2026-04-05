@@ -1,5 +1,5 @@
 ---
-title: CloudFront Quiz
+title: AWS CloudFront Quiz
 tags: [aws, cloudfront]
 difficulty: easy
 date: 2026-03-29

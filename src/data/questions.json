@@ -103,7 +103,7 @@
   },
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS CloudFront Quiz",
-    "title": "CloudFront Quiz",
+    "title": "AWS CloudFront Quiz",
     "tags": [
       "aws",
       "cloudfront"
@@ -115,7 +115,7 @@
   },
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Cognito Quiz",
-    "title": "AWS DynamoDB Quiz",
+    "title": "AWS Cognito Quiz",
     "tags": [
       "aws",
       "aws-cognito"
@@ -167,7 +167,7 @@
   },
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\Aws Storage Quiz",
-    "title": "CloudFront Quiz",
+    "title": "AWS Storage Quiz",
     "tags": [
       "aws",
       "aws-storage",
