@@ -1,6 +1,6 @@
 ---
 title: Abstraction
-tags: [oops]
+tags: [oops, abstraction]
 difficulty: easy
 date: 2026-04-04
 ---

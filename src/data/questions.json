@@ -1189,7 +1189,8 @@
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Abstraction",
     "title": "Abstraction",
     "tags": [
-      "oops"
+      "oops",
+      "abstraction"
     ],
     "difficulty": "easy",
     "date": "2026-04-04T00:00:00.000Z",
@@ -1240,6 +1241,18 @@
     "difficulty": "medium",
     "date": "2026-02-26T00:00:00.000Z",
     "content": "\r\n![Explain W3C Trace Context in distributed tracing](/effective-swe-concepts/w3c-trace-context.png)",
+    "topic": "LLD"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Inheritance",
+    "title": "Inheritance",
+    "tags": [
+      "oops",
+      "inheritance"
+    ],
+    "difficulty": "easy",
+    "date": "2026-04-06T00:00:00.000Z",
+    "content": "\r\n![Inheritance](inheritance.png)",
     "topic": "LLD"
   },
   {
