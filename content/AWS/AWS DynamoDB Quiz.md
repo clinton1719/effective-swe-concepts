@@ -164,3 +164,20 @@ You have developed a mobile application that uses DynamoDB as its datastore. You
 **Correct Answer:** ✅ Enable DynamoDB Streams and configure it to invoke a Lambda function to send emails
 
 **Explanation:** This is a classic event-driven architecture pattern. By enabling **DynamoDB Streams**, any new record (a new user signup) is captured as an event. You can then configure **AWS Lambda** to trigger automatically whenever a new item is added to the stream. The Lambda function can then use **Amazon SES** (Simple Email Service) or an external API to send the welcome email. This is much more efficient than scanning the table, as it only processes new changes and happens in near real-time.
+
+## Question 11
+
+You have created a DynamoDB table in ap-northeast-1 and would like to make it available in eu-west-1, so you decided to create a DynamoDB Global Table. What needs to be enabled first before you create a DynamoDB Global Table?
+
+[ ] DynamoDB Streams
+
+[ ] DynamoDB DAX
+
+[ ] DynamoDB Versioning
+
+[ ] DynamoDB Backups
+
+
+**Correct Answer:** ✅ DynamoDB Streams
+
+**Explanation:** To use **DynamoDB Global Tables**, you must first enable **DynamoDB Streams** on the participant tables. The stream captures every change made to the data in one region and uses that information to replicate the change to the other regions in the Global Table group. Specifically, the stream must be configured to show the "New and Old Images" of the items to ensure accurate synchronization across the globe.

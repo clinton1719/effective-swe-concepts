@@ -132,3 +132,23 @@ You have a Kinesis data stream with 6 shards provisioned. This data stream usual
 **Correct Answer:** ✅ Add more Shards
 
 **Explanation:** A single Kinesis shard provides a fixed unit of capacity: 1 MB/s for input and 2 MB/s for output. With 6 shards, your current limits are 6 MB/s (input) and 12 MB/s (output). When your traffic spikes 2x (to 10 MB/s input), you exceed the 6 MB/s limit, triggering the `ProvisionedThroughputExceeded` exception. To resolve this, you must "reshard" the stream by adding more shards to increase the total aggregate throughput.
+
+## Question 9
+
+You would like to create an architecture for a micro-services application whose sole purpose is to encode videos stored in an S3 bucket and store the encoded videos back into an S3 bucket. You would like to make this micro-services application reliable and has the ability to retry upon failures. Each video may take over 25 minutes to be processed. The services used in the architecture should be asynchronous and should have the capability to be stopped for a day and resume the next day from the videos that haven't been encoded yet. Which of the following AWS services would you recommend in this scenario?
+
+[ ] Amazon S3 + AWS Lambda
+
+[ ] Amazon SNS + Amazon EC2
+
+[ ] Amazon SQS + Amazon EC2
+
+[ ] Amazon SQS + AWS Lambda
+
+
+**Correct Answer:** ✅ Amazon SQS + Amazon EC2
+
+**Explanation:** This architecture satisfies all the requirements:
+* **Processing Time:** Since encoding takes over 25 minutes, **AWS Lambda** cannot be used (it has a 15-minute hard limit). **EC2 instances** (or ECS tasks) are required for long-running processes.
+* **Asynchronous & Reliable:** **Amazon SQS** acts as a buffer. If an EC2 instance fails, the message returns to the queue (after the visibility timeout) for another instance to retry.
+* **Pause/Resume Capability:** SQS messages can persist in the queue for up to 14 days. If you stop the EC2 instances for a day, the messages stay safely in the queue and processing resumes exactly where it left off once the instances are restarted.

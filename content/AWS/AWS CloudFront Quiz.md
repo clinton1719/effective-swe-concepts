@@ -102,3 +102,20 @@ What does this S3 bucket policy do?
 **Correct Answer:** ✅ Only allows the S3 bucket content to be accessed from your CloudFront Distribution
 
 **Explanation:** This policy uses the `Principal` of `cloudfront.amazonaws.com` combined with a `Condition` that matches a specific `SourceArn`. This is the standard configuration for **Origin Access Control (OAC)**, ensuring that only requests originating from that specific CloudFront distribution ID can retrieve objects from the bucket.
+
+## Question 7
+
+You are running a photo-sharing website where your images are downloaded from all over the world. Every month you publish a master pack of beautiful mountain images that are over 15 GB in size. The content is currently hosted on an Elastic File System (EFS) file system and distributed by an Application Load Balancer and a set of EC2 instances. Each month, you are experiencing very high traffic which increases the load on your EC2 instances and increases network costs. What do you recommend to reduce EC2 load and network costs without refactoring your website?
+
+[ ] Hosts the master pack into S3
+
+[ ] Enable Application Load Balancer Caching
+
+[ ] Scale up the EC2 instances
+
+[ ] Create a CloudFront Distribution
+
+
+**Correct Answer:** ✅ Create a CloudFront Distribution
+
+**Explanation:** **Amazon CloudFront** is a Content Delivery Network (CDN) that caches content at Edge Locations closer to your users. By placing a CloudFront distribution in front of your **Application Load Balancer (ALB)**, the large 15 GB master pack is cached at the edge after the first request. Subsequent downloads are served directly from CloudFront, which significantly reduces the CPU/Network load on your EC2 instances and lowers data transfer out (DTO) costs compared to serving directly from the origin. Best of all, it requires no code changes or "refactoring" of the underlying website.
