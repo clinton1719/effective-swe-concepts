@@ -1,6 +1,6 @@
 ---
-title: AWS DynamoDB Quiz
-tags: [aws, dynamoDb]
+title: AWS Databases Quiz
+tags: [aws, dynamoDb, rds, aurora]
 difficulty: medium
 date: 2026-04-05
 ---
@@ -181,3 +181,188 @@ You have created a DynamoDB table in ap-northeast-1 and would like to make it av
 **Correct Answer:** ✅ DynamoDB Streams
 
 **Explanation:** To use **DynamoDB Global Tables**, you must first enable **DynamoDB Streams** on the participant tables. The stream captures every change made to the data in one region and uses that information to replicate the change to the other regions in the Global Table group. Specifically, the stream must be configured to show the "New and Old Images" of the items to ensure accurate synchronization across the globe.
+
+## Question 12
+
+Which AWS service provides you with caching capability that is compatible with Redis API?
+
+[ ] Amazon RDS
+
+[ ] Amazon DynamoDB
+
+[ ] Amazon OpenSearch
+
+[ ] Amazon ElastiCache
+
+
+**Correct Answer:** ✅ Amazon ElastiCache
+
+**Explanation:** **Amazon ElastiCache** is a fully managed, in-memory caching service that supports two open-source engines: **Redis** and **Memcached**. It allows you to seamlessly set up, run, and scale popular open-source compatible in-memory data stores in the cloud. Using ElastiCache for Redis significantly improves the performance of your applications by retrieving data from high- throughput, low-latency in-memory caches instead of relying entirely on slower disk-based databases.
+
+## Question 13
+
+You are looking to perform Online Transaction Processing (OLTP). You would like to use a database that has built-in auto-scaling capabilities and provides you with the maximum number of replicas for its underlying storage. What AWS service do you recommend?
+
+[ ] Amazon ElastiCache
+
+[ ] Amazon Neptune
+
+[ ] Amazon Aurora
+
+[ ] Amazon RDS
+
+Correct Answer: ✅ Amazon Aurora
+
+Explanation: Amazon Aurora is a cloud-native relational database engine that is fully managed and compatible with MySQL and PostgreSQL. It is specifically designed for high-performance OLTP workloads. Key features that satisfy this requirement include:
+
+Storage Replication: Aurora automatically maintains 6 copies of your data across 3 Availability Zones (AZs), providing superior durability and availability compared to standard RDS.
+
+Auto-scaling: Aurora can automatically scale its storage (up to 128 TiB) and can also utilize Aurora Auto Scaling to adjust the number of Read Replicas based on actual traffic.
+
+Performance: It offers up to 5x the throughput of standard MySQL and 3x the throughput of standard PostgreSQL.
+
+## Question 14
+
+As a Solutions Architect, a startup company asked you for help as they are working on an architecture for a social media website where users can be friends with each other, and like each other's posts. The company plan on performing some complicated queries such as "What are the number of likes on the posts that have been posted by the friends of Mike?". Which database do you recommend?
+
+[ ] Amazon RDS
+
+[ ] Amazon QLDB
+
+[ ] Amazon Neptune
+
+[ ] Amazon OpenSearch
+
+
+**Correct Answer:** ✅ Amazon Neptune
+
+**Explanation:** **Amazon Neptune** is a fast, reliable, fully managed **graph database** service that makes it easy to build and run applications that work with highly connected datasets. Social media features like "friends of friends," "likes on posts by friends," and "recommendations" involve complex relationships that are difficult and slow to query in a traditional relational database (which would require multiple expensive JOIN operations). Neptune uses graph structures (nodes and edges) to store these relationships, allowing you to perform deep traversals and complex relationship queries with millisecond latency.
+
+## Question 15
+
+A startup is working on developing a new project to reduce forest fires due to climate change. The startup is developing sensors that will be spread across the entire forest to make some readings such as temperature, humidity, and pressures which will help detect the forest fires before it happens. They are going to have thousands of sensors that are going to store a lot of readings each second. There is a requirement to store those readings and do fast analytics so they can predict if there is a fire. Which AWS service can they use to store those readings?
+
+[ ] Amazon Timestream
+
+[ ] Amazon Neptune
+
+[ ] Amazon S3
+
+[ ] Amazon ElastiCache
+
+
+**Correct Answer:** ✅ Amazon Timestream
+
+**Explanation:** **Amazon Timestream** is a fast, scalable, and fully managed **time-series database** service for IoT and operational applications. It is specifically designed to store and process trillions of events per day (like sensor readings over time). It automatically scales up or down to adjust for capacity and has a built-in analytical engine that allows you to run complex time-series queries (e.g., smoothing, approximation, and interpolation) to identify trends or anomalies like a sudden spike in temperature across multiple sensors.
+
+## Question 16
+
+A company using a self-hosted on-premises Apache Cassandra database which they want to migrate to AWS. Which AWS service can they use which provides them with a fully managed, highly available, and scalable Apache Cassandra database?
+
+[ ] Amazon DocumentDB
+
+[ ] Amazon DynamoDB
+
+[ ] Amazon Timestream
+
+[ ] Amazon Keyspaces
+
+
+**Correct Answer:** ✅ Amazon Keyspaces
+
+**Explanation:** **Amazon Keyspaces (for Apache Cassandra)** is a scalable, highly available, and managed Apache Cassandra-compatible database service. Since it is serverless, you don't have to worry about provisioning, patching, or managing servers. It allows you to run your Cassandra workloads on AWS using the same **Cassandra Query Language (CQL)** code and developer tools that you use today, making it the ideal migration target for on-premises Cassandra clusters.
+
+## Question 17
+
+A company has an on-premises website that uses ReactJS as its frontend, NodeJS as its backend, and MongoDB for the database. There are some issues with the self-hosted MongoDB database as there is a lot of maintenance required and they don’t have and can’t afford the resources or experience to handle those issues. So, a decision was made to migrate the website to AWS. They have decided to host the frontend ReactJS application in an S3 bucket and the NodeJS backend on a set of EC2 instances. Which AWS service can they use to migrate the MongoDB database that provides them with high scalability and availability without making any code changes?
+
+[ ] Amazon ElastiCache
+
+[ ] Amazon DocumentDB
+
+[ ] Amazon Neptune
+
+[ ] Amazon RDS for MongoDB
+
+
+**Correct Answer:** ✅ Amazon DocumentDB
+
+**Explanation:** **Amazon DocumentDB (with MongoDB compatibility)** is a fully managed native JSON document database service. It is designed to be compatible with your existing MongoDB drivers and tools. Since the requirement is to migrate without making code changes and to reduce the maintenance burden (patching, backups, scaling), DocumentDB is the perfect fit. It scales storage automatically up to 64 TiB and supports millions of requests per second. 
+
+> **Note:** "Amazon RDS for MongoDB" does not exist as a managed service; RDS supports relational engines like MySQL, PostgreSQL, and SQL Server.
+
+## Question 18
+
+An online payment company is using AWS to host its infrastructure. Due to the application’s nature, they have a strict requirement to store an accurate record of financial transactions such as credit and debit transactions. Those transactions must be stored in secured, immutable, encrypted storage which can be cryptographically verified. Which AWS service is best suited for this use case?
+
+[ ] Amazon DocumentDB
+
+[ ] Amazon Aurora
+
+[ ] Amazon QLDB
+
+[ ] Amazon Neptune
+
+
+**Correct Answer:** ✅ Amazon QLDB
+
+**Explanation:** **Amazon QLDB (Quantum Ledger Database)** is a fully managed ledger database that provides a transparent, immutable, and cryptographically verifiable transaction log. Unlike traditional databases where data can be overwritten or deleted, QLDB tracks every single change to your data and maintains a complete, verifiable history of changes over time. This makes it the perfect fit for banking, finance, and supply chain applications where you need an authoritative "system of record" that proves no data has been tampered with.
+
+## Question 19
+
+You have a set of files, 100MB each, that you want to store in a reliable and durable key-value store. Which AWS service do you recommend?
+
+[ ] Amazon Aurora
+
+[ ] Amazon S3
+
+[ ] Amazon DynamoDB
+
+[ ] Amazon ElastiCache
+
+
+**Correct Answer:** ✅ Amazon S3
+
+**Explanation:** While **Amazon DynamoDB** is a "key-value" database, it has a strict item size limit of **400 KB**. Since your files are **100 MB** each, they far exceed what DynamoDB can handle. **Amazon S3** is an object store that functions as a key-value store (the "Key" is the prefix/filename and the "Value" is the file content itself) and can store objects up to **5 TB** in size. It offers 99.999999999% (11 9's) of durability, making it the most reliable and cost-effective choice for large files.
+
+## Question 20
+
+Which database helps you store relational datasets, with SQL language compatibility and the capability of processing transactions such as insert, update, and delete?
+
+[ ] Amazon DocumentDB
+
+[ ] Amazon RDS
+
+[ ] Amazon DynamoDB
+
+[ ] Amazon ElastiCache
+
+
+**Correct Answer:** ✅ Amazon RDS
+
+**Explanation:** **Amazon RDS (Relational Database Service)** is the primary AWS service for relational datasets. It supports popular SQL engines like **MySQL, PostgreSQL, MariaDB, Oracle, and Microsoft SQL Server**. It is specifically designed for **OLTP (Online Transaction Processing)**, allowing you to perform standard SQL operations like `INSERT`, `UPDATE`, and `DELETE` while maintaining ACID compliance (Atomicity, Consistency, Isolation, Durability) for your transactions.
+
+## Question 21
+
+You want to migrate an on-premises MongoDB NoSQL database to AWS. You don't want to manage any database servers, so you want to use a managed NoSQL Serverless database, that provides you with high availability, durability, and reliability, and the capability to take your database global. Which database should you choose?
+
+[ ] Amazon RDS
+
+[ ] Amazon DynamoDB
+
+[ ] Amazon DocumentDB
+
+[ ] Amazon Aurora
+
+
+**Correct Answer:** ✅ Amazon DynamoDB
+
+**Explanation:** While **Amazon DocumentDB** is MongoDB-compatible, it is not "Serverless" in the same way **Amazon DynamoDB** is (DocumentDB requires you to choose instance types for its clusters). DynamoDB is a truly serverless, NoSQL database that:
+* **No Server Management:** You don't manage instances or clusters.
+* **Global Tables:** Provides the capability to go global with multi-region, multi-active replication.
+* **Scalability:** It scales to support any workload with consistent single-digit millisecond performance.
+* **High Availability:** It is highly available and durable by default, replicating data across three Availability
+
+
+
+
