@@ -212,6 +212,30 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Database\\Stored Procedures",
+    "title": "Stored Procedures",
+    "tags": [
+      "database",
+      "stored-procedures"
+    ],
+    "difficulty": "easy",
+    "date": "2026-04-12T00:00:00.000Z",
+    "content": "\r\n![Stored Procedures](stored-procedures.png)",
+    "topic": "Database"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\Database\\Triggers",
+    "title": "Triggers",
+    "tags": [
+      "database",
+      "triggers"
+    ],
+    "difficulty": "easy",
+    "date": "2026-04-12T00:00:00.000Z",
+    "content": "\r\n![db-triggers](db-triggers.png)",
+    "topic": "Database"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\HLD\\ACID Transactions",
     "title": "ACID Transactions",
     "tags": [
