@@ -14,7 +14,7 @@ You are running a website on a fleet of EC2 instances with OS that has a known v
 
 [ ] Setup CloudTrail Trails
 
-[x] Setup Config Rules
+[ ] Setup Config Rules
 
 [ ] Schedule a CloudWatch Event to trigger a Lambda function to scan your EC2 instances
 
@@ -33,7 +33,7 @@ A DevOps engineer is working for a company and managing its infrastructure and r
 
 [ ] CloudWatch Alarm
 
-[x] CloudWatch Contributor Insights
+[ ] CloudWatch Contributor Insights
 
 [ ] CloudWatch Metric Filter
 
@@ -46,7 +46,7 @@ A DevOps engineer is working for a company and managing its infrastructure and r
 …………………………. is a CloudWatch feature that allows you to send CloudWatch metrics in near real-time to S3 bucket (through Kinesis Data Firehose) and 3rd party destinations (e.g., Splunk, Datadog, …).
 
 
-[x] CloudWatch Metric Stream
+[ ] CloudWatch Metric Stream
 
 [ ] CloudWatch Log Stream
 
@@ -65,7 +65,7 @@ You have an application hosted on a fleet of EC2 instances managed by an Auto Sc
 
 [ ] One EC2 instance will be terminated and the ASG desired and minimum capacity will go to 1
 
-[x] The CloudWatch Alarm will remain in ALARM state but never decrease the number of EC2 instances in the ASG
+[ ] The CloudWatch Alarm will remain in ALARM state but never decrease the number of EC2 instances in the ASG
 
 [ ] The CloudWatch Alarm will be detached from my ASG
 
@@ -82,7 +82,7 @@ Someone changed the configuration of a resource and made it non-compliant. Which
 
 [ ] Amazon CloudWatch
 
-[x] AWS CloudTrail
+[ ] AWS CloudTrail
 
 [ ] AWS Config
 
@@ -97,7 +97,7 @@ A company is developing a Serverless application on AWS using Lambda, DynamoDB, 
 
 [ ] Assign developers to a certain IAM group which prevents deletion of DynamoDB tables. Configure EventBridge to capture any DeleteTable API calls through S3 and send a notification using KMS
 
-[x] Assign developers to a certain IAM group which prevents deletion of DynamoDB tables. Configure EventBridge to capture any DeleteTable API calls through CloudTrail and send a notification using SNS
+[ ] Assign developers to a certain IAM group which prevents deletion of DynamoDB tables. Configure EventBridge to capture any DeleteTable API calls through CloudTrail and send a notification using SNS
 
 [ ] Assign developers to a certain IAM group which prevents deletion of DynamoDB tables. Configure EventBridge to capture any DeleteTable API calls through CloudTrail and send a notification using KMS
 
@@ -114,7 +114,7 @@ A company is developing a Serverless application on AWS using Lambda, DynamoDB, 
 You have enabled AWS Config to monitor Security Groups if there's unrestricted SSH access to any of your EC2 instances. Which AWS Config feature can you use to automatically re-configure your Security Groups to their correct state?
 
 
-[x] AWS Config Remediations
+[ ] AWS Config Remediations
 
 [ ] AWS Config Rules
 
@@ -133,7 +133,7 @@ You are running a critical website on a set of EC2 instances with a tightened Se
 
 [ ] AWS Config Rules
 
-[x] AWS Config Notifications
+[ ] AWS Config Notifications
 
 **Correct Answer:** ✅ AWS Config Notifications
 
@@ -150,7 +150,7 @@ Someone has terminated an EC2 instance in your AWS account last week, which was 
 
 [ ] CloudWatch Events
 
-[x] AWS CloudTrail
+[ ] AWS CloudTrail
 
 **Correct Answer:** ✅ AWS CloudTrail
 
@@ -163,7 +163,7 @@ You have an RDS DB instance that's configured to push its database logs to Cloud
 
 [ ] Create a scheduled CloudWatch Event that triggers an AWS Lambda every 1 hour, scans the logs, and notify you through SNS topic
 
-[x] Create a CloudWatch Logs Metric Filter that filter the logs for the keyword **Error**, then create a CloudWatch Alarm based on that Metric Filter
+[ ] Create a CloudWatch Logs Metric Filter that filter the logs for the keyword **Error**, then create a CloudWatch Alarm based on that Metric Filter
 
 [ ] Create an AWS Config Rule that monitors **Error** in your database logs and notify you through SNS topic
 
@@ -178,7 +178,7 @@ You have CloudTrail enabled for your AWS Account in all AWS Regions. What should
 
 [ ] CloudTrail Data Events
 
-[x] CloudTrail Insights
+[ ] CloudTrail Insights
 
 [ ] CloudTrail Management Events
 
@@ -193,7 +193,7 @@ One of your teammates terminated an EC2 instance 4 months ago which has critical
 
 [ ] Use CloudTrail Event History in CloudTrail Console
 
-[x] Analyze CloudTrail logs in S3 bucket using Amazon Athena
+[ ] Analyze CloudTrail logs in S3 bucket using Amazon Athena
 
 **Correct Answer:** ✅ Analyze CloudTrail logs in S3 bucket using Amazon Athena
 
@@ -204,7 +204,7 @@ One of your teammates terminated an EC2 instance 4 months ago which has critical
 You have made a configuration change and would like to evaluate the impact of it on the performance of your application. Which AWS service should you use?
 
 
-[x] Amazon CloudWatch
+[ ] Amazon CloudWatch
 
 [ ] AWS CloudTrail
 
@@ -222,7 +222,7 @@ How would you monitor your EC2 instance memory usage in CloudWatch?
 
 [ ] By default, the EC2 instance pushes memory usage to CloudWatch
 
-[x] Use the Unified CloudWatch Agent to push memory usage as a custom metric to CloudWatch
+[ ] Use the Unified CloudWatch Agent to push memory usage as a custom metric to CloudWatch
 
 **Correct Answer:** ✅ Use the Unified CloudWatch Agent to push memory usage as a custom metric to CloudWatch
 
@@ -235,7 +235,7 @@ How would you monitor your EC2 instance memory usage in CloudWatch?
 A company has a running Serverless application on AWS which uses EventBridge as an inter-communication channel between different services within the application. There is a requirement to use the events in the prod environment in the dev environment to make some tests. The tests will be done every 6 months, so the events need to be stored and used later on. What is the most efficient and cost-effective way to store EventBridge events and use them later?
 
 
-[x] Use EventBridge Archive and Replay feature
+[ ] Use EventBridge Archive and Replay feature
 
 [ ] Create a Lambda function to store the EventBridge events in an S3 bucket for later usage
 
@@ -250,7 +250,7 @@ A company has a running Serverless application on AWS which uses EventBridge as 
 You would like to evaluate the compliance of your resource's configurations over time. Which AWS service will you choose?
 
 
-[x] AWS Config
+[ ] AWS Config
 
 [ ] Amazon CloudWatch
 

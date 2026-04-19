@@ -10,7 +10,7 @@ date: 2026-04-14
 A developer would like to build, train, and deploy a machine learning model quickly. Which service can he use?
 
 
-[x] SageMaker
+[ ] SageMaker
 
 [ ] Polly
 
@@ -27,7 +27,7 @@ A developer would like to build, train, and deploy a machine learning model quic
 You would like to find objects, people, text, or scenes in images and videos. What AWS service should you use?
 
 
-[x] Rekognition
+[ ] Rekognition
 
 [ ] Polly
 
@@ -46,7 +46,7 @@ You should use Amazon Transcribe to turn text into lifelike speech using deep le
 
 [ ] True
 
-[x] False
+[ ] False
 
 **Correct Answer:** ✅ False
 
@@ -59,7 +59,7 @@ Which of the following services is a document search service powered by machine 
 
 [ ] Translate
 
-[x] Kendra
+[ ] Kendra
 
 [ ] Comprehend
 
@@ -74,7 +74,7 @@ Which of the following services is a document search service powered by machine 
 A start-up would like to rapidly create customized user experiences. Which AWS service can help?
 
 
-[x] Personalize
+[ ] Personalize
 
 [ ] Kendra
 
@@ -93,7 +93,7 @@ Amazon Polly allows you to turn text into speech. It has two important features.
 
 [ ] Pronunciation Lexicons, Security Assertion Markup Language (SAML)
 
-[x] Pronunciation Lexicons, Speech Synthesis Markup Language (SSML)
+[ ] Pronunciation Lexicons, Speech Synthesis Markup Language (SSML)
 
 [ ] Security Assertion Markup Language (SAML), Pronunciation Lexicons
 
@@ -113,7 +113,7 @@ A company is managing an image and video sharing platform which is used by custo
 
 [ ] Amazon Lex
 
-[x] Amazon Rekognition
+[ ] Amazon Rekognition
 
 **Correct Answer:** ✅ Amazon Rekognition
 
@@ -130,7 +130,7 @@ A company would like to implement a chatbot that will convert speech-to-text and
 
 [ ] Connect
 
-[x] Lex
+[ ] Lex
 
 **Correct Answer:** ✅ Lex
 
@@ -145,7 +145,7 @@ A company would like to convert its documents into different languages, with nat
 
 [ ] Polly
 
-[x] Translate
+[ ] Translate
 
 [ ] WordTranslator
 
@@ -164,7 +164,7 @@ Which fully managed service can deliver highly accurate forecasts?
 
 [ ] Lex
 
-[x] Forecast
+[ ] Forecast
 
 **Correct Answer:** ✅ Forecast
 
@@ -177,7 +177,7 @@ An online medical company that allows you to book an appointment with doctors th
 
 [ ] Amazon Polly
 
-[x] Amazon Transcribe
+[ ] Amazon Transcribe
 
 [ ] Amazon Rekognition
 
@@ -192,7 +192,7 @@ An online medical company that allows you to book an appointment with doctors th
 A medical company is in the process of implementing a solution to detect, extract, and analyze information from unstructured medical text like doctors’ notes, clinical trial reports, and radiology reports. Those documents are uploaded and stored on S3 buckets. According to the company’s regulations, the solution must be designed and implemented to keep patients’ privacy by identifying Protected Health Information (PHI) so the solution will be eligible with HIPAA. Which AWS service should you use?
 
 
-[x] Amazon Comprehend Medical
+[ ] Amazon Comprehend Medical
 
 [ ] Amazon Rekognition
 
@@ -211,7 +211,7 @@ A research team would like to group articles by topics using Natural Language Pr
 
 [ ] Translate
 
-[x] Comprehend
+[ ] Comprehend
 
 [ ] Lex
 
@@ -230,7 +230,7 @@ Which AWS service makes it easy to convert speech-to-text?
 
 [ ] Translate
 
-[x] Transcribe
+[ ] Transcribe
 
 [ ] Polly
 

@@ -12,7 +12,7 @@ When configuring permissions for EventBridge to configure a Lambda function as a
 
 [ ] Identity-Based Policy, Resource-based Policy
 
-[x] Resource-Based Policy, Identity-based Policy
+[ ] Resource-Based Policy, Identity-based Policy
 
 [ ] Identity-Based Policy, Identity-Based Policy
 
@@ -36,7 +36,7 @@ Which of the following IAM condition key you can use only to allow API calls to 
 
 [ ] aws:InitialRegion
 
-[x] aws:RequestedRegion
+[ ] aws:RequestedRegion
 
 **Correct Answer:** ✅ aws:RequestedRegion
 
@@ -67,7 +67,7 @@ You are managing the AWS account for your company, and you want to give one of t
 
 [ ] The bucket does not contain any files yet
 
-[x] You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
+[ ] You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
 ```
 
 **Correct Answer:** ✅ You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
@@ -89,7 +89,7 @@ You have 5 AWS Accounts that you manage using AWS Organizations. You want to res
 
 [ ] Using IAM Roles
 
-[x] Using AWS Organizations SCP
+[ ] Using AWS Organizations SCP
 
 [ ] Using AWS Config
 
@@ -108,7 +108,7 @@ You have strong regulatory requirements to only allow fully internally audited A
 
 [ ] Apply a global IAM policy on your Prod account
 
-[x] Create an AWS Organization and create two Prod and Dev OUs, then Apply an SCP on the Prod OU
+[ ] Create an AWS Organization and create two Prod and Dev OUs, then Apply an SCP on the Prod OU
 
 [ ] Create an AWS Config Rule
 

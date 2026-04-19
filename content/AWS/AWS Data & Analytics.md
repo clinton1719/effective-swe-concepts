@@ -179,7 +179,7 @@ A company is using AWS to host its public websites and internal applications. Th
 
 [ ] Amazon S3
 
-[x] Amazon OpenSearch Service
+[ ] Amazon OpenSearch Service
 
 [ ] Amazon ElastiCache
 
@@ -198,7 +198,7 @@ You would like to have a database that is efficient at performing analytical que
 
 [ ] Amazon S3
 
-[x] Amazon Redshift
+[ ] Amazon Redshift
 
 [ ] Amazon Neptune
 
@@ -214,7 +214,7 @@ As a Solutions Architect, you have been instructed to prepare a disaster recover
 
 [ ] Enable Multi-AZ
 
-[x] Enable Automated Snapshots, then configure your Redshift cluster to automatically copy snapshots to another AWS region
+[ ] Enable Automated Snapshots, then configure your Redshift cluster to automatically copy snapshots to another AWS region
 
 [ ] Take a snapshot then restore to a Redshift Global cluster
 
@@ -227,7 +227,7 @@ As a Solutions Architect, you have been instructed to prepare a disaster recover
 You have data stored in RDS, S3 buckets and you are using AWS Lake Formation as a data lake to collect, move and catalog data so you can do some analytics. You have a lot of big data and ML engineers in the company and you want to control access to part of the data as it might contain sensitive information. What can you use?
 
 
-[x] Lake Formation Fine-grained Access Control
+[ ] Lake Formation Fine-grained Access Control
 
 [ ] Amazon Cognito
 
@@ -250,7 +250,7 @@ You are a DevOps engineer in a machine learning company which 3 TB of JSON files
 
 [ ] Amazon MSK
 
-[x] AWS Glue
+[ ] AWS Glue
 
 **Correct Answer:** ✅ AWS Glue
 
@@ -265,7 +265,7 @@ Which AWS service is most appropriate when you want to perform real-time analyti
 
 [ ] Amazon SNS
 
-[x] Amazon Kinesis Data Analytics
+[ ] Amazon Kinesis Data Analytics
 
 [ ] Amazon Kinesis Data Firehose
 
