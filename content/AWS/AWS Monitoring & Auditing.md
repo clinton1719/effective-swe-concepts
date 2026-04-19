@@ -1,6 +1,6 @@
 ---
 title: AWS Monitoring & Auditing Quiz
-tags: [aws, cloudwatch, cloudtrail, aws-config]
+tags: [aws, aws-cloudwatch, aws-cloudtrail, aws-config]
 difficulty: medium
 date: 2026-04-15
 ---
