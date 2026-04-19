@@ -9,8 +9,11 @@ date: 2026-04-19
 
 You have created a Customer-managed CMK in KMS that you use to encrypt both S3 buckets and EBS snapshots. Your company policy mandates that your encryption keys be rotated every 6 months. What should you do?
 
+
 [ ] Re-configure your KMS CMK and enable Automatic Key Rotation, and configure the Retention Period with 180 days
+
 [ ] Use AWS Managed Keys as they are automatically rotated by AWS every 3 months
+
 [x] Rotate the KMS CMK manually. Create a new KMS CMK and use Key Aliases to reference the new KMS CMK. Keep the old KMS CMK so you can decrypt the old data
 
 **Correct Answer:** ✅ Rotate the KMS CMK manually. Create a new KMS CMK and use Key Aliases to reference the new KMS CMK. Keep the old KMS CMK so you can decrypt the old data
@@ -40,9 +43,13 @@ Since you cannot change the 365-day timer on automatic rotation, a 6-month (180-
 
 Your user-facing website is a high-risk target for DDoS attacks and you would like to get 24/7 support in case they happen and AWS bill reimbursement for the incurred costs during the attack. What AWS service should you use?
 
+
 [ ] AWS WAF
+
 [x] AWS Shield Advanced
+
 [ ] AWS Shield
+
 [ ] AWS DDoS OpsTeam
 
 **Correct Answer:** ✅ AWS Shield Advanced
@@ -58,9 +65,13 @@ Your user-facing website is a high-risk target for DDoS attacks and you would li
 
 You have generated a public certificate using LetsEncrypt and uploaded it to the ACM so you can use and attach to an Application Load Balancer that forwards traffic to EC2 instances. As this certificate is generated outside of AWS, it does not support the automatic renewal feature. How would you be notified 30 days before this certificate expires so you can manually generate a new one?
 
+
 [ ] Configure ACM to send notifications by linking it to 3rd party certificate provider LetsEncrypt
+
 [x] **Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email**
+
 [ ] Configure EventBridge for Monthly Expiration Events from ACM to invoke SNS notifications to your email
+
 [ ] Configure CloudWatch Alarms for Daily Expiration Events from ACM to invoke SNS notifications to your email
 
 **Correct Answer:** ✅ **Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email**
@@ -76,9 +87,13 @@ You have generated a public certificate using LetsEncrypt and uploaded it to the
 
 When you enable Automatic Rotation on your KMS Key, the backing key is rotated every .................
 
+
 [ ] 90 days
+
 [x] 1 year
+
 [ ] 2 years
+
 [ ] 3 years
 
 **Correct Answer:** ✅ 1 year
@@ -98,8 +113,11 @@ When you enable this feature:
 
 What is the most suitable AWS service for storing RDS DB passwords which also provides you automatic rotation?
 
+
 [x] AWS Secrets Manager
+
 [ ] AWS KMS
+
 [ ] AWS SSM Parameter Store
 
 **Correct Answer:** ✅ AWS Secrets Manager
@@ -114,8 +132,11 @@ What is the most suitable AWS service for storing RDS DB passwords which also pr
 
 To enable In-flight Encryption (In-Transit Encryption), we need to have ........................
 
+
 [ ] an HTTP endpoint with an SSL certificate
+
 [x] an HTTPS endpoint with an SSL certificate
+
 [ ] a TCP endpoint
 
 **Correct Answer:** ✅ an HTTPS endpoint with an SSL certificate
@@ -130,9 +151,13 @@ To enable In-flight Encryption (In-Transit Encryption), we need to have ........
 
 You are managing an AWS Organization with multiple AWS accounts. Each account has a separate application with different resources. You want an easy way to manage Security Groups and WAF Rules across those accounts as there was a security incident the last week and you want to tighten up your resources. Which AWS service can help you to do so?
 
+
 [ ] AWS Guard Duty
+
 [ ] Amazon Shield
+
 [ ] Amazon Inspector
+
 [x] AWS Firewall Manager
 
 **Correct Answer:** ✅ AWS Firewall Manager
@@ -147,8 +172,11 @@ You are managing an AWS Organization with multiple AWS accounts. Each account ha
 
 You have a secret value that you use for encryption purposes, and you want to store and track the values of this secret over time. Which AWS service should you use?
 
+
 [ ] AWS KMS Versioning feature
+
 [x] SSM Parameter Store
+
 [ ] Amazon S3
 
 **Correct Answer:** ✅ SSM Parameter Store
@@ -163,9 +191,13 @@ You have a secret value that you use for encryption purposes, and you want to st
 
 You have created the main Edge-Optimized API Gateway in us-west-2 AWS region. This main Edge-Optimized API Gateway forwards traffic to the second level API Gateway in ap-southeast-1. You want to secure the main API Gateway by attaching an ACM certificate to it. Which AWS region are you going to create the ACM certificate in?
 
+
 [x] us-east-1
+
 [ ] us-west-2
+
 [ ] ap-southeast-1
+
 [ ] Both us-east-1 and us-west-2 works
 
 **Correct Answer:** ✅ us-east-1
@@ -182,9 +214,13 @@ You have created the main Edge-Optimized API Gateway in us-west-2 AWS region. Th
 
 Which AWS service allows you to centrally manage EC2 Security Groups and AWS Shield Advanced across all AWS accounts in your AWS Organization?
 
+
 [ ] AWS Shield
+
 [ ] AWS GuardDuty
+
 [ ] AWS Config
+
 [x] AWS Firewall Manager
 
 **Correct Answer:** ✅ AWS Firewall Manager
@@ -199,9 +235,13 @@ Which AWS service allows you to centrally manage EC2 Security Groups and AWS Shi
 
 You would like to analyze OS vulnerabilities from within EC2 instances. You need these analyses to occur weekly and provide you with concrete recommendations in case vulnerabilities are found. Which AWS service should you use?
 
+
 [ ] AWS Shield
+
 [ ] Amazon GuardDuty
+
 [x] Amazon Inspector
+
 [ ] AWS Config
 
 **Correct Answer:** ✅ Amazon Inspector
@@ -217,9 +257,13 @@ You would like to analyze OS vulnerabilities from within EC2 instances. You need
 
 An online-payment company is using AWS to host its infrastructure. The frontend is created using VueJS and is hosted on an S3 bucket and the backend is developed using PHP and is hosted on EC2 instances in an Auto Scaling Group. As their customers are worldwide, they use both CloudFront and Aurora Global database to implement multi-region deployments to provide the lowest latency and provide availability, and resiliency. A new feature required which gives customers the ability to store data encrypted on the database and this data must not be disclosed even by the company admins. The data should be encrypted on the client side and stored in an encrypted format. What do you recommend to implement this?
 
+
 [x] Using Aurora Client-side Encryption and KMS Multi-region Keys
+
 [ ] Using Lambda Client-side Encryption and KMS Multi-region Keys
+
 [ ] Using Aurora Client-side Encryption and CloudHSM
+
 [ ] Using Lambda Client-side Encryption and CloudHSM
 
 **Correct Answer:** ✅ Using Aurora Client-side Encryption and KMS Multi-region Keys
@@ -234,7 +278,9 @@ An online-payment company is using AWS to host its infrastructure. The frontend 
 
 AWS KMS supports both symmetric and asymmetric KMS keys.
 
+
 [x] True
+
 [ ] False
 
 **Correct Answer:** ✅ True
@@ -248,8 +294,11 @@ AWS KMS supports both symmetric and asymmetric KMS keys.
 
 You have an AMI that has an encrypted EBS snapshot using KMS CMK. You want to share this AMI with another AWS account. You have shared the AMI with the desired AWS account, but the other AWS account still can't use it. How would you solve this problem?
 
+
 [ ] The other AWS account needs to logout and login again to refresh its credentials
+
 [x] You need to share the KMS CMK used to encrypt the AMI with the other AWS account
+
 [ ] You can't share an AMI that has an encrypted EBS snapshot
 
 **Correct Answer:** ✅ You need to share the KMS CMK used to encrypt the AMI with the other AWS account
@@ -266,7 +315,9 @@ To fix this, you must update the **KMS Key Policy** of the CMK in the source acc
 
 In Client-Side Encryption, the server must know our encryption scheme before we can upload the data.
 
+
 [x] False
+
 [ ] True
 
 **Correct Answer:** ✅ False
@@ -281,9 +332,13 @@ In Client-Side Encryption, the server must know our encryption scheme before we 
 
 What should you use to control access to your KMS CMKs?
 
+
 [x] KMS Key Policies
+
 [ ] KMS IAM Policy
+
 [ ] AWS GuardDuty
+
 [ ] KMS Access Control List (KMS ACL)
 
 **Correct Answer:** ✅ KMS Key Policies
@@ -299,7 +354,9 @@ What should you use to control access to your KMS CMKs?
 
 You need to create KMS Keys in AWS KMS before you are able to use the encryption features for EBS, S3, RDS ...
 
+
 [ ] True
+
 [x] False
 
 **Correct Answer:** ✅ False
@@ -315,8 +372,11 @@ So, while KMS is used behind the scenes, the "creation" step is handled automati
 
 You have a Lambda function used to process some data in the database. You would like to give your Lambda function access to the database password. Which of the following options is the most secure?
 
+
 [ ] Embed it in the code
+
 [ ] Have it as a plaintext environment variable
+
 [x] **Have it as an encrypted environment variable and decrypt it at runtime**
 
 **Correct Answer:** ✅ **Have it as an encrypted environment variable and decrypt it at runtime**
@@ -333,9 +393,13 @@ You have a Lambda function used to process some data in the database. You would 
 
 You have a website hosted on a fleet of EC2 instances fronted by an Application Load Balancer. What should you use to protect your website from common web application attacks (e.g., SQL Injection)?
 
+
 [ ] AWS Shield
+
 [x] AWS WAF
+
 [ ] AWS Security Hub
+
 [ ] AWS GuardDuty
 
 **Correct Answer:** ✅ AWS WAF
@@ -354,9 +418,13 @@ You have a website hosted on a fleet of EC2 instances fronted by an Application 
 
 You would like to externally maintain the configuration values of your main database, to be picked up at runtime by your application. What's the best place to store them to maintain control and version history?
 
+
 [ ] Amazon DynamoDB
+
 [ ] Amazon S3
+
 [ ] Amazon EBS
+
 [x] SSM Parameter Store
 
 **Correct Answer:** ✅ SSM Parameter Store
@@ -372,9 +440,13 @@ You would like to externally maintain the configuration values of your main data
 
 AWS GuardDuty scans the following data sources, EXCEPT ................
 
+
 [ ] CloudTrail Logs
+
 [ ] VPC Flow Logs
+
 [ ] DNS Logs
+
 [x] CloudWatch Logs
 
 **Correct Answer:** ✅ CloudWatch Logs
@@ -392,9 +464,13 @@ AWS GuardDuty scans the following data sources, EXCEPT ................
 
 Which AWS service helps you protect your sensitive data stored in S3 buckets?
 
+
 [ ] Amazon GuardDuty
+
 [ ] Amazon Shield
+
 [x] Amazon Macie
+
 [ ] AWS KMS
 
 **Correct Answer:** ✅ Amazon Macie
@@ -410,9 +486,13 @@ Which AWS service helps you protect your sensitive data stored in S3 buckets?
 
 You have an S3 bucket that is encrypted with SSE-KMS. You have been tasked to replicate the objects to a target bucket in the same AWS region but with a different KMS Key. You have configured the S3 replication, the target bucket, and the target KMS key and it is still not working. What is missing to make the S3 replication work?
 
+
 [ ] This is not a supported feature
+
 [ ] You have to raise a support ticket for AWS to start this replication process for you
+
 [x] **You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service**
+
 [ ] The source KMS Key and the target KMS key must be the same
 
 **Correct Answer:** ✅ **You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service**

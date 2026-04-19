@@ -9,11 +9,15 @@ date: 2026-04-05
 
 You have configured a Lambda function to run each time an item is added to a DynamoDB table using DynamoDB Streams. The function is meant to insert messages into the SQS queue for further long processing jobs. Each time the Lambda function is invoked, it seems able to read from the DynamoDB Stream but it isn't able to insert the messages into the SQS queue. What do you think the problem is?
 
+
 [ ] Lambda can't be used to insert messages into the SQS queue, use an EC2 instance instead
+
 
 [ ] The Lambda Execution IAM Role is missing permissions
 
+
 [ ] The Lambda security group must allow outbound access to SQS
+
 
 [ ] The SQS security group must be edited to allow AWS Lambda
 

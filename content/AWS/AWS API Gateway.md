@@ -9,7 +9,9 @@ date: 2026-04-05
 
 When you are using an Edge-Optimized API Gateway, your API Gateway lives in CloudFront Edge Locations across all AWS Regions.
 
+
 [ ] False
+
 
 [ ] True
 

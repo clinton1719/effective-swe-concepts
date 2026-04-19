@@ -9,11 +9,15 @@ date: 2026-04-04
 
 You are migrating your on-premises Docker-based applications to Amazon ECS. You were using Docker Hub Container Image Library as your container image repository. Which is an alternative AWS service which is fully integrated with Amazon ECS?
 
+
 [ ] AWS Fargate
+
 
 [ ] Elastic Container Registry (ECR)
 
+
 [ ] Elastic Kubernetes Service (EKS)
+
 
 [ ] Amazon EC2
 
@@ -26,7 +30,9 @@ You are migrating your on-premises Docker-based applications to Amazon ECS. You 
 
 You have an application hosted on an ECS Cluster (EC2 Launch Type) where you want your ECS tasks to upload files to an S3 bucket. Which IAM Role for your ECS Tasks should you modify?
 
+
 [ ] EC2 Instance Profile
+
 
 [ ] ECS Task Role
 
@@ -39,9 +45,12 @@ You have an application hosted on an ECS Cluster (EC2 Launch Type) where you wan
 
 You have multiple Docker-based applications hosted on-premises that you want to migrate to AWS. You don't want to provision or manage any infrastructure; you just want to run your containers on AWS. Which AWS service should you choose?
 
+
 [ ] Elastic Container Service (ECS) in EC2 Launch Mode
 
+
 [ ] Elastic Container Registry (ECR)
+
 
 [ ] AWS Fargate on ECS
 
@@ -54,11 +63,15 @@ You have multiple Docker-based applications hosted on-premises that you want to 
 
 You are deploying an application on an ECS Cluster made of EC2 instances. Currently, the cluster is hosting one application that is issuing API calls to DynamoDB successfully. Upon adding a second application, which issues API calls to S3, you are getting authorization issues. What should you do to resolve the problem and ensure proper security?
 
+
 [ ] Edit the EC2 instance role to add permissions to S3
+
 
 [ ] Create an IAM task role for the new application
 
+
 [ ] Enable the Fargate mode
+
 
 [ ] Edit the S3 bucket policy to allow the ECS task
 
@@ -71,9 +84,12 @@ You are deploying an application on an ECS Cluster made of EC2 instances. Curren
 
 You're planning to migrate a WordPress website running on Docker containers from on-premises to AWS. You have decided to run the application in an ECS Cluster, but you want your docker containers to access the same WordPress website content such as website files, images, videos, etc. What do you recommend to achieve this?
 
+
 [ ] Mount an EFS volume
 
+
 [ ] Mount an EBS volume
+
 
 [ ] Use an EC2 Instance Store
 
@@ -86,9 +102,12 @@ You're planning to migrate a WordPress website running on Docker containers from
 
 Amazon Elastic Container Service (ECS) has two Launch Types: .................. and ..................
 
+
 [ ] Amazon EC2 Launch Type and Fargate Launch Type
 
+
 [ ] Amazon EC2 Launch Type and EKS Launch Type
+
 
 [ ] Fargate Launch Type and EKS Launch Type
 
@@ -103,11 +122,15 @@ Amazon Elastic Container Service (ECS) has two Launch Types: .................. 
 
 A developer has a running website and APIs on his local machine using containers and he wants to deploy both of them on AWS. The developer is new to AWS and doesn’t know much about different AWS services. Which of the following AWS services allows the developer to build and deploy the website and the APIs in the easiest way according to AWS best practices?
 
+
 [ ] AWS App Runner
+
 
 [ ] EC2 Instances + Application Load Balancer
 
+
 [ ] Amazon ECS
+
 
 [ ] AWS Fargate
 
@@ -120,11 +143,15 @@ A developer has a running website and APIs on his local machine using containers
 
 Amazon EKS supports the following node types, EXCEPT ………………..
 
+
 [ ] Managed Node Groups
+
 
 [ ] Self-Managed Nodes
 
+
 [ ] AWS Fargate
+
 
 [ ] AWS Lambda
 

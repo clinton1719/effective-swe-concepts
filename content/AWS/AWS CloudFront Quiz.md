@@ -8,11 +8,15 @@ date: 2026-03-29
 ## Question 1
 You have a CloudFront Distribution that serves your website hosted on a fleet of EC2 instances behind an Application Load Balancer. All your clients are from the United States, but you found that some malicious requests are coming from other countries. What should you do to only allow users from the US and block other countries?
 
+
 [ ] Use CloudFront Geo Restriction
+
 
 [ ] Use Origin Access Control
 
+
 [ ] Set up a security group and attach it to your CloudFront Distribution
+
 
 [ ] Use a Route 53 Latency record and attach it to CloudFront
 
@@ -26,9 +30,12 @@ Note: Security Groups cannot be attached directly to CloudFront, and Origin Acce
 
 A WordPress website is hosted in a set of EC2 instances in an EC2 Auto Scaling Group and fronted by a CloudFront Distribution which is configured to cache the content for 3 days. You have released a new version of the website and want to release it immediately to production without waiting for 3 days for the cached content to be expired. What is the easiest and most efficient way to solve this?
 
+
 [ ] Open a support ticket with AWS Support to remove the CloudFront Cache
 
+
 [ ] CloudFront Cache Invalidation
+
 
 [ ] EC2 Cache Invalidation
 
@@ -39,11 +46,15 @@ Explanation: When you need to remove files from CloudFront edge caches before th
 ## Question 3
 A company is deploying a media-sharing website to AWS. They are going to use CloudFront to deliver the content with low latency to their customers where they are located in both US and Europe only. After a while there a huge costs for CloudFront. Which CloudFront feature allows you to decrease costs by targeting only US and Europe?
 
+
 [ ] CloudFront Cache Invalidation
+
 
 [ ] CloudFront Price Classes
 
+
 [ ] CloudFront Cache Behavior
+
 
 [ ] Origin Access Control
 
@@ -55,11 +66,15 @@ Explanation: CloudFront charges different rates based on the Edge Location used.
 
 You have a media-sharing website that uses an S3 bucket as an origin for a CloudFront Distribution. You want to serve your content only to authenticated users. You have already set up a CloudFront Signed URL for your content. However, your users can still access your content directly from the S3 bucket. What should you do to prevent this?
 
+
 [ ] Use a CloudFront Cache Policy to block S3 access
+
 
 [ ] Configure Origin Access Control (OAC) and update the S3 Bucket Policy to allow access only from CloudFront
 
+
 [ ] Use a Lambda@Edge function to verify the URL on every S3 request
+
 
 [ ] Create a secondary S3 bucket for authenticated users
 
@@ -92,9 +107,12 @@ What does this S3 bucket policy do?
 }
 ```
 
+
 [ ] Forces GetObject request to be encrypted if coming from CloudFront
 
+
 [ ] Only allows the S3 bucket content to be accessed from your CloudFront Distribution
+
 
 [ ] Only allows GetObject type of request on the S3 bucket from anybody
 
@@ -107,11 +125,15 @@ What does this S3 bucket policy do?
 
 You are running a photo-sharing website where your images are downloaded from all over the world. Every month you publish a master pack of beautiful mountain images that are over 15 GB in size. The content is currently hosted on an Elastic File System (EFS) file system and distributed by an Application Load Balancer and a set of EC2 instances. Each month, you are experiencing very high traffic which increases the load on your EC2 instances and increases network costs. What do you recommend to reduce EC2 load and network costs without refactoring your website?
 
+
 [ ] Hosts the master pack into S3
+
 
 [ ] Enable Application Load Balancer Caching
 
+
 [ ] Scale up the EC2 instances
+
 
 [ ] Create a CloudFront Distribution
 

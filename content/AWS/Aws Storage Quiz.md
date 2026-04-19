@@ -9,11 +9,15 @@ date: 2026-03-29
 
 A company uses a lot of files and data which is stored in an FSx for Windows File Server storage on AWS. Those files are currently used by the resources hosted on AWS. There’s a requirement for those files to be accessed on-premises with low latency. Which AWS service can help you achieve this?
 
+
 [ ] S3 File Gateway
+
 
 [ ] FSx for Windows File Server On-Premises
 
+
 [ ] FSx File Gateway
+
 
 [ ] Volume Gateway
 
@@ -26,11 +30,15 @@ A company uses a lot of files and data which is stored in an FSx for Windows Fil
 
 Which AWS service is best suited to migrate a large amount of data from an S3 bucket to an EFS file system?
 
+
 [ ] AWS Snowball
+
 
 [ ] AWS DataSync
 
+
 [ ] AWS Transfer Family
+
 
 [ ] AWS Backup
 
@@ -45,11 +53,15 @@ Which AWS service is best suited to migrate a large amount of data from an S3 bu
 
 A Solutions Architect is working on planning the migration of a startup company from on-premises to AWS. Currently, their infrastructure consists of many servers and 30 TB of data hosted on a shared NFS storage. He has decided to use Amazon S3 to host the data. Which AWS service can efficiently migrate the data from on-premises to S3?
 
+
 [ ] AWS Storage Tape Gateway
+
 
 [ ] Amazon EBS
 
+
 [ ] AWS Transfer Family
+
 
 [ ] AWS DataSync
 
@@ -62,9 +74,12 @@ A Solutions Architect is working on planning the migration of a startup company 
 
 You are planning to migrate your company's infrastructure from on-premises to AWS Cloud. You have an on-premises Microsoft Windows File Server that you want to migrate. What is the most suitable AWS service you can use?
 
+
 [ ] Amazon FSx for Windows (File Server)
 
+
 [ ] AWS Storage Gateway - S3 File Gateway
+
 
 [ ] AWS Managed Microsoft AD
 
@@ -77,11 +92,15 @@ You are planning to migrate your company's infrastructure from on-premises to AW
 
 You have a large dataset stored in S3 that you want to access from on-premises servers using the NFS or SMB protocol. Also, you want to authenticate access to these files through on-premises Microsoft AD. What would you use?
 
+
 [ ] AWS Storage Gateway - Volume Gateway
+
 
 [ ] AWS Storage Gateway - S3 File Gateway
 
+
 [ ] AWS Storage Gateway - Tape Gateway
+
 
 [ ] AWS Data Migration Service
 
@@ -94,11 +113,15 @@ You have a large dataset stored in S3 that you want to access from on-premises s
 
 Your EC2 Windows Servers need to share some data by having a Network File System mounted on them which respects the Windows security mechanisms and has integration with Microsoft Active Directory. What do you recommend?
 
+
 [ ] Amazon FSx for Windows (File Server)
+
 
 [ ] Amazon EFS
 
+
 [ ] Amazon FSx for Lustre
+
 
 [ ] S3 File Gateway
 
@@ -113,11 +136,15 @@ Your EC2 Windows Servers need to share some data by having a Network File System
 
 Which AWS service is best suited when migrating from an on-premises ZFS file system to AWS?
 
+
 [ ] Amazon FSx for OpenZFS
+
 
 [ ] Amazon FSx for NetApp ONTAP
 
+
 [ ] Amazon FSx for Windows File Server
+
 
 [ ] Amazon FSx for Luster
 
@@ -130,13 +157,18 @@ Which AWS service is best suited when migrating from an on-premises ZFS file sys
 
 A company is running Amazon S3 File Gateway to host their data on S3 buckets and is able to mount them on-premises using SMB. The data currently is hosted on S3 Standard storage class and there is a requirement to reduce the costs for S3. So, they have decided to migrate some of those data to S3 Glacier. What is the most efficient way they can use to move the data to S3 Glacier automatically?
 
+
 [ ] Create a Lambda function to migrate data to S3 Glacier and periodically trigger it every day using Amazon EventBridge
+
 
 [ ] Use S3 Batch Operations to loop through S3 files and move them to S3 Glacier every day
 
+
 [ ] Use S3 Lifecycle Policy
 
+
 [ ] Use AWS DataSync to replicate data to S3 Glacier every day
+
 
 [ ] Configure S3 File Gateway to send the data to S3 Glacier directly
 
@@ -151,11 +183,15 @@ A company is running Amazon S3 File Gateway to host their data on S3 buckets and
 
 Which of the following protocols is NOT supported by AWS Transfer Family?
 
+
 [ ] File Transfer Protocol (FTP)
+
 
 [ ] File Transfer Protocol over SSL (FTPS)
 
+
 [ ] Transport Layer Security (TLS)
+
 
 [ ] Secure File Transfer Protocol (SFTP)
 
@@ -168,11 +204,15 @@ Which of the following protocols is NOT supported by AWS Transfer Family?
 
 You want to expose virtually infinite storage for your tape backups. You want to keep the same software you're using and want an iSCSI compatible interface. What do you use?
 
+
 [ ] AWS Snowball
+
 
 [ ] AWS Storage Gateway - Tape Gateway
 
+
 [ ] AWS Storage Gateway - Volume Gateway
+
 
 [ ] AWS Storage Gateway - S3 File Gateway
 
@@ -185,11 +225,15 @@ You want to expose virtually infinite storage for your tape backups. You want to
 
 You need to move hundreds of Terabytes into Amazon S3, then process the data using a fleet of EC2 instances. You have a 1 Gbit/s broadband. You would like to move the data faster and possibly processing it while in transit. What do you recommend?
 
+
 [ ] Use your network
+
 
 [ ] Use Snowcone
 
+
 [ ] Use AWS Data Migration
+
 
 [ ] Use Snowball Edge
 
@@ -202,7 +246,9 @@ You need to move hundreds of Terabytes into Amazon S3, then process the data usi
 
 Which deployment option in the FSx file system provides you with long-term storage that's replicated within AZ?
 
+
 [ ] Scratch File System
+
 
 [ ] Persistent File System
 
@@ -215,11 +261,15 @@ Which deployment option in the FSx file system provides you with long-term stora
 
 You would like to have a distributed POSIX-compliant file system that will allow you to maximize the IOPS in order to perform some High-Performance Computing (HPC) and genomics computational research. This file system has to easily scale to millions of IOPS. What do you recommend?
 
+
 [ ] EFS with Max. IO enabled
+
 
 [ ] Amazon FSx for Lustre
 
+
 [ ] Amazon S3 mounted on the EC2 instances
+
 
 [ ] EC2 Instance Store
 
@@ -232,9 +282,12 @@ You would like to have a distributed POSIX-compliant file system that will allow
 
 You have on-premises sensitive files and documents that you want to regularly synchronize to AWS to keep another copy. Which AWS service can help you with that?
 
+
 [ ] AWS Database Migration Service
 
+
 [ ] Amazon EFS
+
 
 [ ] AWS DataSync
 
@@ -247,11 +300,15 @@ You have on-premises sensitive files and documents that you want to regularly sy
 
 AWS DataSync supports the following locations, EXCEPT ....................
 
+
 [ ] Amazon S3
+
 
 [ ] Amazon EBS
 
+
 [ ] Amazon EFS
+
 
 [ ] Amazon FSx for Windows File Server
 
@@ -264,11 +321,15 @@ AWS DataSync supports the following locations, EXCEPT ....................
 
 A Machine Learning company is working on a set of datasets that are hosted on S3 buckets. The company decided to release those datasets to the public to be useful for others in their research, but they don’t want to configure the S3 bucket to be public. And those datasets should be exposed over the FTP protocol. What can they do to do the requirement efficiently and with the least effort?
 
+
 [ ] Use AWS Transfer Family
+
 
 [ ] Create an EC2 instance with an FTP server installed then copy the data from S3 to the EC2 instance
 
+
 [ ] Use AWS Storage Gateway
+
 
 [ ] Copy the data from S3 to an EFS file system, then expose them over the FTP protocol
 
@@ -281,11 +342,15 @@ A Machine Learning company is working on a set of datasets that are hosted on S3
 
 You have hundreds of Terabytes that you want to migrate to AWS S3 as soon as possible. You tried to use your network bandwidth and it will take around 3 weeks to complete the upload process. What is the recommended approach to using in this situation?
 
+
 [ ] AWS Storage Gateway - Volume Gateway
+
 
 [ ] S3 Multi-part Upload
 
+
 [ ] AWS Snowball Edge
+
 
 [ ] AWS Data Migration Service
 
@@ -298,11 +363,15 @@ You have hundreds of Terabytes that you want to migrate to AWS S3 as soon as pos
 
 Amazon FSx for NetApp ONTAP is compatible with the following protocols, EXCEPT ………………
 
+
 [ ] NFS
+
 
 [ ] SMB
 
+
 [ ] FTP
+
 
 [ ] iSCSI
 

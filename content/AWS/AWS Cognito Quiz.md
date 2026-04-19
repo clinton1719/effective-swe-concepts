@@ -9,11 +9,15 @@ date: 2026-04-05
 
 You are running a mobile application where you want each registered user to upload/download images to/from his own folder in the S3 bucket. Also, you want to give your users to sign-up and sign in using their social media accounts (e.g., Facebook). Which AWS service should you choose?
 
+
 [ ] AWS Identity and Access Management (IAM)
+
 
 [ ] AWS IAM Identity Center
 
+
 [ ] Amazon Cognito
+
 
 [ ] Amazon CloudFront
 
@@ -28,11 +32,15 @@ You are running a mobile application where you want each registered user to uplo
 
 You have a mobile application and would like to give your users access to their own personal space in the S3 bucket. How do you achieve that?
 
+
 [ ] Generate IAM user credentials for each of your application's users
+
 
 [ ] Use Amazon Cognito Identity Federation
 
+
 [ ] Use SAML Identity Federation
+
 
 [ ] Use a Bucket Policy to make your bucket public
 
@@ -45,11 +53,15 @@ You have a mobile application and would like to give your users access to their 
 
 You are developing a new web and mobile application that will be hosted on AWS and currently, you are working on developing the login and signup page. The application backend is serverless and you are using Lambda, DynamoDB, and API Gateway. Which of the following is the best and easiest approach to configure the authentication for your backend?
 
+
 [ ] Store users’ credentials in a DynamoDB table encrypted using KMS
+
 
 [ ] Store users’ credentials in an S3 bucket encrypted using KMS
 
+
 [ ] Use Cognito User Pools
+
 
 [ ] Store users’ credentials in AWS Secrets Manager
 

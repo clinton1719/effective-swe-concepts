@@ -9,11 +9,15 @@ date: 2026-04-05
 
 A website is currently in the development process and it is going to be hosted on AWS. There is a requirement to store user sessions for users logged in to the website with an automatic expiry and deletion of expired user sessions. Which of the following AWS services are best suited for this use case?
 
+
 [ ] Store users’ sessions in an S3 bucket and enable S3 Lifecycle Policy
+
 
 [ ] Store users’ sessions locally in an EC2 instance
 
+
 [ ] Store users’ sessions in a DynamoDB table and enable TTL
+
 
 [ ] Store users’ sessions in an EFS file system
 
@@ -26,11 +30,15 @@ A website is currently in the development process and it is going to be hosted o
 
 A company has a serverless application on AWS which consists of Lambda, DynamoDB, and Step Functions. In the last month, there are an increase in the number of requests against the application which results in an increase in DynamoDB costs, and requests started to be throttled. After further investigation, it shows that the majority of requests are read requests against some queries in the DynamoDB table. What do you recommend to prevent throttles and reduce costs efficiently?
 
+
 [ ] Use an EC2 instance with Redis installed and place it between the Lambda function and the DynamoDB table
+
 
 [ ] Migrate from DynamoDB to Aurora and use ElastiCache to cache the most requested read data
 
+
 [ ] Migrate from DynamoDB to S3 and use CloudFront to cache the most requested read data
+
 
 [ ] Use DynamoDB Accelerator (DAX) to cache the most requested read data
 
@@ -42,11 +50,15 @@ A company has a serverless application on AWS which consists of Lambda, DynamoDB
 ## Question 3
 The maximum size of an item in a DynamoDB table is ...................
 
+
 [ ] 1 MB
+
 
 [ ] 500 KB
 
+
 [ ] 400 KB
+
 
 [ ] 400 MB
 
@@ -58,11 +70,15 @@ Explanation: The maximum size of an item in Amazon DynamoDB is 400 KB. This limi
 
 You have an application that is served globally using CloudFront Distribution. You want to authenticate users at the CloudFront Edge Locations instead of authentication requests go all the way to your origins. What should you use to satisfy this requirement?
 
+
 [ ] Lambda@Edge
+
 
 [ ] API Gateway
 
+
 [ ] DynamoDB
+
 
 [ ] AWS Global Accelerator
 
@@ -75,11 +91,15 @@ You have an application that is served globally using CloudFront Distribution. Y
 
 You are a DevOps engineer in a football company that has a website that is backed by a DynamoDB table. The table stores viewers’ feedback for football matches. You have been tasked to work with the analytics team to generate reports on the viewers’ feedback. The analytics team wants the data in DynamoDB in json format and hosted in an S3 bucket to start working on it and create the reports. What is the best and most cost-effective way to convert DynamoDB data to json files?
 
+
 [ ] Select DynamoDB table then select Export to S3
+
 
 [ ] Create a Lambda function to read DynamoDB data, convert them to json files, then store the files in S3 bucket
 
+
 [ ] Use AWS Transfer Family
+
 
 [ ] Use AWS DataSync
 
@@ -92,9 +112,12 @@ You are a DevOps engineer in a football company that has a website that is backe
 
 You have provisioned a DynamoDB table with 10 RCUs and 10 WCUs. A month later you want to increase the RCU to handle more read traffic. What should you do?
 
+
 [ ] Increase RCU and keep WCU the same
 
+
 [ ] You need to increase both RCU and WCU
+
 
 [ ] Increase RCU and decrease WCU
 
@@ -107,9 +130,12 @@ You have provisioned a DynamoDB table with 10 RCUs and 10 WCUs. A month later yo
 
 You have an e-commerce website where you are using DynamoDB as your database. You are about to enter the Christmas sale and you have a few items which are very popular and you expect that they will be read often. Unfortunately, last year due to the huge traffic you had the ProvisionedThroughputExceededException exception. What would you do to prevent this error from happening again?
 
+
 [ ] Increase the RCU to a very high value
 
+
 [ ] Create a DAX Cluster
+
 
 [ ] Migrate the database away from DynamoDB for the time of the sale
 
@@ -122,9 +148,12 @@ You have an e-commerce website where you are using DynamoDB as your database. Yo
 
 You have created a Lambda function that typically will take around 1 hour to process some data. The code works fine when you run it locally on your machine, but when you invoke the Lambda function it fails with a "timeout" error after 3 seconds. What should you do?
 
+
 [ ] Configure your Lambda's timeout to 25 minutes
 
+
 [ ] Configure your Lambda's memory to 10 GB
+
 
 [ ] Run your code somewhere else (e.g., EC2 instance)
 
@@ -137,11 +166,15 @@ You have created a Lambda function that typically will take around 1 hour to pro
 
 You are running an application in production that is leveraging DynamoDB as its datastore and is experiencing smooth sustained usage. There is a need to make the application run in development mode as well, where it will experience the unpredictable volume of requests. What is the most cost-effective solution that you recommend?
 
+
 [ ] Use Provisioned Capacity Mode with Auto Scaling enabled for both development and production
+
 
 [ ] Use Provisioned Capacity Mode with Auto Scaling enabled for production and use On-Demand Capacity Mode for development
 
+
 [ ] Use Provisioned Capacity Mode with Auto Scaling enabled for development and use On-Demand Capacity Mode for production
+
 
 [ ] Use On-Demand Capacity Mode for both development and production
 
@@ -154,9 +187,12 @@ You are running an application in production that is leveraging DynamoDB as its 
 
 You have developed a mobile application that uses DynamoDB as its datastore. You want to automate sending welcome emails to new users after they sign up. What is the most efficient way to achieve this?
 
+
 [ ] Schedule a Lambda function to run every minute using CloudWatch Events, scan the entire table looking for new users
 
+
 [ ] Enable SNS and DynamoDB integration
+
 
 [ ] Enable DynamoDB Streams and configure it to invoke a Lambda function to send emails
 
@@ -169,11 +205,15 @@ You have developed a mobile application that uses DynamoDB as its datastore. You
 
 You have created a DynamoDB table in ap-northeast-1 and would like to make it available in eu-west-1, so you decided to create a DynamoDB Global Table. What needs to be enabled first before you create a DynamoDB Global Table?
 
+
 [ ] DynamoDB Streams
+
 
 [ ] DynamoDB DAX
 
+
 [ ] DynamoDB Versioning
+
 
 [ ] DynamoDB Backups
 
@@ -186,11 +226,15 @@ You have created a DynamoDB table in ap-northeast-1 and would like to make it av
 
 Which AWS service provides you with caching capability that is compatible with Redis API?
 
+
 [ ] Amazon RDS
+
 
 [ ] Amazon DynamoDB
 
+
 [ ] Amazon OpenSearch
+
 
 [ ] Amazon ElastiCache
 
@@ -203,11 +247,15 @@ Which AWS service provides you with caching capability that is compatible with R
 
 You are looking to perform Online Transaction Processing (OLTP). You would like to use a database that has built-in auto-scaling capabilities and provides you with the maximum number of replicas for its underlying storage. What AWS service do you recommend?
 
+
 [ ] Amazon ElastiCache
+
 
 [ ] Amazon Neptune
 
+
 [ ] Amazon Aurora
+
 
 [ ] Amazon RDS
 
@@ -225,11 +273,15 @@ Performance: It offers up to 5x the throughput of standard MySQL and 3x the thro
 
 As a Solutions Architect, a startup company asked you for help as they are working on an architecture for a social media website where users can be friends with each other, and like each other's posts. The company plan on performing some complicated queries such as "What are the number of likes on the posts that have been posted by the friends of Mike?". Which database do you recommend?
 
+
 [ ] Amazon RDS
+
 
 [ ] Amazon QLDB
 
+
 [ ] Amazon Neptune
+
 
 [ ] Amazon OpenSearch
 
@@ -242,11 +294,15 @@ As a Solutions Architect, a startup company asked you for help as they are worki
 
 A startup is working on developing a new project to reduce forest fires due to climate change. The startup is developing sensors that will be spread across the entire forest to make some readings such as temperature, humidity, and pressures which will help detect the forest fires before it happens. They are going to have thousands of sensors that are going to store a lot of readings each second. There is a requirement to store those readings and do fast analytics so they can predict if there is a fire. Which AWS service can they use to store those readings?
 
+
 [ ] Amazon Timestream
+
 
 [ ] Amazon Neptune
 
+
 [ ] Amazon S3
+
 
 [ ] Amazon ElastiCache
 
@@ -259,11 +315,15 @@ A startup is working on developing a new project to reduce forest fires due to c
 
 A company using a self-hosted on-premises Apache Cassandra database which they want to migrate to AWS. Which AWS service can they use which provides them with a fully managed, highly available, and scalable Apache Cassandra database?
 
+
 [ ] Amazon DocumentDB
+
 
 [ ] Amazon DynamoDB
 
+
 [ ] Amazon Timestream
+
 
 [ ] Amazon Keyspaces
 
@@ -276,11 +336,15 @@ A company using a self-hosted on-premises Apache Cassandra database which they w
 
 A company has an on-premises website that uses ReactJS as its frontend, NodeJS as its backend, and MongoDB for the database. There are some issues with the self-hosted MongoDB database as there is a lot of maintenance required and they don’t have and can’t afford the resources or experience to handle those issues. So, a decision was made to migrate the website to AWS. They have decided to host the frontend ReactJS application in an S3 bucket and the NodeJS backend on a set of EC2 instances. Which AWS service can they use to migrate the MongoDB database that provides them with high scalability and availability without making any code changes?
 
+
 [ ] Amazon ElastiCache
+
 
 [ ] Amazon DocumentDB
 
+
 [ ] Amazon Neptune
+
 
 [ ] Amazon RDS for MongoDB
 
@@ -295,11 +359,15 @@ A company has an on-premises website that uses ReactJS as its frontend, NodeJS a
 
 An online payment company is using AWS to host its infrastructure. Due to the application’s nature, they have a strict requirement to store an accurate record of financial transactions such as credit and debit transactions. Those transactions must be stored in secured, immutable, encrypted storage which can be cryptographically verified. Which AWS service is best suited for this use case?
 
+
 [ ] Amazon DocumentDB
+
 
 [ ] Amazon Aurora
 
+
 [ ] Amazon QLDB
+
 
 [ ] Amazon Neptune
 
@@ -312,11 +380,15 @@ An online payment company is using AWS to host its infrastructure. Due to the ap
 
 You have a set of files, 100MB each, that you want to store in a reliable and durable key-value store. Which AWS service do you recommend?
 
+
 [ ] Amazon Aurora
+
 
 [ ] Amazon S3
 
+
 [ ] Amazon DynamoDB
+
 
 [ ] Amazon ElastiCache
 
@@ -329,11 +401,15 @@ You have a set of files, 100MB each, that you want to store in a reliable and du
 
 Which database helps you store relational datasets, with SQL language compatibility and the capability of processing transactions such as insert, update, and delete?
 
+
 [ ] Amazon DocumentDB
+
 
 [ ] Amazon RDS
 
+
 [ ] Amazon DynamoDB
+
 
 [ ] Amazon ElastiCache
 
@@ -346,11 +422,15 @@ Which database helps you store relational datasets, with SQL language compatibil
 
 You want to migrate an on-premises MongoDB NoSQL database to AWS. You don't want to manage any database servers, so you want to use a managed NoSQL Serverless database, that provides you with high availability, durability, and reliability, and the capability to take your database global. Which database should you choose?
 
+
 [ ] Amazon RDS
+
 
 [ ] Amazon DynamoDB
 
+
 [ ] Amazon DocumentDB
+
 
 [ ] Amazon Aurora
 

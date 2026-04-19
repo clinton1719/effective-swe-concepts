@@ -9,9 +9,13 @@ date: 2026-04-15
 
 When configuring permissions for EventBridge to configure a Lambda function as a target you should use ………………….. but when you want to configure a Kinesis Data Streams as a target you should use …………………..
 
+
 [ ] Identity-Based Policy, Resource-based Policy
+
 [x] Resource-Based Policy, Identity-based Policy
+
 [ ] Identity-Based Policy, Identity-Based Policy
+
 [ ] Resource-based Policy, Resource-based Policy
 
 **Correct Answer:** ✅ Resource-Based Policy, Identity-based Policy
@@ -25,9 +29,13 @@ When configuring permissions for EventBridge to configure a Lambda function as a
 
 Which of the following IAM condition key you can use only to allow API calls to a specified AWS region?
 
+
 [ ] aws:RequiredRegion
+
 [ ] aws:SourceRegion
+
 [ ] aws:InitialRegion
+
 [x] aws:RequestedRegion
 
 **Correct Answer:** ✅ aws:RequestedRegion
@@ -54,8 +62,11 @@ You are managing the AWS account for your company, and you want to give one of t
         "Resource": "arn:aws:s3:::static-files-bucket-xxx"
      }]
 }
+
 [ ] Everything is okay, he just needs to logout and login again
+
 [ ] The bucket does not contain any files yet
+
 [x] You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
 ```
 
@@ -75,8 +86,11 @@ Without the wildcard, the policy is essentially trying to perform a "get file" a
 
 You have 5 AWS Accounts that you manage using AWS Organizations. You want to restrict access to certain AWS services in each account. How should you do that?
 
+
 [ ] Using IAM Roles
+
 [x] Using AWS Organizations SCP
+
 [ ] Using AWS Config
 
 **Correct Answer:** ✅ Amazon CloudWatch
@@ -89,9 +103,13 @@ Even if a user is granted `AdministratorAccess` within their specific account, a
 
 You have strong regulatory requirements to only allow fully internally audited AWS services in production. You still want to allow your teams to experiment in a development environment while services are being audited. How can you best set this up?
 
+
 [ ] Provide the Dev team with a completely independent AWS account
+
 [ ] Apply a global IAM policy on your Prod account
+
 [x] Create an AWS Organization and create two Prod and Dev OUs, then Apply an SCP on the Prod OU
+
 [ ] Create an AWS Config Rule
 
 **Correct Answer:** ✅ Create an AWS Organization and create two Prod and Dev OUs, then Apply an SCP on the Prod OU
