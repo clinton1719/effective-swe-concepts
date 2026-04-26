@@ -259,3 +259,27 @@ You would like to evaluate the compliance of your resource's configurations over
 **Correct Answer:** ✅ AWS Config
 
 **Explanation:** **AWS Config** is specifically designed to provide a detailed view of the configuration of AWS resources in your account. This includes how resources are related to one another and how their configurations have changed over time. By using **Config Rules**, you can evaluate whether these configurations comply with your desired settings (e.g., "Are all S3 buckets encrypted?"). The service maintains a **Configuration History** and a **Configuration Timeline**, allowing you to look back at any point in time to see the state of a resource and its compliance status.
+
+## Question 17
+
+What is the minimum time interval for the data that Amazon CloudWatch receives and aggregates?
+
+[ ] **One second.**
+
+[ ] Five seconds.
+
+[ ] One minute.
+
+[ ] Three minutes.
+
+[ ] Five minutes.
+
+**Correct Answer:** ✅ **One second.**
+
+**Explanation:** CloudWatch offers two levels of monitoring granularity:
+
+* **High-Resolution Metrics:** These allow for a minimum interval of **one second**. This is useful for monitoring highly volatile metrics where you need immediate visibility into spikes or drops.
+* **Standard Resolution:** This is the default setting, which provides data at a one-minute granularity.
+
+Note that while CloudWatch can receive data at one-second intervals, many standard AWS service metrics (like EC2 basic monitoring) default to five-minute intervals unless you enable **Detailed Monitoring**, which brings the interval down to one minute. However, for custom metrics, the absolute minimum supported interval is one second.
+
