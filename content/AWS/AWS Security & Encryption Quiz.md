@@ -1,6 +1,6 @@
 ---
 title: AWS Security & Encryption Quiz
-tags: [aws, aws-kms, aws-ssm, aws-acm, aws-shield, aws-guardduty, aws-macie, aws-inspector]
+tags: [aws, aws-kms, aws-ssm, aws-acm, aws-shield, aws-guardduty, aws-macie, aws-inspector, aws-waf]
 difficulty: medium
 date: 2026-04-19
 ---
@@ -506,4 +506,44 @@ You have an S3 bucket that is encrypted with SSE-KMS. You have been tasked to re
 
 
 
+
+## Question 24
+
+As a Solutions Architect, you have created an architecture for a company that includes the following AWS services: CloudFront, Web Application Firewall (AWS WAF), AWS Shield, Application Load Balancer, and EC2 instances managed by an Auto Scaling Group. Sometimes the company receives malicious requests and wants to block these IP addresses. According to your architecture, Where should you do it?
+
+[ ] CloudFront
+
+[ ] ✅ **AWS WAF**
+
+[ ] AWS Shield
+
+[ ] ALB Security Group
+
+[ ] EC2 Security Group
+
+[ ] NACL
+
+**Correct Answer:** ✅ **AWS WAF**
+
+**Explanation:** In a modern, layered AWS architecture, **AWS WAF (Web Application Firewall)** is the designated service for filtering and blocking malicious traffic based on specific IP addresses or request patterns.
+
+*   **Edge Protection:** By deploying AWS WAF on **CloudFront**, you block the malicious IP at the AWS Edge Location. This ensures the traffic never reaches your origin (ALB/EC2), saving bandwidth and compute costs.
+*   **IP Sets:** WAF allows you to create an "IP Set," which is a collection of IP addresses. You can then create a rule that says "If the source IP is in this set, BLOCK the request."
+*   **Layer 7 Visibility:** WAF operates at the Application Layer (Layer 7), meaning it can block IPs while also inspecting for other threats like SQL injection or Cross-Site Scripting (XSS).
+
+**Why the others are less ideal in this specific architecture:**
+*   **AWS Shield:** This service is primarily for DDoS protection (Layers 3, 4, and 7). While Shield Advanced integrates with WAF, the manual blocking of a specific known malicious IP is a standard WAF function.
+*   **NACL (Network Access Control List):** While NACLs can block IPs, they are stateless and applied at the Subnet level. Managing a large, changing list of IPs in a NACL is cumbersome compared to the WAF interface.
+*   **Security Groups:** These act as a firewall for your instances. While you can block IPs by *not* allowing them, Security Groups do not support "Deny" rules; they only support "Allow" rules.
+*   **CloudFront:** While CloudFront has a Geo-Blocking feature (blocking by country), it relies on AWS WAF for granular IP-level blocking.
+
+---
+
+### Comparison of Blocking Methods
+
+| Method | Layer | Capability | Best Use Case |
+| :--- | :--- | :--- | :--- |
+| **AWS WAF** | **7 (App)** | **Allow/Deny specific IPs** | **Blocking malicious web traffic/bots** |
+| **NACL** | 4 (Network) | Allow/Deny specific IPs | Broad network-level security |
+| **Security Group**| 4 (Network) | Allow only | Restricting access to specific ports |
 

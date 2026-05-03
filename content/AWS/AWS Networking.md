@@ -513,3 +513,39 @@ You have attached an Internet Gateway to your VPC, but your EC2 instances still 
 *   **Route Tables:** Even with an Internet Gateway (IGW) attached, you must manually add a route (typically `0.0.0.0/0`) pointing to that IGW in the subnet's route table. Without this "map," the instance doesn't know how to find the gateway.
 *   **Public IPs:** An IGW performs 1-to-1 NAT for instances. If an instance only has a private IP, it has no valid "return address" on the public internet, so communication will fail.
 *   **NACLs (Network Access Control Lists):** Unlike Security Groups, NACLs are **stateless**. If you allow outbound traffic but forget to allow the return traffic on the ephemeral ports in the inbound rules, the connection will be dropped.
+
+## Question 24
+
+You have a set of Linux EC2 instances deployed in a Cluster Placement Group in order to perform High-Performance Computing (HPC). You would like to maximize network performance between your EC2 instances. What should you use?
+
+[ ] ✅ **Elastic Fabric Adapter (EFA)**
+
+[ ] Elastic Network Interface (ENI)
+
+[ ] Elastic Network Adapter (ENA)
+
+[ ] FSx for Lustre
+
+**Correct Answer:** ✅ **Elastic Fabric Adapter (EFA)**
+
+**Explanation:** For High-Performance Computing (HPC) and Machine Learning workloads, **Elastic Fabric Adapter (EFA)** is the specialized network interface you need to maximize performance.
+
+*   **OS-Bypass:** The defining feature of EFA is "OS-bypass." This allows the application to communicate directly with the network interface hardware, bypassing the operating system kernel. This significantly reduces latency and jitter.
+*   **HPC Optimization:** It is specifically designed to enhance inter-node communications, which is critical for applications using Message Passing Interface (MPI) or NVIDIA Collective Communications Library (NCCL).
+*   **Scale:** While a standard ENA is great for general networking, EFA provides the ultra-low latency required when thousands of CPU or GPU cores need to work together as a single cluster.
+
+**Why the others are incorrect:**
+*   **Elastic Network Interface (ENI):** This is the basic virtual network card for an EC2 instance. It does not provide specialized performance enhancements.
+*   **Elastic Network Adapter (ENA):** This provides high throughput (up to 100 Gbps) and enhanced networking for most standard workloads, but it lacks the OS-bypass capability required for true HPC optimization.
+*   **FSx for Lustre:** While this is a high-performance file system often used *with* HPC, it is a storage service, not a network interface used for communication between instances.
+
+---
+
+### Comparison of EC2 Networking
+
+| Feature | Elastic Network Adapter (ENA) | Elastic Fabric Adapter (EFA) |
+| :--- | :--- | :--- |
+| **Primary Use** | General purpose, high-bandwidth apps | **HPC, Machine Learning, MPI** |
+| **Latency** | Low | **Ultra-low (via OS-bypass)** |
+| **Max Speed** | 100 Gbps+ | 100 Gbps+ |
+| **Protocol** | Standard TCP/UDP | **Scalable Reliable Datagram (SRD)** |
