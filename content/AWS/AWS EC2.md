@@ -26,3 +26,34 @@ A user has launched an EC2 instance. The instance got terminated as soon as it w
     * **AMI Missing / Snapshot Corrupt:** If the underlying EBS snapshot is corrupt or the AMI is no longer available/accessible at the moment of creation, the instance will fail to initialize and terminate immediately.
     * **Volume Limit:** If your account has reached the limit for EBS storage (e.g., total GiB of GP3 volumes), the instance may attempt to launch, fail to create the root volume, and then terminate.
     * **Other common reasons (not listed):** The EBS volume is encrypted and you don't have KMS permissions, or the root EBS volume is not found.
+
+
+## Question 2
+
+What is the most secure way to connect to an EC2 instance without exposing the SSH port 22?
+
+[ ] ✅ **SSM Session Manager**
+
+[ ] Site-to-Site VPN
+
+[ ] AWS Client VPN
+
+[ ] Bastion Host
+
+**Correct Answer:** ✅ **SSM Session Manager**
+
+**Explanation:** **AWS Systems Manager (SSM) Session Manager** is widely considered the most secure modern method for instance access because it fundamentally changes how connectivity works.
+
+*   **Zero Inbound Ports:** Unlike all other options, Session Manager requires **no inbound rules** in your Security Groups. You can completely close port 22. The SSM Agent on the instance initiates an *outbound* connection to the Systems Manager service over HTTPS (port 443).
+*   **No Key Management:** It eliminates the need to manage, rotate, or secure SSH keys (PEM files). Authentication is handled entirely through **IAM policies**, meaning you can grant access based on who the user is, not whether they possess a specific file.
+*   **Auditability:** Every command entered during a session can be logged to **Amazon CloudWatch Logs** or **Amazon S3**, providing a perfect audit trail for compliance.
+*   **No Public IP Needed:** You can connect to instances in private subnets without a NAT Gateway or a Public IP by using VPC Endpoints.
+
+**Why the others are less secure or more complex:**
+*   **Bastion Host:** While it keeps your internal instances private, the Bastion itself is a "jump box" that must be exposed to the internet on port 22, creating a single point of failure and a primary target for brute-force attacks.
+*   **Site-to-Site / Client VPN:** These are secure for broad network connectivity, but they are "heavy" solutions that require managing tunnels and certificates. Even with a VPN, the instance still typically has port 22 open to the internal network, which doesn't provide the same level of granular command logging and IAM-based access as SSM.
+
+---
+
+> **Pro Tip:** If an exam question asks for access that is **"most secure,"** involves **"no port 22,"** or requires **"audit logs of commands,"** the answer is almost always **SSM Session Manager**.
+
