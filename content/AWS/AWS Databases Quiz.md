@@ -445,4 +445,232 @@ You want to migrate an on-premises MongoDB NoSQL database to AWS. You don't want
 
 
 
+## Question 22
 
+You have set up read replicas on your RDS database, but users are complaining that upon updating their social media posts, they do not see their updated posts right away. What is a possible cause for this?
+
+[ ] There must be a bug in your application
+
+[ ] Read Replicas have Asynchronous Replication, therefore it's likely your users will only read Eventual Consistency
+
+[ ] You should have setup Multi-AZ instead
+
+**Correct Answer:** Read Replicas have Asynchronous Replication, therefore it's likely your users will only read Eventual Consistency
+
+### Explanation
+This scenario illustrates the trade-off between performance and consistency in distributed database systems, specifically regarding **Replication Lag**.
+
+*   **Asynchronous Replication:** RDS Read Replicas use an asynchronous mechanism where the primary database instance writes data to its local storage and acknowledges the transaction to the application *before* the data is sent to the replica.
+*   **Eventual Consistency:** Because the replication happens after the write, there is a time delay (lag). If an application writes a post to the primary and immediately tries to read it from a replica, the replica might not have received the update yet.
+*   **Replication Lag Metric:** You can monitor the `ReplicaLag` metric in CloudWatch. Lag can increase due to high write volume on the primary, network latency, or insufficient instance sizing on the replica.
+*   **Read-After-Write Consistency:** To ensure a user sees their own update immediately, the application logic should be designed to read highly critical or recently updated data from the **Primary (Writer) Endpoint** rather than the Reader endpoint.
+
+### Comparison: Multi-AZ vs. Read Replicas
+| Feature | Multi-AZ (High Availability) | Read Replicas (Scalability) |
+| :--- | :--- | :--- |
+| **Replication Type** | Synchronous | Asynchronous |
+| **Primary Purpose** | Disaster Recovery / Fault Tolerance | Scaling Read-heavy workloads |
+| **Consistency** | Strong Consistency | Eventual Consistency |
+| **Active Use** | Standby is passive (cannot be read) | Replicas are active (can be read) |
+| **Scope** | Regional (Across AZs) | Within Region or Cross-Region |
+
+### Note
+> While Multi-AZ provides synchronous replication, it does not solve this problem because the standby instance is not accessible for read traffic. It is strictly a failover target. To scale reads, you must use replicas and architect for eventual consistency.
+
+
+## Question 23
+
+You're planning for a new solution that requires a MySQL database that must be available even in case of a disaster in one of the Availability Zones. What should you use?
+
+[ ] Create Read Replicas
+
+[ ] Enable Encryption
+
+[ ] Enable Multi-AZ
+
+**Correct Answer:** Enable Multi-AZ
+
+### Explanation
+Amazon RDS Multi-AZ deployments provide high availability and failover support for DB instances. This is the standard "best practice" for production workloads requiring disaster recovery within a region.
+
+*   **Synchronous Replication:** When Multi-AZ is enabled, RDS automatically provisions and maintains a synchronous "standby" replica in a different Availability Zone. Every write to the primary is synchronously replicated to the standby.
+*   **Automatic Failover:** In the event of an AZ failure, primary instance failure, or even a planned maintenance event, RDS performs an automatic failover to the standby instance.
+*   **DNS Endpoint Persistence:** The application continues to use the same DNS endpoint; RDS simply updates the CNAME record to point to the standby-turned-primary instance. This typically completes in 60-120 seconds.
+*   **Disaster Recovery (DR):** Unlike Read Replicas, which are primarily for scaling, Multi-AZ is designed for durability and availability. It ensures no data loss during an AZ-level disaster because of its synchronous nature.
+
+### Comparison: RDS High Availability vs. Scalability
+| Feature | Multi-AZ (High Availability) | Read Replicas (Scalability) |
+| :--- | :--- | :--- |
+| **Replication** | Synchronous | Asynchronous |
+| **Primary Goal** | Disaster Recovery / Fault Tolerance | Scaling read-heavy workloads |
+| **Failover** | Automatic (managed by RDS) | Manual (must promote replica) |
+| **Instance Use** | Standby is passive (not accessible) | Replicas are active (readable) |
+| **Performance** | Slight write latency due to sync | Improved read throughput |
+
+### Note
+> To maximize availability, ensure your application is configured to handle the temporary connection loss during the 1-2 minute failover window (e.g., using a connection pooling library with retry logic).
+
+
+## Question 24
+
+You have an un-encrypted RDS DB instance and you want to create Read Replicas. Can you configure the RDS Read Replicas to be encrypted?
+
+[ ] No
+
+[ ] Yes
+
+**Correct Answer:** No
+
+### Explanation
+In Amazon RDS, the encryption state of a Read Replica is strictly tied to the encryption state of the primary (source) DB instance. 
+
+*   **Encryption Symmetry:** If the primary DB instance is unencrypted, you cannot create an encrypted Read Replica from it. Conversely, if the primary is encrypted, all Read Replicas must also be encrypted using the same or a different KMS key.
+*   **Fundamental Rule:** You cannot "encrypt on the fly" during the creation of a Read Replica. Encryption at rest must be enabled at the time the DB instance is created.
+*   **The Workaround (Migration Path):** To encrypt an existing unencrypted RDS instance, you must follow these specific steps:
+    1.  Create a **Snapshot** of the unencrypted DB instance.
+    2.  **Copy** that snapshot to a new snapshot while enabling **Encryption** during the copy process.
+    3.  **Restore** a new DB instance from the encrypted snapshot.
+    4.  Once the new encrypted primary is active, you can then create encrypted Read Replicas.
+
+### Encryption Compatibility Matrix
+| Source Instance State | Read Replica Capability | Action Required to Change |
+| :--- | :--- | :--- |
+| **Unencrypted** | Must be Unencrypted | Snapshot -> Copy (Encrypt) -> Restore |
+| **Encrypted** | Must be Encrypted | Cannot be decrypted |
+| **KMS Key Change** | Possible during Replica creation | Specify new KMS Key ID in Create call |
+
+### Note
+> While you cannot encrypt the storage of a replica if the master is unencrypted, you *can* and should ensure that **Encryption in Transit** (SSL/TLS) is enabled for the connection between the application and the database, regardless of the storage encryption state.
+
+## Question 25
+
+You have 100 EC2 instances connected to your RDS database and you see that upon a maintenance of the database, all your applications take a lot of time to reconnect to RDS, due to poor application logic. How do you improve this? 
+
+[ ] Fix all the applications
+
+[ ] Disable Multi-AZ 
+
+[ ] Enable Multi-AZ
+
+[ ] Use an RDS Proxy
+
+**Correct Answer:** Use an RDS Proxy
+
+### Explanation
+**Amazon RDS Proxy** is a fully managed, highly available database proxy that makes applications more scalable, more resilient to database failures, and more secure.
+
+*   **Connection Pooling:** Instead of every EC2 instance maintaining its own pool of idle connections, RDS Proxy pools and shares connections. This reduces the CPU and memory overhead on the database server caused by managing hundreds of open connections.
+*   **Reduced Failover Time:** During a database failover (due to maintenance or failure), RDS Proxy automatically connects to the new standby instance while maintaining the application connection. This can reduce failover times by up to **79%** because the application does not need to perform a DNS lookup or renegotiate a new connection.
+*   **Resiliency to Poor Logic:** If the application logic handles reconnection poorly (e.g., lack of exponential backoff or aggressive retry storms), RDS Proxy acts as a buffer, shielding the database from a "thundering herd" of reconnection requests.
+*   **IAM Authentication:** RDS Proxy allows you to enforce IAM authentication for database access, keeping database credentials out of application configuration files.
+
+### Comparison: Standard Connection vs. RDS Proxy
+| Feature | Direct RDS Connection | Using RDS Proxy |
+| :--- | :--- | :--- |
+| **Failover Handling** | App must detect failure and re-resolve DNS. | Proxy manages failover; App connection stays open. |
+| **Connection Limits** | Hard-capped by DB instance size (RAM). | Multiplexes many app connections to fewer DB connections. |
+| **Scaling Impact** | High overhead for "thundering herd" events. | Smooths out spikes and maintains stable DB load. |
+| **Authentication** | Database native (Username/Password). | Supports IAM and Secrets Manager integration. |
+
+### Note
+> While "Fix all the applications" is a valid long-term architectural goal, it is often impractical and time-consuming in large-scale environments. RDS Proxy provides an immediate infrastructure-level solution to application-level connection management deficiencies.
+
+
+## Question 26
+
+How can you enhance the security of your ElastiCache Redis Cluster by allowing users to access your ElastiCache Redis Cluster using their IAM Identities (e.g., Users, Roles)?
+
+[ ] Using Redis Authentication
+
+[ ] Using IAM Authentication
+
+[ ] Use Security Groups
+
+**Correct Answer:** Using IAM Authentication
+
+### Explanation
+Amazon ElastiCache for Redis supports **IAM Authentication** to simplify and secure the way users connect to the cluster. This replaces the traditional "Redis AUTH" password mechanism with temporary credentials managed by AWS.
+
+*   **RBAC and IAM Integration:** You define **User Groups** and **Users** within ElastiCache (Role-Based Access Control) and map them to specific AWS IAM Users or Roles.
+*   **Authentication Token:** Instead of a static password, applications use the AWS SDK to generate a signed **IAM Auth Token**. The Redis client uses this token to authenticate with the cluster.
+*   **Centralized Security:** By using IAM, you can leverage centralized password policies, Multi-Factor Authentication (MFA), and audit trails via **AWS CloudTrail**.
+*   **Credential Management:** This eliminates the need to store sensitive Redis passwords in application configuration files or environment variables.
+
+### Comparison: ElastiCache Redis Access Control Methods
+| Feature | Redis AUTH (Default) | IAM Authentication | Security Groups |
+| :--- | :--- | :--- | :--- |
+| **Primary Method** | Static Password (Secret) | IAM Identity / Signature | Network Filtering |
+| **Granularity** | Basic (Level 1: AUTH) | High (User/Role mapping) | Coarse (IP/Port only) |
+| **Secret Storage** | Required (e.g., Secrets Manager) | Not Required (IAM driven) | N/A |
+| **Auditability** | Limited (Redis logs) | High (CloudTrail integration) | VPC Flow Logs only |
+
+### Note
+> To use IAM Authentication, your cluster must be running **Redis version 7.0 or above**. Older versions only support the standard `AUTH` command or simple Security Group isolation. Security Groups are still required at the network layer to allow traffic on port 6379, even when IAM Authentication is enabled.
+
+
+## Question 27
+
+How many Aurora Read Replicas can you have in a single Aurora DB Cluster?
+
+[ ] 5
+
+[ ] 10
+
+[ ] 15
+
+**Correct Answer:** 15
+
+### Explanation
+Amazon Aurora is a MySQL and PostgreSQL-compatible relational database built for the cloud that features a proprietary, distributed, log-structured storage subsystem. Its replication architecture differs significantly from standard RDS.
+
+*   **Cluster Volume:** All replicas in an Aurora cluster share the same underlying storage volume. This eliminates the need for data to be physically copied to the replica's disk, significantly reducing replication lag (typically < 10ms).
+*   **Scale-Out Capacity:** A single Aurora DB Cluster supports up to **15 Aurora Replicas** plus the primary (writer) instance, for a total of 16 instances.
+*   **Reader Endpoint:** Aurora provides a single "Reader Endpoint" that automatically load-balances incoming read requests across all available replicas in the cluster.
+*   **Auto Scaling:** Aurora supports **Auto Scaling** for replicas. You can define a target metric (like average CPU utilization), and Aurora will automatically add or remove replicas between 0 and 15 to match the load.
+*   **Failover Priority:** Each replica is assigned a priority tier (0-15). In the event of a primary failure, Aurora promotes the replica with the highest priority (Tier 0 being the highest).
+
+### Comparison: Aurora vs. Standard RDS Replication
+| Feature | Aurora Replicas | RDS Read Replicas (MySQL/PostgreSQL) |
+| :--- | :--- | :--- |
+| **Max Replicas** | 15 | 5 (Up to 15 for some engines via cascading) |
+| **Replication Type** | Asynchronous (Shared Storage) | Asynchronous (Binlog/Physical) |
+| **Performance Impact** | Near-zero impact on primary | Can impact primary performance |
+| **Replication Lag** | Milliseconds (Very low) | Seconds to Minutes (Variable) |
+| **Load Balancing** | Native Cluster Reader Endpoint | Manual or Route 53 setup required |
+| **Failover Target** | Yes (Automated) | No (Manual promotion required) |
+
+### Note
+> Because Aurora Replicas share the same storage as the primary instance, they do not incur additional storage costs—you only pay for the compute (instance hours) for each replica added. This makes them highly cost-effective for scaling read-heavy applications.
+
+
+## Question 28
+
+Which RDS database technology does NOT support IAM Database Authentication?
+
+[ ] Oracle
+
+[ ] PostgreSQL
+
+[ ] MySQL
+
+**Correct Answer:** Oracle
+
+### Explanation
+IAM Database Authentication allows you to authenticate to your DB instance using AWS Identity and Access Management (IAM) users and roles instead of a standard password. As of current AWS capabilities, this feature is only supported for specific engines.
+
+*   **Supported Engines:** IAM Database Authentication is available for **MySQL** (5.6+), **MariaDB** (10.6+), and **PostgreSQL** (9.5+). It is also natively supported in **Amazon Aurora** (both MySQL and PostgreSQL editions).
+*   **Unsupported Engines:** **Oracle** and **Microsoft SQL Server** do not currently support IAM Database Authentication. For these engines, you must use standard database native authentication or integrate with **Active Directory (AD)** using AWS Directory Service.
+*   **Mechanism:** When enabled, your application requests a temporary **Authentication Token** from the RDS service (via the `generate-db-auth-token` API). This token has a lifetime of **15 minutes** and acts as the password for the connection.
+*   **Connection Limits:** One critical architecting consideration is that IAM authentication is limited to approximately **200-256 new connections per second**, depending on the instance type. For applications with higher connection rates, **RDS Proxy** or standard password authentication is recommended.
+
+### Comparison: RDS Authentication Methods
+| Feature | IAM Database Auth | Native Database Auth | Active Directory (AD) |
+| :--- | :--- | :--- | :--- |
+| **Credential Type** | Temporary Token (15m) | Static Password | Domain User/Pass |
+| **Management** | Centralized in IAM | Local to Database | Centralized in AD |
+| **Supported on Oracle**| **No** | Yes | Yes (via Kerberos) |
+| **Supported on MySQL** | Yes | Yes | No (RDS version dependent) |
+| **Performance** | Lower (Token generation) | High | Medium |
+
+### Note
+> To implement IAM Authentication for supported engines, you must explicitly enable the `IAMDatabaseAuthenticationEnabled` attribute on the DB instance. Additionally, you must create a database user account (e.g., `CREATE USER 'iam_user' IDENTIFIED WITH AWSAuthenticationPlugin AS 'RDS';` for MySQL) to link the DB user to the IAM identity.
