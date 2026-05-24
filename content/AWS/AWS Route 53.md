@@ -9,7 +9,7 @@ date: 2026-04-26
 
 How can the domain's zone apex, for example, 'myzoneapexdomain.com', be pointed towards an Elastic Load Balancer?
 
-[ ] **By using an Amazon Route 53 Alias record.**
+[ ] By using an Amazon Route 53 Alias record.
 
 [ ] By using an AAAA record.
 
@@ -17,7 +17,7 @@ How can the domain's zone apex, for example, 'myzoneapexdomain.com', be pointed 
 
 [ ] By using an A record.
 
-**Correct Answer:** ✅ **By using an Amazon Route 53 Alias record.**
+**Correct Answer:** By using an Amazon Route 53 Alias record.**
 
 **Explanation:** This is a classic DNS challenge in AWS. 
 

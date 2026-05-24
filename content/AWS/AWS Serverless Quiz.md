@@ -37,9 +37,9 @@ You are working on a Serverless application where you want to process objects up
 
 [ ] SNS Topic
 
-[ ] ✅ **Lambda Function**
+[ ] Lambda Function**
 
-**Correct Answer:** ✅ **Lambda Function**
+**Correct Answer:** Lambda Function**
 
 **Explanation:** In this specific serverless architecture, the Dead Letter Queue (DLQ) configuration is a **property of the Lambda function itself**, not the S3 bucket or the event source.
 

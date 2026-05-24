@@ -68,13 +68,13 @@ You have generated a public certificate using LetsEncrypt and uploaded it to the
 
 [ ] Configure ACM to send notifications by linking it to 3rd party certificate provider LetsEncrypt
 
-[ ] **Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email**
+[ ] Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email
 
 [ ] Configure EventBridge for Monthly Expiration Events from ACM to invoke SNS notifications to your email
 
 [ ] Configure CloudWatch Alarms for Daily Expiration Events from ACM to invoke SNS notifications to your email
 
-**Correct Answer:** ✅ **Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email**
+**Correct Answer:** Configure EventBridge for Daily Expiration Events from ACM to invoke SNS notifications to your email**
 
 **Explanation:** AWS Certificate Manager (ACM) automatically publishes **"ACM Certificate Expiration Threshold"** events to Amazon EventBridge. 
 * By default, ACM starts sending these events **daily** starting 45 days before expiration.
@@ -379,7 +379,7 @@ You have a Lambda function used to process some data in the database. You would 
 
 [ ] **Have it as an encrypted environment variable and decrypt it at runtime**
 
-**Correct Answer:** ✅ **Have it as an encrypted environment variable and decrypt it at runtime**
+**Correct Answer:** Have it as an encrypted environment variable and decrypt it at runtime**
 
 **Explanation:** This follows the principle of "Least Privilege" and "Secure Storage."
 
@@ -491,11 +491,11 @@ You have an S3 bucket that is encrypted with SSE-KMS. You have been tasked to re
 
 [ ] You have to raise a support ticket for AWS to start this replication process for you
 
-[ ] **You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service**
+[ ] **You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service
 
 [ ] The source KMS Key and the target KMS key must be the same
 
-**Correct Answer:** ✅ **You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service**
+**Correct Answer:** You have to configure permissions for both Source KMS Key kms:Decrypt and Target KMS Key kms:Encrypt to be used by the S3 Replication Service**
 
 **Explanation:** When you use S3 Cross-Region or Same-Region Replication with **SSE-KMS**, the IAM role used by the S3 replication service needs explicit permission to handle the cryptographic keys in both the source and destination.
 
@@ -513,7 +513,7 @@ As a Solutions Architect, you have created an architecture for a company that in
 
 [ ] CloudFront
 
-[ ] ✅ **AWS WAF**
+[ ] AWS WAF
 
 [ ] AWS Shield
 
@@ -523,7 +523,7 @@ As a Solutions Architect, you have created an architecture for a company that in
 
 [ ] NACL
 
-**Correct Answer:** ✅ **AWS WAF**
+**Correct Answer:** AWS WAF**
 
 **Explanation:** In a modern, layered AWS architecture, **AWS WAF (Web Application Firewall)** is the designated service for filtering and blocking malicious traffic based on specific IP addresses or request patterns.
 

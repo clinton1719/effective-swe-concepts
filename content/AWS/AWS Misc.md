@@ -11,13 +11,13 @@ Which AWS service allows you to send marketing SMS and push notifications to a l
 
 [ ] Amazon SNS
 
-[ ] ✅ **Amazon Pinpoint**
+[ ] Amazon Pinpoint
 
 [ ] Amazon SES
 
 [ ] AWS Lambda
 
-**Correct Answer:** ✅ **Amazon Pinpoint**
+**Correct Answer:** Amazon Pinpoint**
 
 **Explanation:** While several services can send messages, **Amazon Pinpoint** is the only one designed specifically for **customer engagement, marketing campaigns, and analytics**.
 
@@ -39,7 +39,7 @@ Which AWS service allows you to send marketing SMS and push notifications to a l
 
 The company you are working on is using Salesforce and Slack internally. For archival and some analytics requirements, you have been tasked to transfer the data in both Salesforce and Slack to AWS in an S3 bucket. Which AWS service is best suited for this scenario?
 
-[ ] ✅ **Amazon AppFlow**
+[ ] Amazon AppFlow
 
 [ ] AWS DataSync
 
@@ -47,7 +47,7 @@ The company you are working on is using Salesforce and Slack internally. For arc
 
 [ ] AWS Application Migration Service (MGN)
 
-**Correct Answer:** ✅ **Amazon AppFlow**
+**Correct Answer:** Amazon AppFlow**
 
 **Explanation:** **Amazon AppFlow** is a fully managed integration service specifically designed to securely transfer data between **Software-as-a-Service (SaaS)** applications and AWS services.
 
@@ -74,11 +74,11 @@ Which AWS service allows you to run and schedule hundreds of thousands of comput
 
 [ ] Amazon EC2
 
-[ ] ✅ **AWS Batch**
+[ ] AWS Batch
 
 [ ] AWS Lambda
 
-**Correct Answer:** ✅ **AWS Batch**
+**Correct Answer:** AWS Batch**
 
 **Explanation:** **AWS Batch** is a fully managed service designed specifically to plan, schedule, and execute batch computing workloads of any scale.
 
@@ -97,11 +97,14 @@ Which AWS service allows you to run and schedule hundreds of thousands of comput
 As part of your Disaster Recovery strategy, you would like to make sure your entire infrastructure is code (IaC) so that you can easily re-deploy it in any AWS region. Which AWS service do you recommend?
 
 [ ] AWS CodePipeline
-[ ] AWS Elastic Beanstalk
-[ ] AWS CodeDeploy
-[ ] ✅ **AWS CloudFormation**
 
-**Correct Answer:** ✅ **AWS CloudFormation**
+[ ] AWS Elastic Beanstalk
+
+[ ] AWS CodeDeploy
+
+[ ] AWS CloudFormation
+
+**Correct Answer:** AWS CloudFormation**
 
 **Explanation:** **AWS CloudFormation** is the primary service for **Infrastructure as Code (IaC)** on AWS.
 
@@ -114,3 +117,34 @@ As part of your Disaster Recovery strategy, you would like to make sure your ent
 *   **AWS CodePipeline:** This is a Continuous Integration and Continuous Delivery (CI/CD) service. While it can *orchestrate* a CloudFormation deployment, it is not the service that defines the infrastructure as code itself.
 *   **AWS Elastic Beanstalk:** This is a Platform as a Service (PaaS) for deploying web applications. While it manages infrastructure for you, it is not a general-purpose IaC tool for defining custom networking or complex architectural stacks.
 *   **AWS CodeDeploy:** This is a deployment service that automates software deployments to compute services like EC2, Lambda, or ECS. It manages the **code running on the servers**, not the creation of the servers and network themselves.
+
+## Question 5
+
+You're developing an application and would like to deploy it to Elastic Beanstalk with minimal cost. You should run it in ..................
+
+[ ] Single Instance Mode
+
+[ ] High Availability Mode
+
+**Correct Answer:** Single Instance Mode
+
+**Explanation:** **Single Instance Mode** is the most cost-effective way to run an Elastic Beanstalk environment, primarily because it removes the need for a Load Balancer.
+
+*   **Cost Savings on ELB:** In a High Availability (Load-Balanced) environment, AWS provisions an Elastic Load Balancer (ALB, NLB, or CLB) to distribute traffic. An Application Load Balancer typically costs ~$16–$22/month just for the base hourly charge, regardless of traffic. Single Instance mode skips the LB entirely.
+*   **Resource Footprint:** This mode uses exactly one EC2 instance with an Elastic IP address. While it still utilizes an Auto Scaling Group, the min/max/desired settings are all locked to `1`.
+*   **Ideal Use Case:** This is perfect for development, testing, or low-traffic personal projects where the high cost of a load balancer isn't justified and short periods of downtime (during instance replacement) are acceptable.
+
+**Why High Availability Mode is more expensive:**
+*   **Redundancy:** It requires a minimum of two EC2 instances across different Availability Zones to ensure fault tolerance.
+*   **Infrastructure Overhead:** It always includes the cost of a Load Balancer to manage the multi-instance traffic, making it significantly more expensive for a budget-conscious developer.
+
+---
+
+### Comparison: Beanstalk Environment Types
+
+| Feature | Single Instance | High Availability |
+| :--- | :--- | :--- |
+| **Cost** | **Minimal (EC2 only)** | Higher (EC2s + Load Balancer) |
+| **Load Balancer** | None (Uses Elastic IP) | Included (ALB/NLB/CLB) |
+| **Auto Scaling** | Fixed at 1 instance | Dynamic (scales based on load) |
+| **Reliability** | No redundancy | High (Multi-AZ) |

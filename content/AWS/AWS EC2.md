@@ -17,7 +17,7 @@ A user has launched an EC2 instance. The instance got terminated as soon as it w
 
 [ ] **The user account has reached the maximum EC2 instance limit.**
 
-**Correct Answer:** ✅ **The user account has reached the maximum EC2 instance limit.**
+**Correct Answer:** The user account has reached the maximum EC2 instance limit.**
 
 **Explanation:** This question tests your knowledge of **Immediate Instance Termination** (the "Pending -> Terminated" state transition).
 
@@ -40,7 +40,7 @@ What is the most secure way to connect to an EC2 instance without exposing the S
 
 [ ] Bastion Host
 
-**Correct Answer:** ✅ **SSM Session Manager**
+**Correct Answer:** SSM Session Manager**
 
 **Explanation:** **AWS Systems Manager (SSM) Session Manager** is widely considered the most secure modern method for instance access because it fundamentally changes how connectivity works.
 
@@ -70,7 +70,7 @@ How long can you reserve an EC2 Reserved Instance?
 
 [ ] Anytime between 1 and 3 years
 
-**Correct Answer:** ✅ **1 or 3 years**
+**Correct Answer:** 1 or 3 years**
 
 **Explanation:** Amazon EC2 Reserved Instances (RIs) require a specific commitment term in exchange for a significant discount (up to 75%) compared to On-Demand pricing.
 
@@ -99,7 +99,7 @@ What should you use to control traffic in and out of EC2 instances?
 [ ] IAM Policies
 
     
-**Correct Answer:** ✅ **Security Groups**
+**Correct Answer:** Security Groups**
 
 **Explanation:** While both Security Groups and NACLs are firewalls used within a VPC, **Security Groups** are the primary tool used to control traffic specifically for **EC2 instances**.
 
@@ -136,7 +136,7 @@ You have an e-commerce application with an OLTP database hosted on-premises. Thi
 
 [ ] General Purpose
 
-**Correct Answer:** ✅ **Storage Optimized**
+**Correct Answer:** Storage Optimized**
 
 **Explanation:** For a high-frequency **Online Transaction Processing (OLTP)** database with thousands of requests per second, the primary bottleneck is usually **I/O (Input/Output)** performance.
 
@@ -162,7 +162,7 @@ Which EC2 Instance Type should you choose for a critical application that uses a
 [ ] Memory Optimized
 [ ] General Purpose
 
-**Correct Answer:** ✅ **Memory Optimized**
+**Correct Answer:** Memory Optimized**
 
 **Explanation:** **Memory Optimized** instances (such as the **R**, **X**, and **High Memory** families) are designed to deliver fast performance for workloads that process large data sets in memory.
 
@@ -198,7 +198,7 @@ You would like to deploy a database technology on an EC2 instance and the vendor
 [ ] Reserved Instances
 
 
-**Correct Answer:** ✅ **Dedicated Hosts**
+**Correct Answer:** Dedicated Hosts**
 
 **Explanation:** **Amazon EC2 Dedicated Hosts** provide a physical server with EC2 instance capacity fully dedicated to your use.
 
@@ -820,3 +820,110 @@ Amazon Machine Images (AMIs) are **Regional** resources. An AMI created or regis
 
 ### Note
 > While the AMI is Regional, you can use the **AWS Marketplace** or **Community AMIs** to find similar pre-configured images provided by AWS or third parties in almost every Region. For custom AMIs, automation tools like **EC2 Image Builder** can be configured to automatically distribute and replicate images across multiple Regions.
+
+
+## Question 27
+
+As a Solutions Architect, you're planning to migrate a complex ERP software suite to AWS Cloud. You're planning to host the software on a set of Linux EC2 instances managed by an Auto Scaling Group. The software traditionally takes over an hour to set up on a Linux machine. How do you recommend you speed up the installation process when there's a scale-out event?
+
+[ ] Use a Golden AMI
+
+[ ] Bootstrap using EC2 User Data
+
+[ ] Store the application in Amazon RDS
+
+[ ] Retrieve the application setup files from EFS
+
+**Correct Answer:** Use a Golden AMI
+
+**Explanation:** In a scale-out event, the goal is to make new instances "InService" as quickly as possible. When an application has a massive installation time (like an hour), **Golden AMIs** are the only viable solution.
+
+*   **Baking vs. Bootstrapping:** "Baking" an AMI involves installing all software, security patches, and configurations onto an instance and then saving it as a custom Amazon Machine Image (AMI). When Auto Scaling launches a new instance from this "Golden" image, the software is already installed and ready to run immediately.
+*   **Scale-Out Performance:** Without a Golden AMI, an Auto Scaling Group would have to wait over an hour for the User Data script to finish before the instance could pass health checks. This delay makes the ASG unable to respond effectively to sudden traffic spikes.
+*   **Reliability:** Since the installation happened during the AMI creation phase, there is no risk of the installation failing at runtime due to external repository downtime or network issues during a scale-out.
+
+**Why the others are incorrect:**
+*   **EC2 User Data:** This is called "bootstrapping." While flexible, it would still take the full hour to run the installation every time a new instance is launched, which is exactly what the user wants to avoid.
+*   **Amazon RDS:** RDS is a managed database service. It cannot host or install ERP application software suites.
+*   **Amazon EFS:** While EFS can store the setup files, the instance would still need to execute the installation process once it retrieves them, resulting in the same long delay.
+
+---
+
+### Strategy Comparison: Bootstrapping vs. Baking
+
+| Feature | Bootstrapping (User Data) | Baking (Golden AMI) |
+| :--- | :--- | :--- |
+| **Setup Time** | Slow (Full install at launch) | **Fast (Instant start)** |
+| **Flexibility** | High (Change script anytime) | Low (Must re-bake for updates) |
+| **Complexity** | Simple scripts | Requires an image pipeline |
+| **Best For** | Small updates, dynamic config | **Heavy software suites (ERP, SAP)** |
+
+
+## Question 28
+
+Your website TriangleSunglasses.com is hosted on a fleet of EC2 instances managed by an Auto Scaling Group (ASG) and fronted by an Application Load Balancer (ALB). Your ASG has been configured to scale on-demand based on the traffic going to your website. To reduce costs, you have configured the ASG to scale based on the traffic going through the ALB. To make the solution highly available, you have updated your ASG and set the minimum capacity to 2. How can you further reduce the costs while respecting the requirements?
+
+[ ] Remove the ALB and use an Elastic IP instead
+
+[ ] Reserve two EC2 instances
+
+[ ] Reduce the minimum capacity to 1
+
+[ ] Reduce the minimum capacity to 0
+
+**Correct Answer:** Reserve two EC2 instances
+
+**Explanation:** In AWS cost optimization, you should always cover your **baseline (minimum) load** with the most cost-effective purchasing option.
+
+*   **Baseline Commitment:** Since the requirement specifies a **minimum capacity of 2** for High Availability, you know for certain that at least two instances will be running 24/7.
+*   **Cost Savings:** By purchasing **Reserved Instances (RIs)** or a **Savings Plan** for those two baseline instances, you can save up to 72% compared to On-Demand pricing. The ASG will still scale out using On-Demand (or Spot) instances when traffic increases beyond that baseline.
+*   **Respecting Requirements:** This approach maintains High Availability (min 2) and the dynamic scaling functionality of the ALB/ASG while strictly lowering the bill.
+
+**Why the others are incorrect:**
+*   **Remove the ALB:** While this saves the ALB cost, using a single Elastic IP on an instance removes High Availability and the ability to scale automatically, violating the core requirements.
+*   **Reduce minimum capacity to 1 or 0:** These options directly violate the High Availability requirement specified in the prompt ("minimum capacity to 2"). A minimum of 1 or 0 would leave the application vulnerable to a single point of failure if an instance or Availability Zone becomes impaired.
+
+---
+
+### Baseline Cost Optimization Strategy
+
+| Traffic Component | Resource Count | Recommended Purchase Option |
+| :--- | :--- | :--- |
+| **Baseline (Min)** | 2 Instances | **Reserved Instances / Savings Plans** |
+| **Spikes (Scale-out)** | Dynamic | On-Demand (or Spot for stateless) |
+
+
+## Question 29
+
+Which of the following will NOT help us while designing a STATELESS application tier?
+
+[ ] Store session data in Amazon RDS
+
+[ ] Store session data in Amazon ElastiCache
+
+[ ] Store session data in the client HTTP cookies
+
+[ ] Store session data on EBS volumes
+
+**Correct Answer:** Store session data on EBS volumes
+
+**Explanation:** To make an application **stateless**, the application server must not store any client-specific data (like session state) on its local storage. This allows any instance in an Auto Scaling Group to handle any incoming request.
+
+*   **EBS is Tightly Coupled:** An Amazon EBS volume is a block-level storage device that is typically attached to a single EC2 instance. If session data is stored on an EBS volume, that data is only available to the specific instance the volume is attached to. If a user's next request is routed to a different instance (a common occurrence in scaled-out architectures), the new instance will have no knowledge of the user's session, making the application "stateful."
+*   **Availability Zone Lock:** EBS volumes are locked to a specific Availability Zone. This limits the ability of your application to scale and failover across multiple AZs seamlessly.
+
+**Why the others help design a stateless tier:**
+*   **Amazon RDS:** Moving session data to a central relational database offloads the state from the web server. All instances can query the same RDS database to retrieve session info.
+*   **Amazon ElastiCache:** This is the "Gold Standard" for statelessness. Storing sessions in an in-memory cache (Redis or Memcached) allows for sub-millisecond retrieval of session data from any application instance.
+*   **Client HTTP Cookies:** This offloads the state entirely to the **client's browser**. The server remains stateless because the client sends all necessary session information (or a token) with every single request.
+
+---
+
+### Stateless Architecture Patterns
+
+| Strategy | Where is State Stored? | Performance |
+| :--- | :--- | :--- |
+| **Client-Side** | Browser Cookies | High (No server-side lookup) |
+| **Server-Side (Cache)** | Amazon ElastiCache | **Extreme (In-memory speeds)** |
+| **Server-Side (DB)** | Amazon RDS / DynamoDB | Moderate (Disk-based lookup) |
+| **Stateful (Bad)** | **Local EBS / Instance Store** | Low (Tied to one server) |

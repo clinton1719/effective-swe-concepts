@@ -264,7 +264,7 @@ You would like to evaluate the compliance of your resource's configurations over
 
 What is the minimum time interval for the data that Amazon CloudWatch receives and aggregates?
 
-[ ] **One second.**
+[ ] One second.
 
 [ ] Five seconds.
 
@@ -274,7 +274,7 @@ What is the minimum time interval for the data that Amazon CloudWatch receives a
 
 [ ] Five minutes.
 
-**Correct Answer:** ✅ **One second.**
+**Correct Answer:** One second.**
 
 **Explanation:** CloudWatch offers two levels of monitoring granularity:
 

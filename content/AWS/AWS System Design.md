@@ -13,11 +13,11 @@ Your website is serving on-demand training videos to your workforce. Videos are 
 
 [ ] Elastic Transcoder to transcode original high-resolution MP4 videos to HLS. EBS volumes to host videos and EBS snapshots to incrementally backup original files after a few days. CloudFront to serve HLS transcoded videos from EC2.
 
-[ ] **Elastic Transcoder to transcode original high-resolution MP4 videos to HLS. S3 to host videos with Lifecycle Management to archive original files to Glacier after a few days. CloudFront to serve HLS transcoded videos from S3.**
+[ ] Elastic Transcoder to transcode original high-resolution MP4 videos to HLS. S3 to host videos with Lifecycle Management to archive original files to Glacier after a few days. CloudFront to serve HLS transcoded videos from S3.
 
 [ ] A video transcoding pipeline running on EC2 using SQS to distribute tasks and Auto Scaling to adjust the number of nodes depending on the length of the queue. S3 to host videos with Lifecycle Management to archive all files to Glacier after a few days. CloudFront to serve HLS transcoded videos from Glacier.
 
-**Correct Answer:** ✅ **Elastic Transcoder to transcode original high-resolution MP4 videos to HLS. S3 to host videos with Lifecycle Management to archive original files to Glacier after a few days. CloudFront to serve HLS transcoded videos from S3.**
+**Correct Answer:** Elastic Transcoder to transcode original high-resolution MP4 videos to HLS. S3 to host videos with Lifecycle Management to archive original files to Glacier after a few days. CloudFront to serve HLS transcoded videos from S3.**
 
 **Explanation:** This architecture is the most cost-efficient and "Serverless" approach, addressing all the constraints mentioned:
 
@@ -35,7 +35,7 @@ Your website is serving on-demand training videos to your workforce. Videos are 
 
 You are designing an intrusion detection prevention (IDS/IPS) solution for a customer web application in a single VPC. You are considering the options for implementing IDS/IPS protection for traffic coming from the Internet. Which of the following options would you consider? (Choose 2 answers)
 
-[ ] **Implement IDS/IPS agents on each Instance running in VPC.**
+[ ] **Implement IDS/IPS agents on each Instance running in VPC.
 
 [ ] Configure an instance in each subnet to switch its network interface card to promiscuous mode and analyze network traffic.
 
@@ -43,8 +43,8 @@ You are designing an intrusion detection prevention (IDS/IPS) solution for a cus
 
 [ ] **Implement a reverse proxy layer in front of web servers and configure IDS/ IPS agents on each reverse proxy server.**
 
-**Correct Answers:** ✅ **Implement IDS/IPS agents on each Instance running in VPC.**
-✅ **Implement a reverse proxy layer in front of web servers and configure IDS/ IPS agents on each reverse proxy server.**
+**Correct Answers:** Implement IDS/IPS agents on each Instance running in VPC.**
+Implement a reverse proxy layer in front of web servers and configure IDS/ IPS agents on each reverse proxy server.**
 
 **Explanation:** This question focuses on how to gain visibility into traffic within an AWS environment where traditional hardware-based "sniffing" isn't possible.
 

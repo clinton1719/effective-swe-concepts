@@ -9,7 +9,7 @@ date: 2026-05-02
 
 What does this CIDR 10.0.4.0/28 correspond to?
 
-[ ] **10.0.4.0 to 10.0.4.15**
+[ ] 10.0.4.0 to 10.0.4.15
 
 [ ] 10.0.4.0 to 10.0.32.0
 
@@ -17,7 +17,7 @@ What does this CIDR 10.0.4.0/28 correspond to?
 
 [ ] 10.0.0.0 to 10.0.16.0
 
-**Correct Answer:** ✅ **10.0.4.0 to 10.0.4.15**
+**Correct Answer:** 10.0.4.0 to 10.0.4.15**
 
 **Explanation:** To find the range of an IPv4 CIDR block, you look at the prefix length (the number after the slash). 
 
@@ -38,7 +38,7 @@ If you want a 500 Mbps Direct Connect connection between your corporate datacent
 
 [ ] **Hosted**
 
-**Correct Answer:** ✅ **Hosted**
+**Correct Answer:** Hosted**
 
 **Explanation:** AWS Direct Connect offers two distinct types of connections, and the available bandwidth is the primary differentiator between them:
 
@@ -56,7 +56,7 @@ You have 3 VPCs A, B, and C. You want to establish a VPC Peering connection betw
 
 [ ] **Establish 3 VPC Peering connections (A-B, A-C, B-C)**
 
-**Correct Answer:** ✅ **Establish 3 VPC Peering connections (A-B, A-C, B-C)**
+**Correct Answer:** Establish 3 VPC Peering connections (A-B, A-C, B-C)**
 
 **Explanation:** This question highlights one of the most critical limitations of VPC Peering.
 
@@ -68,11 +68,11 @@ You have 3 VPCs A, B, and C. You want to establish a VPC Peering connection betw
 
 Security Groups operate at the ................. level while NACLs operate at the ................. level.
 
-[ ] **EC2 instance, Subnet**
+[ ] **EC2 instance, Subnet
 
 [ ] Subnet, EC2 instance
 
-**Correct Answer:** ✅ **EC2 instance, Subnet**
+**Correct Answer:** EC2 instance, Subnet**
 
 **Explanation:** This is a fundamental concept of AWS networking security. Think of them as two different layers of a defense-in-depth strategy:
 
@@ -93,7 +93,7 @@ You would like to provide Internet access to your EC2 instances in private subne
 
 [ ] **NAT Gateway**
 
-**Correct Answer:** ✅ **NAT Gateway**
+**Correct Answer:** NAT Gateway**
 
 **Explanation:** This question compares various ways to handle outbound-only traffic from a private subnet.
 
@@ -108,13 +108,13 @@ VPC Peering has been enabled between VPC A and VPC B, and the route tables have 
 
 [ ] Check the NACL
 
-[ ] **Check the Route Tables in VPC B**
+[ ] **Check the Route Tables in VPC B
 
 [ ] Check the EC2 instance attached Security Groups
 
 [ ] Check if DNS Resolution is enabled
 
-**Correct Answer:** ✅ **Check the Route Tables in VPC B**
+**Correct Answer:** Check the Route Tables in VPC B**
 
 **Explanation:** Routing in a VPC Peering connection is not automatic and must be configured on **both ends** of the peering relationship.
 
@@ -132,11 +132,11 @@ You have set up a Direct Connect connection between your corporate data center a
 
 [ ] Use a Customer Gateway
 
-[ ] **Use a Direct Connect Gateway**
+[ ] **Use a Direct Connect Gateway
 
 [ ] Set up a NAT Gateway
 
-**Correct Answer:** ✅ **Use a Direct Connect Gateway**
+**Correct Answer:** Use a Direct Connect Gateway**
 
 **Explanation:** A **Direct Connect Gateway (DXGW)** is a global resource that acts as a grouping for Virtual Private Gateways (VGWs) and Private Virtual Interfaces (VIFs).
 
@@ -157,7 +157,7 @@ You have a VPC in your AWS account that runs in a dual-stack mode. You are conti
 
 [ ] **Add an additional IPv4 CIDR to your VPC**
 
-**Correct Answer:** ✅ **Add an additional IPv4 CIDR to your VPC**
+**Correct Answer:** Add an additional IPv4 CIDR to your VPC**
 
 **Explanation:** In a dual-stack VPC, resources use both IPv4 and IPv6. If you run out of IPv4 addresses in your existing CIDR block, you cannot simply switch to "IPv6 only" for existing infrastructure that likely relies on IPv4 for internal or external communication.
 
@@ -177,7 +177,7 @@ When using VPC Endpoints, what are the only two AWS services that have a Gateway
 
 [ ] **Amazon S3 & DynamoDB**
 
-**Correct Answer:** ✅ **Amazon S3 & DynamoDB**
+**Correct Answer:** Amazon S3 & DynamoDB**
 
 **Explanation:** AWS offers two types of VPC Endpoints to allow private communication between your VPC and AWS services without requiring an Internet Gateway or NAT device: **Interface Endpoints** and **Gateway Endpoints**.
 
@@ -193,11 +193,11 @@ You need to set up a dedicated connection between your on-premises corporate dat
 
 [ ] AWS PrivateLink
 
-[ ] **AWS Direct Connect**
+[ ] **AWS Direct Connect
 
 [ ] Amazon EventBridge
 
-**Correct Answer:** ✅ **AWS Direct Connect**
+**Correct Answer:** AWS Direct Connect**
 
 **Explanation:** This question highlights the difference between a virtual connection over the public internet and a dedicated physical connection.
 
@@ -218,7 +218,7 @@ AWS reserves 5 IP addresses each time you create a new subnet in a VPC. When you
 
 [ ] **10.0.0.4**
 
-**Correct Answer:** ✅ **10.0.0.4**
+**Correct Answer:** 10.0.0.4**
 
 **Explanation:** In every VPC subnet, AWS reserves the **first four** IP addresses and the **last one** IP address. For a `10.0.0.0/24` network, the breakdown is as follows:
 
@@ -238,11 +238,11 @@ You plan on creating a subnet and want it to have at least capacity for 28 EC2 i
 
 [ ] /27
 
-[ ] **/26**
+[ ] **/26
 
 [ ] /25
 
-**Correct Answer:** ✅ **/26**
+**Correct Answer:** /26**
 
 **Explanation:** This is a classic "trick" question that tests your knowledge of the **5 reserved IP addresses** in every AWS subnet.
 
@@ -265,7 +265,7 @@ When you set up an AWS Site-to-Site VPN connection between your corporate on-pre
 
 [ ] **Virtual Private Gateway and Customer Gateway**
 
-**Correct Answer:** ✅ **Virtual Private Gateway and Customer Gateway**
+**Correct Answer:** Virtual Private Gateway and Customer Gateway**
 
 **Explanation:** An AWS Site-to-Site VPN consists of two specific "anchors" on either side of the connection:
 
@@ -285,9 +285,9 @@ A company has set up a Direct Connect connection between their corporate data ce
 
 [ ] Setup another Direct Connect connection to a different AWS region
 
-[ ] ✅ **Setup a Site-to-Site VPN connection as a backup**
+[ ] Setup a Site-to-Site VPN connection as a backup**
 
-**Correct Answer:** ✅ **Setup a Site-to-Site VPN connection as a backup**
+**Correct Answer:** Setup a Site-to-Site VPN connection as a backup**
 
 **Explanation:** When designing for high availability, you must balance redundancy with cost. 
 
@@ -304,13 +304,13 @@ Your company has several on-premises sites across the USA. These sites are curre
 
 [ ] VPC Peering
 
-[ ] **AWS VPN CloudHub**
+[ ] **AWS VPN CloudHub
 
 [ ] Direct Connect
 
 [ ] AWS PrivateLink
 
-**Correct Answer:** ✅ **AWS VPN CloudHub**
+**Correct Answer:** AWS VPN CloudHub**
 
 **Explanation:** This scenario requires a **hub-and-spoke** model for connecting multiple on-premises sites to each other using the public internet.
 
@@ -328,13 +328,13 @@ You have a corporate network of size 10.0.0.0/8 and a satellite office of size 1
 
 [ ] 172.16.0.0/12
 
-[ ] ✅ **172.16.0.0/16**
+[ ] 172.16.0.0/16
 
 [ ] 10.0.16.0/16
 
 [ ] 192.168.4.0/18
 
-**Correct Answer:** ✅ **172.16.0.0/16**
+**Correct Answer:** 172.16.0.0/16**
 
 **Explanation:** The golden rule of networking when connecting multiple environments (on-premises to cloud, or VPC to VPC) is that **CIDR blocks must not overlap.**
 
@@ -361,13 +361,13 @@ A web application backend is hosted on EC2 instances in private subnets fronted 
 
 [ ] Allow traffic only on port 80 from the company’s public CIDR
 
-[ ] ✅ **Allow traffic only on port 22 from the company’s public CIDR**
+[ ] Allow traffic only on port 22 from the company’s public CIDR
 
 [ ] Allow traffic only on port 22 from the company’s private CIDR
 
 [ ] Allow traffic only on port 80 from the company’s private CIDR
 
-**Correct Answer:** ✅ **Allow traffic only on port 22 from the company’s public CIDR**
+**Correct Answer:** Allow traffic only on port 22 from the company’s public CIDR**
 
 **Explanation:** This question tests your understanding of how "Jump Servers" or Bastion hosts function as a security gateway.
 
@@ -390,9 +390,9 @@ You want to scale up an AWS Site-to-Site VPN connection throughput, established 
 
 [ ] Use Direct Connect Gateway
 
-[ ] ✅ **Use Transit Gateway**
+[ ] Use Transit Gateway**
 
-**Correct Answer:** ✅ **Use Transit Gateway**
+**Correct Answer:** Use Transit Gateway**
 
 **Explanation:** A standard Site-to-Site VPN connection to a Virtual Private Gateway (VGW) is limited to a maximum bandwidth of **1.25 Gbps** per tunnel. To go beyond this limit without switching to Direct Connect, you must use **AWS Transit Gateway**.
 
@@ -405,7 +405,7 @@ You want to scale up an AWS Site-to-Site VPN connection throughput, established 
 
 Which AWS service allows you to protect and control traffic in your VPC from layer 3 to layer 7?
 
-[ ] **✅ AWS Network Firewall**
+[ ] **✅ AWS Network Firewall
 
 [ ] Amazon GuardDuty
 
@@ -413,7 +413,7 @@ Which AWS service allows you to protect and control traffic in your VPC from lay
 
 [ ] Amazon Shield
 
-**Correct Answer:** ✅ **AWS Network Firewall**
+**Correct Answer:** AWS Network Firewall**
 
 **Explanation:** **AWS Network Firewall** is a managed security service that makes it easy to deploy essential network protections for all of your VPCs.
 
@@ -431,11 +431,11 @@ Which AWS service allows you to protect and control traffic in your VPC from lay
 
 Using a Direct Connect connection, you can access both public and private AWS resources.
 
-[ ] **✅ True**
+[ ] **✅ True
 
 [ ] False
 
-**Correct Answer:** ✅ **True**
+**Correct Answer:** True**
 
 **Explanation:** AWS Direct Connect allows you to create different types of **Virtual Interfaces (VIFs)** to access different types of resources over the same physical connection:
 
@@ -453,11 +453,11 @@ A web application hosted on a fleet of EC2 instances managed by an Auto Scaling 
 
 [ ] Add an Inbound Rule with port 80 and 192.168.0.0/18 as the source
 
-[ ] ✅ **Add an Inbound Rule with port 80 and ALB's Security Group as the source**
+[ ] Add an Inbound Rule with port 80 and ALB's Security Group as the source
 
 [ ] Load an SSL certificate on the ALB
 
-**Correct Answer:** ✅ **Add an Inbound Rule with port 80 and ALB's Security Group as the source**
+**Correct Answer:** Add an Inbound Rule with port 80 and ALB's Security Group as the source**
 
 **Explanation:** This is a fundamental security best practice in AWS known as **Security Group Referencing** (or chaining).
 
@@ -472,13 +472,13 @@ A web application hosted on a fleet of EC2 instances managed by an Auto Scaling 
 
 How can you capture information about IP traffic inside your VPCs?
 
-[ ] ✅ **Enable VPC Flow Logs**
+[ ] Enable VPC Flow Logs
 
 [ ] Enable VPC Traffic Mirroring
 
 [ ] Enable CloudWatch Traffic Logs
 
-**Correct Answer:** ✅ **Enable VPC Flow Logs**
+**Correct Answer:** Enable VPC Flow Logs**
 
 **Explanation:** **VPC Flow Logs** is the standard AWS feature used to capture information about the IP traffic going to and from network interfaces in your VPC.
 
@@ -498,11 +498,11 @@ You have attached an Internet Gateway to your VPC, but your EC2 instances still 
 
 [ ] The EC2 instances don't have public IPs
 
-[ ] **✅ The Security Group does not allow traffic in**
+[ ] **✅ The Security Group does not allow traffic in
 
 [ ] The NACL does not allow network traffic out
 
-**Correct Answer:** ✅ **The Security Group does not allow traffic in**
+**Correct Answer:** The Security Group does not allow traffic in**
 
 **Explanation:** To understand why "traffic in" is not the issue, we have to look at how EC2 instances initiate requests to the internet.
 
@@ -518,7 +518,7 @@ You have attached an Internet Gateway to your VPC, but your EC2 instances still 
 
 You have a set of Linux EC2 instances deployed in a Cluster Placement Group in order to perform High-Performance Computing (HPC). You would like to maximize network performance between your EC2 instances. What should you use?
 
-[ ] ✅ **Elastic Fabric Adapter (EFA)**
+[ ] Elastic Fabric Adapter (EFA)
 
 [ ] Elastic Network Interface (ENI)
 
@@ -526,7 +526,7 @@ You have a set of Linux EC2 instances deployed in a Cluster Placement Group in o
 
 [ ] FSx for Lustre
 
-**Correct Answer:** ✅ **Elastic Fabric Adapter (EFA)**
+**Correct Answer:** Elastic Fabric Adapter (EFA)**
 
 **Explanation:** For High-Performance Computing (HPC) and Machine Learning workloads, **Elastic Fabric Adapter (EFA)** is the specialized network interface you need to maximize performance.
 

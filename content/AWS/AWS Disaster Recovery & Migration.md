@@ -15,9 +15,9 @@ You would like to get the Disaster Recovery strategy with the lowest Recovery Ti
 
 [ ] Warm Standby
 
-[ ] ✅ **Multi-Site**
+[ ] Multi-Site**
 
-**Correct Answer:** ✅ **Multi-Site**
+**Correct Answer:** Multi-Site**
 
 **Explanation:** Disaster Recovery (DR) strategies exist on a spectrum where cost is directly proportional to how quickly you can recover.
 
@@ -49,9 +49,9 @@ A company is using RDS for MySQL as their main database but, lately they have be
 
 [ ] You can not migrate directly to Aurora for MySQL, you have to create a custom application to insert the data manually
 
-[ ] ✅ **Create a snapshot from RDS for MySQL and restore it to Aurora for MySQL**
+[ ] Create a snapshot from RDS for MySQL and restore it to Aurora for MySQL**
 
-**Correct Answer:** ✅ **Create a snapshot from RDS for MySQL and restore it to Aurora for MySQL**
+**Correct Answer:** Create a snapshot from RDS for MySQL and restore it to Aurora for MySQL**
 
 **Explanation:** AWS provides a native and highly efficient path to migrate from a standard RDS MySQL instance to an Aurora MySQL cluster.
 
@@ -69,13 +69,13 @@ A company planning to migrate its existing websites, applications, servers, virt
 
 [ ] AWS Database Migration Service
 
-[ ] ✅ **AWS Application Migration Service**
+[ ] AWS Application Migration Service
 
 [ ] AWS Backup
 
 [ ] AWS Schema Conversion Tool
 
-**Correct Answer:** ✅ **AWS Application Migration Service (MGN)**
+**Correct Answer:** AWS Application Migration Service (MGN)**
 
 **Explanation:** **AWS Application Migration Service (AWS MGN)** is the primary service recommended for **lift-and-shift** (rehosting) migrations to AWS.
 
@@ -97,11 +97,11 @@ You want to make a Disaster Recovery plan where you have a scaled-down version o
 
 [ ] Pilot Light
 
-[ ] ✅ **Warm Standby**
+[ ] Warm Standby
 
 [ ] Multi-Site
 
-**Correct Answer:** ✅ **Warm Standby**
+**Correct Answer:** Warm Standby**
 
 **Explanation:** The key phrase in this scenario is **"scaled-down version... up and running."** 
 
@@ -124,11 +124,11 @@ Which AWS service can you use to automate the backup across different AWS servic
 
 [ ] AWS DataSync
 
-[ ] ✅ **AWS Backup**
+[ ] AWS Backup
 
 [ ] Amazon Glacier
 
-**Correct Answer:** ✅ **AWS Backup**
+**Correct Answer:** AWS Backup**
 
 **Explanation:** **AWS Backup** is a fully managed, policy-based service that centralizes and automates the protection of your data across AWS services in the cloud and on-premises.
 
@@ -148,13 +148,13 @@ As part of your Disaster Recovery plan, you would like to have only the critical
 
 [ ] Backup and Restore
 
-[ ] ✅ **Pilot Light**
+[ ] Pilot Light
 
 [ ] Warm Standby
 
 [ ] Multi-Site
 
-**Correct Answer:** ✅ **Pilot Light**
+**Correct Answer:** Pilot Light**
 
 **Explanation:** The "Pilot Light" strategy is designed for scenarios where you want to keep costs low by only maintaining the "glowing embers" of your application in a standby region.
 
@@ -172,11 +172,11 @@ As part of your Disaster Recovery plan, you would like to have only the critical
 
 You have an on-premises Oracle database that you want to migrate to AWS, specifically to Amazon Aurora. How would you do the migration?
 
-[ ] ✅ **Use AWS Schema Conversion Tool (AWS SCT) to convert the database schema, then use AWS Database Migration Service (AWS DMS) to migrate the data**
+[ ] Use AWS Schema Conversion Tool (AWS SCT) to convert the database schema, then use AWS Database Migration Service (AWS DMS) to migrate the data
 
 [ ] Use AWS Database Migration Service (AWS DMS) to convert the database schema, then use AWS Schema Conversion Tool (AWS SCT) to migrate the data
 
-**Correct Answer:** ✅ **Use AWS Schema Conversion Tool (AWS SCT) to convert the database schema, then use AWS Database Migration Service (AWS DMS) to migrate the data**
+**Correct Answer:** Use AWS Schema Conversion Tool (AWS SCT) to convert the database schema, then use AWS Database Migration Service (AWS DMS) to migrate the data**
 
 **Explanation:** When migrating between **different database engines** (Heterogeneous migration), such as Oracle to Aurora (MySQL or PostgreSQL compatible), you must follow a two-step process:
 
@@ -194,11 +194,11 @@ You are running many resources in AWS such as EC2 instances, EBS volumes, Dynamo
 
 [ ] AWS Storage Gateway
 
-[ ] ✅ **AWS Backup**
+[ ] AWS Backup
 
 [ ] EC2 Snapshots
 
-**Correct Answer:** ✅ **AWS Backup**
+**Correct Answer:** AWS Backup**
 
 **Explanation:** **AWS Backup** is specifically designed as a centralized backup management service to consolidate backup tasks that were previously dispersed across different service consoles.
 
@@ -216,7 +216,7 @@ You are running many resources in AWS such as EC2 instances, EBS volumes, Dynamo
 
 A company is using VMware on its on-premises data center to manage its infrastructure. There is a requirement to extend their data center and infrastructure to AWS but keep using the technology stack they are using which is VMware. Which AWS service can they use?
 
-[ ] ✅ **VMware Cloud on AWS**
+[ ] VMware Cloud on AWS
 
 [ ] AWS DataSync
 
@@ -224,7 +224,7 @@ A company is using VMware on its on-premises data center to manage its infrastru
 
 [ ] AWS Application Discovery Service
 
-**Correct Answer:** ✅ **VMware Cloud on AWS**
+**Correct Answer:** VMware Cloud on AWS**
 
 **Explanation:** **VMware Cloud on AWS** is the specific service designed for hybrid cloud scenarios where a company wants to use the same VMware software-defined data center (SDDC) stack they use on-premises, but running on AWS bare-metal infrastructure.
 
@@ -242,7 +242,7 @@ A company is using VMware on its on-premises data center to manage its infrastru
 
 Which of the following Disaster Recovery strategies has a potentially high Recovery Point Objective (RPO) and Recovery Time Objective (RTO)?
 
-[ ] ✅ **Backup and Restore**
+[ ] Backup and Restore
 
 [ ] Pilot Light
 
@@ -250,7 +250,7 @@ Which of the following Disaster Recovery strategies has a potentially high Recov
 
 [ ] Multi-Site
 
-**Correct Answer:** ✅ **Backup and Restore**
+**Correct Answer:** Backup and Restore**
 
 **Explanation:** In the context of AWS Disaster Recovery, the "High" in RPO and RTO refers to the amount of time elapsed—meaning it takes the **longest** to recover and involves the **most** potential data loss.
 
