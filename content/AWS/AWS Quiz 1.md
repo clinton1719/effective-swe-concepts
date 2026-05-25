@@ -1,5 +1,5 @@
 ---
-title: Stored Procedures
+title: AWS Quiz 1
 tags: [aws, aws-quiz]
 difficulty: medium
 date: 2026-05-24
