@@ -373,6 +373,19 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz EC2",
+    "title": "AWS Quiz EC2",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-ec2"
+    ],
+    "difficulty": "medium",
+    "date": "2026-07-07T00:00:00.000Z",
+    "content": "\r\n![AWS QUIZ EC2](aws-quiz-ec2.jpeg)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Route 53",
     "title": "AWS Route 53 Quiz",
     "tags": [
