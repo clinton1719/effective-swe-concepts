@@ -674,3 +674,35 @@ IAM Database Authentication allows you to authenticate to your DB instance using
 
 ### Note
 > To implement IAM Authentication for supported engines, you must explicitly enable the `IAMDatabaseAuthenticationEnabled` attribute on the DB instance. Additionally, you must create a database user account (e.g., `CREATE USER 'iam_user' IDENTIFIED WITH AWSAuthenticationPlugin AS 'RDS';` for MySQL) to link the DB user to the IAM identity.
+
+
+## Question 29
+
+**Question:**
+Because of the extensibility limitations of striped storage attached to Windows Server, Amazon RDS does not currently support increasing storage on a [...] DB Instance.
+
+[ ] SQL Server
+
+[ ] MySQL
+
+[ ] Oracle
+
+.
+
+.
+
+.
+
+**Correct Answer:** SQL Server
+
+---
+
+### Why this is the correct answer:
+
+Historically, Amazon RDS for **SQL Server** had specific storage modification restrictions due to how its underlying storage was provisioned on Windows Server environments. 
+
+* **The Striping Limitation:** In older RDS architecture configurations, SQL Server DB instances utilized a striped storage volume layout attached to Windows Server. Because of the way Windows handled extending these specific striped volumes, RDS could not dynamically scale the storage size upward after creation without complex migration workarounds.
+* **Context for Modern AWS Architecture:** It is worth noting that AWS has since introduced updates to newer generation RDS SQL Server instances to allow storage scaling. However, this question remains a classic AWS exam concept highlighting the legacy architectural dependency where **SQL Server** was the outlier compared to Linux-based engines like MySQL and Oracle (which natively supported online storage scaling much earlier).
+
+### Why others are incorrect:
+* **MySQL & Oracle:** Both of these database engines run on optimized Linux-based environments within Amazon RDS. Linux Logical Volume Manager (LVM) and filesystem architectures have long supported seamless, online volume extension without the specific striping limitations encountered on legacy Windows Server RDS deployments.

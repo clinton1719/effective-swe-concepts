@@ -927,3 +927,66 @@ Which of the following will NOT help us while designing a STATELESS application 
 | **Server-Side (Cache)** | Amazon ElastiCache | **Extreme (In-memory speeds)** |
 | **Server-Side (DB)** | Amazon RDS / DynamoDB | Moderate (Disk-based lookup) |
 | **Stateful (Bad)** | **Local EBS / Instance Store** | Low (Tied to one server) |
+
+
+
+## Question 30
+
+**Question:**
+In Amazon EC2 Container Service (now known as Amazon Elastic Container Service - ECS), are other container types supported?
+
+[ ] Yes, EC2 Container Service supports any container service you need.
+
+[ ] Yes, EC2 Container Service also supports Microsoft container service.
+
+[ ] No, Docker is the only container platform supported by EC2 Container Service presently.
+
+[ ] Yes, EC2 Container Service supports Microsoft container service and Openstack.
+
+
+**Correct Answer:** No, Docker is the only container platform supported by EC2 Container Service presently.
+
+---
+
+### Why this is the correct answer:
+
+Amazon ECS (formerly named EC2 Container Service) was built from the ground up natively to orchestrate, schedule, and scale **Docker** containers. 
+
+* **Docker Standardization:** The Amazon ECS Container Agent running on your container instances is specifically designed to communicate with the Docker daemon. Your application tasks are defined using configurations (like image URI, entry points, and environment variables) derived directly from standard Docker image specifications. 
+* **Operating System vs. Runtime:** While ECS supports running Docker containers on both **Linux** and **Windows Server** operating systems (allowing you to run Windows-specific container images), the underlying runtime platform that executes these applications remains strictly Docker-based.
+
+---
+
+### Key Takeaway for the Exam:
+If an exam scenario asks about running alternative non-Docker native formats directly inside standard ECS task definitions without a translation layer, **Docker is the sole standard platform supported**.
+
+
+## Question 31
+
+**Question:**
+Name the disk storage supported by Amazon Elastic Compute Cloud (EC2)
+#bookmark
+[ ] None of these.
+
+[ ] Amazon AppStream store.
+
+[ ] Amazon SNS store.
+
+[ ] Amazon Instance Store.
+
+
+
+**Correct Answer:** Amazon Instance Store.
+
+---
+
+### Why this is the correct answer:
+
+Amazon EC2 directly supports two primary types of block-level disk storage layouts: **Amazon Elastic Block Store (EBS)** and the **Amazon Instance Store**.
+
+* **Physically Attached Storage:** An **Instance Store** provides temporary (ephemeral) block-level storage for your EC2 instance. This storage is located on disks that are physically attached to the host computer running the EC2 virtual machine.
+* **Performance Advantage:** Because it is directly attached locally rather than accessed over a network, an Instance Store delivers extremely high random I/O performance, very low latency, and high throughput. 
+* **Ephemeral Nature:** The defining trade-off is that it is non-persistent. If the instance is stopped, hibernated, or terminated, all data on the Instance Store is lost forever. It is primarily used for swap space, buffers, caches, and scratch data.
+
+### Why others are incorrect:
+* **Amazon AppStream store & Amazon SNS store:** These do not exist as primary disk storage options or attachment frameworks for EC2 instances. Amazon AppStream 2.0 is an application streaming service, and Amazon SNS is a Pub/Sub messaging notification system.

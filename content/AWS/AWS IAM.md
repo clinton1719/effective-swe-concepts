@@ -117,3 +117,42 @@ You have strong regulatory requirements to only allow fully internally audited A
 **Explanation:** The best way to manage this is using **AWS Organizations** with **Organizational Units (OUs)**. By placing Production accounts in a "Prod" OU and Development accounts in a "Dev" OU, you can apply different **Service Control Policies (SCPs)** to each. 
 
 For the **Prod OU**, you would apply an SCP that restricts access to only the specific audited services. For the **Dev OU**, you can leave the permissions more open to allow for experimentation. This provides a central, scalable way to enforce compliance without stifling innovation in non-production environments.
+
+
+## Question 6
+
+**Question:**
+In regards to IAM you can edit user properties later, but you cannot use the console to change the [...].
+
+[ ] user name.
+
+[ ] password.
+
+[ ] default group.
+
+.
+
+.
+
+.
+
+
+**Correct Answer:** user name.
+
+---
+
+### Why this is the correct answer:
+
+This is a classic question addressing the management limitations of the **AWS Management Console** versus programmatic tools for legacy administration patterns.
+
+* **Console Limitation:** While the modern AWS Console makes it easy to change a user's group memberships, attach new policies, or change/reset their passwords, it historically lacked a direct "Rename" option fields for existing users once they were created. 
+* **Programmatic Workaround:** To change an IAM user's name or path, you must use the **AWS CLI** via the command `aws iam update-user --user-name <OldName> --new-user-name <NewName>` or invoke the corresponding **AWS API** operation (`UpdateUser`).
+* **Default Group Concept:** It's also worth noting that AWS IAM doesn't actually have a concept of a "default group"—users are simply assigned to groups explicitly, making "default group" an invalid architectural choice.
+
+### What you can modify via the Console vs. CLI:
+
+| Action | Supported in Console? | Supported in CLI/API? |
+| :--- | :---: | :---: |
+| **Change/Reset Passwords** | ✅ Yes | ✅ Yes (`update-login-profile`) |
+| **Manage Group Assignments** | ✅ Yes | ✅ Yes (`add-user-to-group`) |
+| **Rename IAM User Name** | ❌ **No** | ✅ **Yes** (`update-user`) |

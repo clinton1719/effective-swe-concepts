@@ -53,3 +53,36 @@ Implement a reverse proxy layer in front of web servers and configure IDS/ IPS a
 * **Why the others are incorrect:**
     * **Promiscuous Mode:** In a standard AWS VPC, the underlying virtualization layer (Hypervisor) does not allow network interfaces to operate in promiscuous mode. You cannot simply "sniff" traffic from other instances on the same subnet this way.
     * **SSL Listeners on ELB:** While SSL listeners handle encryption/decryption, they do not perform deep packet inspection for intrusion detection or prevention. They are a load balancing and security feature, but not an IDS/IPS solution on their own.
+
+
+## Question 3
+
+**Question:**
+Content and Media Server is the latest requirement that you need to meet for a client. The client has been very specific about his requirements such as low latency, high availability, durability, and access control. Potentially there will be millions of views on this server and because of 'spiky' usage patterns, operations teams will need to provision static hardware, network, and management resources to support the maximum expected need. The Customer base will be initially low but is expected to grow and become more geographically distributed. Which of the following would be a good solution for content distribution?
+
+[ ] Amazon S3 as both the origin server and for caching.
+
+[ ] AWS Storage Gateway as the origin server and Amazon EC2 for caching.
+
+[ ] AWS CloudFront as both the origin server and for caching.
+
+[ ] Amazon S3 as the origin server and Amazon CloudFront for caching.
+
+
+**Correct Answer:** Amazon S3 as the origin server and Amazon CloudFront for caching.
+
+---
+
+### Why this is the correct approach:
+
+This architectural pattern is the gold standard for global, high-scale, and cost-effective content distribution on AWS, perfectly matching all the client's criteria:
+
+* **Handling "Spiky" Traffic and Scalability:** **Amazon S3** is designed to scale dynamically to handle massive request rates automatically without needing any infrastructure provisioning. **Amazon CloudFront** caches the content at globally distributed edge locations. Together, they eliminate the need for the operations team to provision static hardware for peak demand, transforming a complex capacity-planning problem into a fully serverless, pay-as-you-go workflow.
+* **Low Latency & Geographical Distribution:** CloudFront distributes files via a global network of edge locations. A user in Europe fetches content cached in Europe, and a user in Asia fetches it in Asia, minimizing network latency.
+* **Durability & High Availability:** Amazon S3 provides 99.999999999% (11 9s) of data durability. CloudFront inherently provides high availability by serving cached copies even if communication to the origin experiences transient blips.
+* **Access Control:** By configuring CloudFront **Origin Access Control (OAC)** or using **CloudFront Signed URLs/Cookies**, you can fully restrict direct S3 bucket access, ensuring that only authenticated users can access the media content securely through CloudFront.
+
+### Why others are incorrect:
+* **Amazon S3 for both:** S3 is a centralized storage service and does not natively cache content closer to geographically distributed global users. Relying solely on S3 would result in higher latencies for far-away users and increased egress cost.
+* **AWS Storage Gateway and EC2:** This introduces massive operational overhead. You would have to manually manage, size, scale, and patch EC2 instances to handle the "millions of views" and spiky traffic patterns.
+* **AWS CloudFront for both:** CloudFront is a Content Delivery Network (CDN) designed for temporary caching; it is not a data storage system. It requires a persistent backing origin (like S3 or a custom HTTP server) to fetch objects from when a cache-miss occurs.

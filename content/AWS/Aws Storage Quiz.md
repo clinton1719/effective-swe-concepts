@@ -453,7 +453,6 @@ When should I choose Provisioned IOPS over Standard RDS storage?
 * **Non-sensitive workloads:** If performance consistency isn't a priority, Standard or General Purpose storage is much more cost-effective.
 
 ## Question 22
-#bookmark
 
 Your department creates regular analytics reports from your company's log files. All log data is collected in Amazon S3 and processed by daily Amazon Elastic MapReduce (EMR) jobs that generate daily PDF reports and aggregated tables in CSV format for an Amazon Redshift data warehouse. Which of the following alternatives will lower costs without compromising average performance of the system or data integrity for the raw data?
 
