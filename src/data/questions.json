@@ -373,6 +373,18 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz Auto Scaling",
+    "title": "AWS Quiz Auto Scaling",
+    "tags": [
+      "aws",
+      "aws-auto-scaling"
+    ],
+    "difficulty": "medium",
+    "date": "2026-07-13T00:00:00.000Z",
+    "content": "\r\n\r\n![AWS QUIZ EC2](aws-quiz-auto-scaling.jpeg)",
+    "topic": "AWS"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz EC2",
     "title": "AWS Quiz EC2",
     "tags": [
