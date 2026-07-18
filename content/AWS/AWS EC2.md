@@ -965,7 +965,7 @@ If an exam scenario asks about running alternative non-Docker native formats dir
 
 **Question:**
 Name the disk storage supported by Amazon Elastic Compute Cloud (EC2)
-#bookmark
+
 [ ] None of these.
 
 [ ] Amazon AppStream store.
@@ -990,3 +990,132 @@ Amazon EC2 directly supports two primary types of block-level disk storage layou
 
 ### Why others are incorrect:
 * **Amazon AppStream store & Amazon SNS store:** These do not exist as primary disk storage options or attachment frameworks for EC2 instances. Amazon AppStream 2.0 is an application streaming service, and Amazon SNS is a Pub/Sub messaging notification system.
+
+
+## Question 32
+
+**Question:**
+After an Amazon VPC instance is launched, can I change the VPC security groups it belongs to?
+
+[ ] Only if the tag 'VPC_Change_Group' is true.
+
+[ ] Yes. You can.
+
+[ ] No. You cannot.
+
+[ ] Only if the tag 'VPC Change Group' is true.
+
+**Correct Answer:** Yes. You can.
+
+---
+
+### Why this is the correct answer:
+
+Amazon VPC provides dynamic management capabilities for network interfaces and instance-level security wrappers.
+
+* **Dynamic Association:** You can modify which security groups are assigned to an Amazon EC2 instance at any time while it is in a running or stopped state. You do not need to reboot or recreate the instance.
+* **Immediate Enforcement:** The transition takes effect almost immediately. When you attach a new security group or remove an old one, the underlying evaluation engine updates the network packet filtering matrix on the Elastic Network Interface (ENI) instantly.
+* **Historical Context:** In legacy "EC2-Classic" networking environments (non-VPC), security group assignments were permanent from the time of creation. However, within a Virtual Private Cloud (**VPC**), this limitation is entirely eliminated.
+
+### Operational Actions:
+You can swap security groups via the AWS Management Console by navigating to **Instances** ➔ **Actions** ➔ **Security** ➔ **Change security groups**, or programmatically using the AWS CLI command:
+
+```bash
+aws ec2 modify-instance-attribute --instance-id i-1234567890abcdef0 --groups sg-0123456789abcdef0
+```
+
+## Question 33
+
+**Question:**
+If I want an instance to have a public IP address, which IP address should I use?
+
+[ ] Elastic IP Address.
+
+[ ] Class B IP Address.
+
+[ ] Class A IP Address.
+
+[ ] Dynamic IP Address.
+
+
+**Correct Answer:** Elastic IP Address.
+
+---
+
+### Why this is the correct answer:
+
+An **Elastic IP address (EIP)** is a static, public IPv4 address designed by AWS for dynamic cloud computing.
+
+* **Persistence:** Standard public IP addresses assigned automatically to an EC2 instance are dynamic—they are released every time the instance is stopped or hibernated. When the instance starts back up, it receives a brand new public IP. An Elastic IP, however, is allocated to your AWS account and stays masks-on until you explicitly choose to release it.
+* **Fault Tolerance:** You can rapidly remask an Elastic IP address by programmatically reassociating it to another instance in your account. This allows you to mask instance failures by routing traffic to a standby replacement seamlessly without waiting for DNS propagation.
+
+### Why others are incorrect:
+* **Dynamic IP Address:** While a dynamic public IP does expose your instance to the internet, it changes every time the instance stops. The question asks what you should use if *you* want to choose or maintain a reliable public IP scheme for an instance.
+* **Class A & Class B IP Addresses:** These refer to traditional IPv4 classful routing architectures from early internet standards rather than specific AWS functional resources. Furthermore, the private subnets inside an AWS VPC typically draw from Class A (`10.0.0.0/8`) or Class B (`172.16.0.0/12`) private blocks, which are not publicly routable over the internet.
+
+
+## Question 34
+
+**Question:**
+Select the most correct: The device name `/dev/sda1` (within Amazon EC2) is [...].
+
+[ ] possible for EBS volumes.
+
+[ ] reserved for the root device.
+
+[ ] recommended for EBS volumes.
+
+[ ] recommended for instance store volumes.
+
+
+**Correct Answer:** reserved for the root device.
+
+---
+
+### Why this is the correct answer:
+
+When launching a Linux-based Amazon EC2 instance, device name mappings follow standard operating system conventions enforced by the AWS hypervisor.
+
+* **The Root Volume Slot:** The device name `/dev/sda1` is historically and functionally **reserved for the root device** volume. The root volume contains the image used to boot the instance (the operating system, kernel, and initial configuration).
+* **Block Device Mapping:** Even though modern Linux kernels may internally rename this block device to something like `/dev/xvda` or `/dev/nvme0n1` at the operating system level, AWS still uses `/dev/sda1` within the block device mapping API to designate which EBS or Instance Store volume serves as the primary boot disk.
+
+---
+
+### Recommended Device Name Assignments:
+
+| Device Volume Type | Common Linux Device Name Conventions |
+| :--- | :--- |
+| **Root Device (Boot Disk)** | `/dev/sda1` |
+| **EBS Volumes (Data)** | `/dev/sdf` through `/dev/sdp` |
+| **Instance Store Volumes (Ephemeral)** | `/dev/sdb`, `/dev/sdc`, `/dev/sdd` |
+
+
+
+## Question 35
+
+**Question:**
+How can I change the security group membership for interfaces owned by other AWS services, such as Elastic Load Balancing?
+
+[ ] By using the service specific console or API/CLI commands.
+
+[ ] None of these.
+
+[ ] Using Amazon EC2 API/CLI.
+
+[ ] Using all these methods.
+
+**Correct Answer:** By using the service specific console or API/CLI commands.
+
+---
+
+### Why this is the correct answer:
+
+When AWS services manage resources on your behalf—such as an Elastic Load Balancer (ELB), an RDS Database Instance, or an Amazon EMR cluster—they deploy managed Elastic Network Interfaces (ENIs) directly into your VPC.
+
+* **Service Ownership:** Even though these ENIs physically show up within your EC2 networking inventory, they are structurally tagged and "owned" by the parent service orchestrating them.
+* **Modification Framework:** Attempting to manually update or detach security groups from these managed network interfaces using standard EC2 APIs or the EC2 console will result in an explicit modification denial (`AuthFailure` or `UnauthorizedOperation`). 
+* **The Correct Pipeline:** To update the security posture of an ELB, you must modify the security groups directly via the **Elastic Load Balancing console**, the ELB-specific CLI command (`aws elbv2 modify-load-balancer-attributes`), or the dedicated ELB API operations. The parent service handles the internal translation to adjust the security properties of its subordinate network interfaces automatically.
+
+### Why others are incorrect:
+* **Using Amazon EC2 API/CLI:** The EC2 API cannot directly override or manipulate the security groups of ENIs structurally locked and managed by other standalone services like Elastic Load Balancing. Doing so triggers validation exceptions. 
+* **Using all these methods / None of these:** Since standard EC2 modification workflows are blocked, these configurations can only be addressed via the managing service's specific framework.

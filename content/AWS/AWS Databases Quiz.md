@@ -706,3 +706,108 @@ Historically, Amazon RDS for **SQL Server** had specific storage modification re
 
 ### Why others are incorrect:
 * **MySQL & Oracle:** Both of these database engines run on optimized Linux-based environments within Amazon RDS. Linux Logical Volume Manager (LVM) and filesystem architectures have long supported seamless, online volume extension without the specific striping limitations encountered on legacy Windows Server RDS deployments.
+
+## Question 30
+
+**Question:**
+Amazon RDS supports SOAP only through [...].
+
+[ ] HTTP or HTTPS.
+
+[ ] TCP/IP.
+
+[ ] HTTP.
+
+[ ] HTTPS.
+
+**Correct Answer:** HTTPS.
+
+---
+
+### Why this is the correct answer:
+
+This question targets older, fundamental security mandates in legacy AWS API endpoints. 
+
+* **Mandatory Transport Security:** Historically, when interacting with Amazon RDS via its Simple Object Access Protocol (SOAP) API interface, AWS strictly mandated that all SOAP requests use **HTTPS (Hypertext Transfer Protocol Secure)**. 
+* **Data Encryption in Transit:** Because SOAP API requests pass sensitive configuration parameters and credentials (such as master database usernames or access keys), standard, unencrypted HTTP requests were rejected by default to guarantee the encryption and protection of data in transit.
+
+> **Modern AWS Context:** AWS has deprecated SOAP API support across almost all services (including RDS) in favor of lightweight, secure **REST (Representational State Transfer)** API architectures and the **Query API**, which interact natively via the AWS CLI and SDKs. However, this legacy exam concept reinforces the hard requirement that secure data transport over **HTTPS** is non-negotiable for administrative operations.
+
+### Why others are incorrect:
+* **HTTP or HTTPS / HTTP:** Standard unencrypted HTTP was not permitted for SOAP interactions due to the lack of transit encryption.
+* **TCP/IP:** TCP/IP is the foundational network layer protocol suite that handles connection routing, whereas SOAP is an application layer protocol that relies specifically on an application transport protocol like HTTP/HTTPS to function.
+
+
+## Question 31
+
+**Question:**
+Which of the following services natively encrypts data at rest within an AWS region? (Choose 2 answers)
+
+[ ] AWS Storage Gateway.
+
+[ ] Amazon DynamoDB.
+
+[ ] Amazon CloudFront.
+
+[ ] Amazon Glacier.
+
+[ ] Amazon Simple Queue Service.
+
+.
+
+.
+
+.
+
+**Correct Answers:** 
+
+* Amazon DynamoDB
+* Amazon Glacier
+
+---
+
+### Why these are the correct answers:
+
+AWS designs certain managed data layer services to enforce **default, transparent encryption at rest** directly at the storage infrastructure tier. 
+
+* **Amazon DynamoDB:** DynamoDB natively encrypts all tables at rest by default. This behavior cannot be disabled or turned off. It protects all internal database components—including tables, indexes, backups, and local streams—transparently using an internal AWS-owned key or a customer-provided KMS key.
+* **Amazon Glacier:** All data stored directly inside Amazon Glacier (and S3 Glacier storage classes) is strictly encrypted at rest at the server side by default. AWS automatically handles data protection using unique keys evaluated through Advanced Encryption Standard 256-bit (**AES-256**) cyphers prior to writing archives to media.
+
+---
+
+### Why the others are incorrect:
+* **AWS Storage Gateway:** While data stored in transit to AWS or inside the cloud is protected, the *on-premises hardware/virtual appliance cache* storage layer requires local management or hypervisor configurations to secure data locally at rest. 
+* **Amazon CloudFront:** CloudFront is an edge-caching delivery network (CDN) rather than an regional storage engine. While it supports secure network transit (HTTPS), standard edge-caching files are transient and do not enforce mandatory storage-tier encryption configurations at rest by default.
+* **Amazon Simple Queue Service (SQS):** SQS offers Server-Side Encryption (SSE) through AWS KMS integration, but it is **not mandatory or hardcoded natively** for standard queues. You must choose to explicitly enable and configure it per queue during creation or through update modifications.
+
+## Question 32
+
+**Question:**
+When running my DB Instance as a Multi-AZ deployment, can I use the standby for read or write operations?
+#bookmark
+
+[ ] Yes.
+
+[ ] Only with MSSQL based RDS.
+
+[ ] Only for Oracle RDS instances.
+
+[ ] No.
+
+**Correct Answer:** No.
+
+---
+
+### Why this is the correct answer:
+
+This question relates specifically to the core, standard **Amazon RDS Multi-AZ DB Instance** deployment model. 
+
+* **High Availability, Not Scalability:** Standard Multi-AZ deployments are designed strictly for disaster recovery and high availability. AWS automatically provisions and maintains a synchronous standby replica in a separate Availability Zone. 
+* **Passive Nature:** The standby database instance serves as a passive failover target. It does **not** accept connections, and you cannot perform read or write queries against it during normal operation. All active traffic goes directly to the primary instance.
+* **Automatic Failover:** The standby only comes online and accepts traffic after being automatically promoted to the "primary" role during an infrastructure failure or planned maintenance event.
+
+> **Modern Architectural Nuance:** To achieve high availability *plus* readable standbys, AWS introduced a separate option called **Multi-AZ DB Clusters** (supporting MySQL and PostgreSQL) which deploys one primary and two readable standby instances. However, for standard single-standby DB instance deployments, the standby remains completely unreadable and unwritable. If you need to scale read workloads, you must spin up **Read Replicas**.
+
+### Why others are incorrect:
+* **Yes:** This violates the core functionality of a traditional passive Multi-AZ standby replica.
+* **Engine Specific Options (MSSQL / Oracle):** Neither Microsoft SQL Server nor Oracle engines allow active traffic on a standard RDS Multi-AZ standby instance; the restriction applies globally across all engines using the classic single-standby architecture.

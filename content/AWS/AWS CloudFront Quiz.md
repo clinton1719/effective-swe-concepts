@@ -141,3 +141,79 @@ You are running a photo-sharing website where your images are downloaded from al
 **Correct Answer:** ✅ Create a CloudFront Distribution
 
 **Explanation:** **Amazon CloudFront** is a Content Delivery Network (CDN) that caches content at Edge Locations closer to your users. By placing a CloudFront distribution in front of your **Application Load Balancer (ALB)**, the large 15 GB master pack is cached at the edge after the first request. Subsequent downloads are served directly from CloudFront, which significantly reduces the CPU/Network load on your EC2 instances and lowers data transfer out (DTO) costs compared to serving directly from the origin. Best of all, it requires no code changes or "refactoring" of the underlying website.
+
+
+## Question 8
+
+**Question:**
+Which one of the following can't be used as an origin server with Amazon CloudFront?
+
+[ ] A web server running in your infrastructure.
+
+[ ] Amazon S3.
+
+[ ] Amazon Glacier.
+
+[ ] A web server running on Amazon EC2 instances.
+
+
+**Correct Answer:** Amazon Glacier.
+
+---
+
+### Why this is the correct answer:
+
+Amazon CloudFront is a Content Delivery Network (CDN) designed to cache and serve objects with ultra-low latency. Because of this, it requires an **active, HTTP/HTTPS-accessible origin server** that can immediately return an object whenever a cache miss occurs.
+
+* **The Glacier Bottleneck:** Amazon Glacier is an archival storage service built for cold, long-term backups. Retrieving data from Glacier is an asynchronous process that can take anywhere from minutes (Expedited) to hours (Standard/Bulk). Because Glacier does not expose an immediate, synchronous HTTP web endpoint for real-time web requests, CloudFront cannot communicate with it directly as an origin.
+* **Valid CloudFront Origins:** CloudFront natively supports two primary types of origins:
+  1. **Amazon S3 Buckets:** For serving static web assets (images, video files, frontend builds).
+  2. **Custom Origins:** Any server that speaks HTTP/HTTPS and is accessible via a public IP address or public DNS record. This includes web servers running on **Amazon EC2**, behind an **Application Load Balancer (ALB)**, or even a **web server running on-premises** in your own physical infrastructure.
+
+---
+
+### Summary Table: CloudFront Origin Compatibility
+
+| Origin Type | Supported? | Description / Requirement |
+| :--- | :---: | :--- |
+| **Amazon S3** | ✅ **Yes** | Standard object storage engine; highly optimized for CloudFront. |
+| **Amazon EC2 / ALB** | ✅ **Yes** | Acts as a Custom Origin; must accept inbound public HTTP/HTTPS traffic. |
+| **On-Premises Servers** | ✅ **Yes** | Acts as a Custom Origin; must be reachable over the public internet. |
+| **Amazon Glacier** | ❌ **No** | Cold storage with retrieval delays; lacks an active synchronous web server interface. |
+
+
+
+## Question 9
+
+**Question:**
+Which one of the below doesn't affect Amazon CloudFront billing?
+
+[ ] Distribution Type.
+
+[ ] Data Transfer Out.
+
+[ ] Dedicated IP SSL Certificates.
+
+[ ] Requests.
+
+**Correct Answer:** Distribution Type.
+
+---
+
+### Why this is the correct answer:
+
+Amazon CloudFront charges you based on the actual usage of your content delivery network features rather than the logical structural wrapper of the asset.
+
+* **No Cost for Configurations:** You are not charged simply for creating a specific "Distribution Type" (e.g., creating a distribution targeted for web static content vs. streaming dynamic media). You can create multiple CloudFront distributions within an AWS account without incurring a base configuration fee. 
+* **Focus on Traffic and Features:** CloudFront metrics track the quantitative workload running through the distribution, not the metadata categorization of the setup itself.
+
+---
+
+### CloudFront Pricing Drivers vs. Non-Drivers:
+
+| Cost Component | Pricing Status | Impact Details |
+| :--- | :--- | :--- |
+| **Distribution Type** | ❌ **Does NOT affect billing** | Creating, deleting, or grouping distributions carries no base cost. |
+| **Data Transfer Out** |  **Affects billing** | You are charged per GB for data transferred out of CloudFront edge locations to your end-users. |
+| **Requests** |  **Affects billing** | You are charged for the total number of HTTP or HTTPS requests made to your distribution. |
+| **Dedicated IP Custom SSL** |  **Affects billing** | While standard SNI SSL certificates are free, allocating a **Dedicated IP Custom SSL** mapping carries a heavy fixed charge (typically $600/month). |

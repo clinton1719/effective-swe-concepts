@@ -265,3 +265,34 @@ You have purchased a domain on GoDaddy and would like to use Route 53 as the DNS
 | **2. Copy NS** | Copy the 4 assigned Name Servers | AWS Route 53 |
 | **3. Update Registrar** | Replace default NS with AWS NS | **GoDaddy** |
 | **4. Verification** | Wait for propagation (TTL) | Global DNS |
+
+
+## Question 8
+
+**Question:**
+You have created a Route 53 latency record set from your domain to a machine in Northern Virginia and a similar record to a machine in Sydney. When a user located in the US visits your domain, he will be routed to:
+
+[ ] Northern Virginia.
+
+[ ] Sydney.
+
+[ ] Both, Northern Virginia and Sydney.
+
+[ ] Depends on the Weighted Resource Record Sets.
+
+
+**Correct Answer:** Northern Virginia.
+
+---
+
+### Why this is the correct answer:
+
+This question targets how Amazon Route 53 processes **Latency-Based Routing (LBR)**.
+
+* **How Latency Routing Works:** When you use Latency-Based Routing, Route 53 routes user traffic to the AWS region that provides the **lowest round-trip network latency** for that specific end user.
+* **Geographical Proximity:** A user located in the United States will experience significantly shorter network hops and lower round-trip latency when connecting to an AWS data center in Northern Virginia (`us-east-1`) compared to one located across the Pacific Ocean in Sydney (`ap-southeast-2`). Route 53 continuously takes latency measurements over time to dynamically determine the best destination.
+
+### Why others are incorrect:
+* **Sydney:** The round-trip time (RTT) from the US to Sydney is physically much higher due to transpacific fiber distance constraints, so Route 53 will not pick this option for a US-based user.
+* **Both, Northern Virginia and Sydney:** Standard DNS queries resolve to a single endpoint at a time for the user; Route 53 does not split a single user's request to send it to two completely different global regions simultaneously.
+* **Depends on the Weighted Resource Record Sets:** The scenario explicitly states that you created a **latency record set**, not a **weighted record set**. While you can combine routing policies in complex nested configurations, a standard latency policy behaves purely on performance metrics without relying on arbitrary traffic weights.
