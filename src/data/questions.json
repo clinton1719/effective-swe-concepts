@@ -394,7 +394,20 @@
     ],
     "difficulty": "medium",
     "date": "2026-07-07T00:00:00.000Z",
-    "content": "\r\n![AWS DynamoDB EC2](aws-quiz-dynamodb.jpeg)\r\n\r\n",
+    "content": "\r\n![AWS Quiz DynamoDB](aws-quiz-dynamodb.jpeg)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz EBS",
+    "title": "AWS Quiz EBS",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-ebs"
+    ],
+    "difficulty": "medium",
+    "date": "2026-07-19T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz EBS](aws-quiz-ebs.jpeg)\r\n\r\n",
     "topic": "AWS"
   },
   {

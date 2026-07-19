@@ -5,5 +5,5 @@ difficulty: medium
 date: 2026-07-07
 ---
 
-![AWS DynamoDB EC2](aws-quiz-dynamodb.jpeg)
+![AWS Quiz DynamoDB](aws-quiz-dynamodb.jpeg)
 
