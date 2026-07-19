@@ -424,6 +424,32 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz EFS",
+    "title": "AWS Quiz EFS",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-efs"
+    ],
+    "difficulty": "medium",
+    "date": "2026-07-19T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz EFS](aws-quiz-efs.jpeg)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz ELB",
+    "title": "AWS Quiz ELB",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-elb"
+    ],
+    "difficulty": "medium",
+    "date": "2026-07-19T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz ELB ](aws-quiz-elb.jpeg)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Route 53",
     "title": "AWS Route 53 Quiz",
     "tags": [
