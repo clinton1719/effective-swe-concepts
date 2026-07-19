@@ -1119,3 +1119,37 @@ When AWS services manage resources on your behalf—such as an Elastic Load Bala
 ### Why others are incorrect:
 * **Using Amazon EC2 API/CLI:** The EC2 API cannot directly override or manipulate the security groups of ENIs structurally locked and managed by other standalone services like Elastic Load Balancing. Doing so triggers validation exceptions. 
 * **Using all these methods / None of these:** Since standard EC2 modification workflows are blocked, these configurations can only be addressed via the managing service's specific framework.
+
+
+## Question 36
+
+**Question:**
+In Amazon EC2, if your EBS volume stays in the detaching state, you can force the detachment by clicking [...].
+#bookmark
+[ ] Force Detach.
+
+[ ] Detach Instance.
+
+[ ] AttachVolume.
+
+[ ] AttachInstance.
+
+**Correct Answer:** Force Detach.
+
+---
+
+### Why this is the correct answer:
+
+Sometimes, when you request a clean detachment of an Amazon Elastic Block Store (EBS) volume, the operation hangs, causing the volume status to remain stuck in the **detaching** state. 
+
+* **The Stuck State:** This typically happens if the file system on the EC2 instance has open files, is actively writing data, or if the instance experiences a kernel-level lockup that prevents it from cleanly unmounting the storage block.
+* **Overriding the Hypervisor:** The **Force Detach** option instructs the AWS hypervisor to immediately sever the connection between the virtual machine and the EBS volume from the infrastructure side, bypassing the instance's operating system checks.
+
+> ⚠️ **Data Integrity Note:** Forcing a detachment can lead to data loss or file system corruption if the instance was actively writing to the disk when the command was issued. It is highly recommended to manually run `umount` within the operating system before attempting this, or use Force Detach as a last resort before rebooting an unresponsive instance.
+
+### Operational Actions:
+You can execute this in the AWS Management Console by selecting the stuck volume under **Volumes**, clicking **Actions**, and selecting **Force detach volume**. 
+
+Programmatically, you can run the following AWS CLI command:
+```bash
+aws ec2 detach-volume --volume-id vol-0123456789abcdef0 --force

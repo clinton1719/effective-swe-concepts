@@ -784,7 +784,6 @@ AWS designs certain managed data layer services to enforce **default, transparen
 
 **Question:**
 When running my DB Instance as a Multi-AZ deployment, can I use the standby for read or write operations?
-#bookmark
 
 [ ] Yes.
 
@@ -811,3 +810,40 @@ This question relates specifically to the core, standard **Amazon RDS Multi-AZ D
 ### Why others are incorrect:
 * **Yes:** This violates the core functionality of a traditional passive Multi-AZ standby replica.
 * **Engine Specific Options (MSSQL / Oracle):** Neither Microsoft SQL Server nor Oracle engines allow active traffic on a standard RDS Multi-AZ standby instance; the restriction applies globally across all engines using the classic single-standby architecture.
+
+
+## Question 33
+
+**Question:**
+In the Launch Db Instance Wizard, where can I select the backup and maintenance options?
+
+[ ] Under DB INSTANCE DETAILS.
+
+[ ] Under REVI EW.
+
+[ ] Under MANAGEMENT OPTIONS.
+
+[ ] Under ENGINE SELECTION.
+
+**Correct Answer:** Under MANAGEMENT OPTIONS.
+
+---
+
+### Why this is the correct answer:
+
+In the legacy classic interface layout of the Amazon RDS **Launch DB Instance Wizard**, configurations are partitioned chronologically into logical structural workflow steps:
+
+* **Functional Scope:** The **Management Options** step is designed specifically to capture operational preferences. This is the explicit wizard section where you specify automated backup settings (such as the backup retention window and the preferred daily backup window timeframes) and update frameworks (such as enabling Auto Minor Version Upgrades and selecting a specific weekly maintenance window).
+
+---
+
+### RDS Wizard Step Breakdowns:
+
+| Wizard Step Section | Configuration Controls Handled |
+| :--- | :--- |
+| **Engine Selection** | Choosing the core database engine (MySQL, PostgreSQL, Oracle, SQL Server, MariaDB). |
+| **DB Instance Details** | Selecting instance compute classes, storage allocation (GB), instance identifiers, and root master credential configurations. |
+| **Management Options** | **Configuring Backup retention periods, automated maintenance schedules, and monitoring settings**. |
+| **Review** | Checking a summary of all configurations prior to executing the database build. |
+
+> **Modern UI Context:** In the current unified AWS Management Console layout for creating databases, these settings are grouped within expanding dropdown accordions under **Additional Configuration** (subsections: *Backup* and *Maintenance*) located toward the bottom of the main creation wizard screen. However, on the traditional SAA exam framework, the mapping belongs explicitly to **Management Options**.
