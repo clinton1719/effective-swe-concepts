@@ -9,6 +9,8 @@ date: 2026-05-03
 
 ArrayList is a resizable array implementation of the List interface in Java. It maintains insertion order, allows duplicates, and provides fast random access to elements.
 
+Default size of ArrayList is 10. Internally, ArrayList uses Object[]
+
 ---
 
 ## Detailed Explanation
