@@ -8,7 +8,8 @@ date: 2025-09-15
 ## ✅ Short Answer
 We override `equals()` and `hashCode()` in Java to ensure that **objects with the same logical state are treated as equal** — especially when they are used in **collections** like `HashMap`, `HashSet`, and `Hashtable`.  
 
-If only `equals()` is overridden without `hashCode()`, collections relying on hashing may not work correctly.
+If only `equals()` is overridden without `hashCode()`, collections relying on hashing may not work correctly  
+## *because, in Java, equals ALWAYS compares by reference and not by the contents of those objects*
 
 ---
 

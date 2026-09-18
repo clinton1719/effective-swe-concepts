@@ -127,7 +127,7 @@ Bucket 5
 
 Historically, HashMap buckets were linked lists.
 
-In modern Java, when a bucket becomes sufficiently large, HashMap can convert the bucket's structure into a **Red-Black Tree**, improving lookup performance in heavily-collided buckets.
+Performance improvement in Java 8 : It is possible that due to multiple collisions, the linked list size has become very large, and as we know, searching in a linked list is O(n), it will impact the constant time performance of hashmap’s get() method. So, in modern Java, when a bucket becomes sufficiently large, HashMap can convert the bucket's structure into a **Red-Black Tree**, improving lookup performance in heavily-collided buckets.
 
 ---
 
