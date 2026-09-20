@@ -618,9 +618,7 @@
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\HLD\\30-system-design-concepts",
     "title": "30-system-design-concepts",
-    "tags": [
-      "hld"
-    ],
+    "tags": [],
     "difficulty": "easy",
     "date": "2026-09-20T00:00:00.000Z",
     "content": "\r\n![30-system-design-concepts-1](30-system-design-concepts-1.png)\r\n![30-system-design-concepts-2](30-system-design-concepts-2.png)",
@@ -641,7 +639,10 @@
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\HLD\\REST vs GraphQL",
     "title": "REST API vs GraphQL",
-    "tags": [],
+    "tags": [
+      "REST",
+      "GraphQL"
+    ],
     "difficulty": "easy",
     "date": "2025-09-11T00:00:00.000Z",
     "content": "\r\nLink: https://blog.algomaster.io/p/rest-vs-graphql\r\n\r\n## REST API vs GraphQL\r\n\r\nBoth **REST** and **GraphQL** are popular approaches for designing APIs, but they differ significantly in **data fetching, flexibility, and efficiency**. Understanding these differences is crucial for choosing the right approach in modern web and mobile applications.\r\n\r\n---\r\n\r\n## ✅ REST API\r\n\r\nREST (**Representational State Transfer**) is an architectural style that uses standard HTTP methods (`GET`, `POST`, `PUT`, `DELETE`) for resource manipulation.\r\n\r\n### Characteristics:\r\n- **Resource-based** → Each endpoint represents a resource (`/users`, `/orders`, etc.).  \r\n- **Fixed endpoints** → You usually design multiple endpoints for different use cases.  \r\n- **Over-fetching/Under-fetching** → Clients may get more data than needed or not enough, requiring multiple requests.  \r\n- Uses JSON (commonly) but can return XML, HTML, etc.  \r\n\r\n**Example:**\r\n```http\r\nGET /users/123\r\n{\r\n  \"id\": 123,\r\n  \"name\": \"Alice\",\r\n  \"email\": \"alice@example.com\",\r\n  \"phone\": \"123-456-7890\"\r\n}\r\n```\r\n- Even if the client only needs `name`, the entire payload is returned.\r\n\r\n---\r\n\r\n## ✅ GraphQL\r\n\r\nGraphQL is a **query language for APIs** developed by Facebook. Clients can request **exactly the data they need** in a single query.\r\n\r\n### Characteristics:\r\n- **Single endpoint** (`/graphql`) → all requests are sent as queries.  \r\n- **Client-driven data fetching** → Clients specify what fields they need.  \r\n- Avoids over-fetching and under-fetching.  \r\n- Strongly typed schema → Provides introspection and validation.  \r\n- Can aggregate data from multiple sources in one request.  \r\n\r\n**Example:**\r\n```graphql\r\nquery {\r\n  user(id: 123) {\r\n    name\r\n  }\r\n}\r\n```\r\n\r\n**Response:**\r\n```json\r\n{\r\n  \"data\": {\r\n    \"user\": {\r\n      \"name\": \"Alice\"\r\n    }\r\n  }\r\n}\r\n```\r\n- Only `name` is returned.\r\n\r\n---\r\n\r\n## 🔑 Key Differences\r\n\r\n| Aspect                | REST API                                  | GraphQL                                |\r\n|------------------------|-------------------------------------------|-----------------------------------------|\r\n| **Data Fetching**      | Fixed responses, may over/under-fetch     | Client chooses exact fields             |\r\n| **Endpoints**          | Multiple endpoints for resources          | Single endpoint with flexible queries   |\r\n| **Performance**        | May require multiple requests             | Often one request is enough             |\r\n| **Schema**             | No strict schema enforced                 | Strongly typed schema                   |\r\n| **Versioning**         | Common (e.g., `/v1/`, `/v2/`)             | Usually avoided, schema evolves         |\r\n| **Learning Curve**     | Easier, widely adopted                    | Steeper (needs schema, resolvers)       |\r\n| **Caching**            | Easy with HTTP caching                    | More complex, requires custom solutions |\r\n\r\n---\r\n\r\n## 📌 When to Use What?\r\n\r\n- **REST API** is a good choice if:\r\n  - Your API is simple, resource-based, and unlikely to change frequently.  \r\n  - You want to leverage HTTP caching and existing tooling.  \r\n  - You need quick development and wide compatibility.  \r\n\r\n- **GraphQL** is a good choice if:\r\n  - Clients (web, mobile) need **different shapes of data**.  \r\n  - Your API aggregates data from **multiple services/sources**.  \r\n  - Reducing network requests is critical (e.g., mobile apps).  \r\n\r\n---\r\n\r\n## 👉 Interview Tip\r\n\r\nIf asked in interviews:\r\n- Emphasize **GraphQL’s flexibility** vs **REST’s simplicity and maturity**.  \r\n- Mention that **GraphQL can be overkill** for simple APIs.  \r\n- Also note that REST still dominates in many real-world systems, but GraphQL is popular in startups and front-end heavy apps.\r\n\r\n",
@@ -650,7 +651,9 @@
   {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\HLD\\Top 5 Caching Strategies Explained",
     "title": "Top 5 Caching Strategies Explained",
-    "tags": [],
+    "tags": [
+      "caching"
+    ],
     "difficulty": "medium",
     "date": "2025-09-11T00:00:00.000Z",
     "content": "\r\n![Top 5 Caching Strategies Explained](/effective-swe-concepts/caching-strategies.png)",
@@ -1979,6 +1982,15 @@
     "topic": "LLD"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\DRY principle",
+    "title": "DRY principle",
+    "tags": [],
+    "difficulty": "easy",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![DRY principle](DRY_principle.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Encapsulation",
     "title": "Encapsulation",
     "tags": [
@@ -2038,6 +2050,15 @@
     "topic": "LLD"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\KISS principle",
+    "title": "KISS principle",
+    "tags": [],
+    "difficulty": "easy",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![KISS principle](kiss.png)",
+    "topic": "LLD"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\Polymorphism",
     "title": "Inheritance",
     "tags": [
@@ -2060,6 +2081,15 @@
     "difficulty": "easy",
     "date": "2026-02-07T00:00:00.000Z",
     "content": "\r\n## What is a JWT Token?\r\n\r\n**JWT** (JSON Web Token) is an **open standard** for securely transmitting information between parties as a **JSON object**. It is commonly used for **authentication** and **authorization** in web applications.\r\n\r\nA JWT is a **compact, URL-safe string** that looks like:  \r\n`eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c`\r\n\r\n---\r\n\r\n## JWT Structure\r\n\r\nA JWT consists of **3 parts** separated by dots (`.`):\r\n\r\n1. **Header** - Metadata about the token type and signing algorithm\r\n2. **Payload** - The actual data (claims)\r\n3. **Signature** - Used to verify the token's integrity\r\n\r\nEach part is **Base64Url encoded** and **signed** with a secret key.\r\n\r\n---\r\n\r\n## Main JWT Fields (Claims)\r\n\r\n### 1. Subject (sub)\r\n- **Primary identifier** for the user\r\n- Typically **username**, **userId**, or **email** (must be unique)\r\n- Used to identify which user the token belongs to\r\n\r\n### 2. Claims\r\n- **Custom data** about the user\r\n- Common examples:\r\n  - `roles`: [\"admin\", \"user\"]\r\n  - `organizationId`: \"org123\"\r\n  - `permissions`: [\"read\", \"write\"]\r\n- Avoid sensitive data (passwords, etc.)\r\n\r\n### 3. Expiration (exp)\r\n- **Timestamp** when the token expires\r\n- Tokens typically expire in **15 minutes to 24 hours**\r\n- After expiration, user must re-authenticate\r\n\r\n### 4. Signature\r\n- **Verifies authenticity** - ensures token wasn't tampered with\r\n- Created using **secret key** + header + payload\r\n- Server verifies signature matches before trusting the token\r\n\r\n---\r\n\r\n## JWT Format Example\r\n\r\n```\r\nHeader: {\r\n\"alg\": \"HS256\",\r\n\"typ\": \"JWT\"\r\n}\r\n\r\nPayload: {\r\n\"sub\": \"john.doe\",\r\n\"roles\": [\"user\", \"editor\"],\r\n\"organizationId\": \"org123\",\r\n\"exp\": 1645123456\r\n}\r\n\r\nSignature: HMACSHA256(\r\nbase64UrlEncode(header) + \".\" +\r\nbase64UrlEncode(payload),\r\nsecret_key\r\n)\r\n\r\n```\r\n\r\n\r\n---\r\n\r\n## How JWT Works (Flow)\r\n\r\n1. **Login**: User enters credentials\r\n2. **Server generates JWT** with user info + signature\r\n3. **Client stores JWT** (usually in localStorage/cookies)\r\n4. **Each request**: Client sends JWT in `Authorization: Bearer <token>`\r\n5. **Server verifies**:\r\n   - Signature is valid\r\n   - Token not expired\r\n   - Extracts user info from payload\r\n\r\n---\r\n\r\n## Example Usage\r\n\r\n**Login Response:**\r\n```\r\n{\r\n\"token\": \"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\",\r\n\"user\": { \"username\": \"john.doe\" }\r\n}\r\n```\r\n\r\n\r\n**Protected API Request:**\r\n```\r\nGET /api/protected\r\nAuthorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...\r\n\r\ntext\r\n```\r\n\r\n---\r\n\r\n## Key Benefits\r\n\r\n| Feature | Benefit |\r\n|---------|---------|\r\n| **Stateless** | No server-side session storage needed |\r\n| **Scalable** | Works with load balancers (no sticky sessions) |\r\n| **Cross-domain** | Can be used across different domains/services |\r\n| **Compact** | Smaller than session cookies + user data |\r\n\r\n---\r\n\r\n## Security Considerations\r\n\r\n- **Never store sensitive data** (passwords, SSNs) in JWT payload\r\n- Use **HTTPS only** (prevents token interception)\r\n- **Short expiration times** (15-60 minutes)\r\n- **Refresh tokens** for longer sessions\r\n- **Strong secret keys** for signing\r\n- **Validate all claims** on server side\r\n\r\n---\r\n\r\n## 🧠 Interview Tips\r\n\r\n- JWT = **JSON Web Token** (3 parts: Header.Payload.Signature)\r\n- **Stateless authentication** - server doesn't store sessions\r\n- **Subject (sub)** identifies the user, **Claims** contain extra info\r\n- **Signature prevents tampering**, **Expiration ensures security**\r\n- Client sends JWT in **Authorization: Bearer <token>** header\r\n",
+    "topic": "LLD"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\LLD\\YAGNI Principle",
+    "title": "YAGNI principle",
+    "tags": [],
+    "difficulty": "easy",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![YAGNI principle](yagni.png)",
     "topic": "LLD"
   },
   {

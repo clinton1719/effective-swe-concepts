@@ -1,6 +1,6 @@
 ---
 title: Top 5 Caching Strategies Explained
-tags: []
+tags: [caching]
 difficulty: medium
 date: 2025-09-11
 ---

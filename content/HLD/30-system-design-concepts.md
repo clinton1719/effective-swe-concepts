@@ -1,6 +1,6 @@
 ---
 title: 30-system-design-concepts
-tags: [hld]
+tags: []
 difficulty: easy
 date: 2026-09-20
 ---
