@@ -463,6 +463,45 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz Lambda",
+    "title": "AWS Quiz Lambda",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-lambda"
+    ],
+    "difficulty": "medium",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz Lambda](aws-quiz-lambda.png)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz RDS",
+    "title": "AWS Quiz RDS",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-rds"
+    ],
+    "difficulty": "medium",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz RDS](aws-quiz-rds.png)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz S3",
+    "title": "AWS Quiz S3",
+    "tags": [
+      "aws",
+      "aws-quiz",
+      "aws-rds"
+    ],
+    "difficulty": "medium",
+    "date": "2026-09-20T00:00:00.000Z",
+    "content": "\r\n![AWS Quiz S3](aws-quiz-s3.png)\r\n\r\n",
+    "topic": "AWS"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Route 53",
     "title": "AWS Route 53 Quiz",
     "tags": [
