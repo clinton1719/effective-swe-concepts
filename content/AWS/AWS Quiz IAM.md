@@ -5,5 +5,4 @@ difficulty: medium
 date: 2026-09-17
 ---
 
-![AWS Quiz S3](aws-quiz-iam.jpeg)
-
+![AWS Quiz IAM](aws-quiz-iam.jpeg)
