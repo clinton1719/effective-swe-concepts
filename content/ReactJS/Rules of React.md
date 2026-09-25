@@ -25,7 +25,7 @@ We strongly recommend using [Strict Mode](https://react.dev/reference/react/Stri
 
 ---
 
-## Components and Hooks must be pure
+## 1. Components and Hooks must be pure
 
 [Purity in Components and Hooks](https://react.dev/reference/rules/components-and-hooks-must-be-pure) is a key rule of React that makes your app predictable, easy to debug, and allows React to automatically optimize your code.
 
@@ -37,7 +37,7 @@ We strongly recommend using [Strict Mode](https://react.dev/reference/react/Stri
 
 ---
 
-## React calls Components and Hooks
+## 2. React calls Components and Hooks
 
 [React is responsible for rendering components and hooks when necessary to optimize the user experience.](https://react.dev/reference/rules/react-calls-components-and-hooks) It is declarative: you tell React what to render in your component’s logic, and React will figure out how best to display it to your user.
 
@@ -46,7 +46,7 @@ We strongly recommend using [Strict Mode](https://react.dev/reference/react/Stri
 
 ---
 
-## Rules of Hooks
+## 3. Rules of Hooks
 
 Hooks are defined using JavaScript functions, but they represent a special type of reusable UI logic with restrictions on where they can be called. You need to follow the [Rules of Hooks](https://react.dev/reference/rules/rules-of-hooks) when using them.
 
