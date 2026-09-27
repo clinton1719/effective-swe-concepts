@@ -804,3 +804,46 @@ Amazon Redshift is a fully managed, enterprise-class cloud data warehouse design
 
 - **InnoDB Tables:** InnoDB is a transaction-safe, row-oriented storage engine designed specifically for MySQL and MariaDB databases.
 - **NDB data storage / NDB CLUSTER Storage:** NDB (Network Database) is an in-memory, row-oriented engine used by MySQL Cluster setups for high-availability transactional operations rather than analytical warehousing.
+
+## Question 35
+
+**Question:**
+You can modify the backup retention period; valid values are 0 (for no backup retention) to a maximum of [...] days.
+#bookmark
+[ ] 45.
+
+[ ] 35.
+
+[ ] 15.
+
+[ ] 5.
+<br>
+<br>
+
+**Correct Answer:** 35.
+
+---
+
+### Why this is the correct answer:
+
+In Amazon RDS, automated backups create point-in-time recovery points for your database instances.
+
+- **Automated Retention Range:** You can configure the automated backup retention period for Amazon RDS from **0 days** (which turns off automated backups entirely) up to a maximum limit of **35 days**.
+- **Point-in-Time Recovery (PITR):** During the active retention window, RDS automatically backs up your storage volumes and continuously captures transaction logs (such as binary logs for MySQL or write-ahead logs for PostgreSQL). This allows you to restore your DB instance to any specific second within the retention period up to the last 5 minutes.
+- **Deletion Lifecycle:** When the automated backup retention period expires, old automated snapshots and transaction logs are automatically purged by AWS to free up space.
+
+---
+
+### Amazon RDS Backup Mechanics:
+
+| Backup Setting        | Value / Constraint                                                        | Behavioral Impact                                                                                 |
+| :-------------------- | :------------------------------------------------------------------------ | :------------------------------------------------------------------------------------------------ |
+| **Minimum Retention** | `0` days                                                                  | Turns off automated backups completely. Disables Point-in-Time Recovery (PITR) and read replicas. |
+| **Default Retention** | `1` day (if created via CLI/API) or `7` days (if created via AWS Console) | Standard default window for fresh deployments.                                                    |
+| **Maximum Retention** | **`35` days**                                                             | Maximum window for automated point-in-time recovery storage.                                      |
+
+> **Note:** If you need to keep backups for longer than 35 days (e.g., for compliance or archival purposes), you must take manual **DB Snapshots** (which persist until explicitly deleted) or use **AWS Backup** to manage long-term retention policies.
+
+### Why others are incorrect:
+
+- **45 / 15 / 5:** None of these values represent the native upper limit constraint enforced by the Amazon RDS engine for automated backup retention windows.

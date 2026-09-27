@@ -1220,3 +1220,163 @@ When you need maximum data durability and immediate redundancy on host instances
 
 - **Attach one more volume with RAID 0 / Stripe them with RAID:** RAID 0 distributes data across multiple disks without parity or mirroring to maximize performance. However, if one volume in a RAID 0 array fails, all data across the entire array is lost, making it actively terrible for fault tolerance.
 - **Use the EBS volume as a root device:** Designating an EBS volume as the root device gives the instance a bootable persistent disk, but it does not provide additional fault tolerance or redundancy against volume-level storage failures on its own.
+
+## Question 38
+
+**Question:**
+What does specifying the mapping `/dev/sdc=none` when launching an instance do?
+
+[ ] Prevents /dev/sdc from creating the instance.
+
+[ ] Prevents /dev/sdc from deleting the instance.
+
+[ ] Set the value of /dev/sdc to 'zero'.
+
+[ ] Prevents /dev/sdc from attaching to the instance.
+
+**Correct Answer:** Prevents /dev/sdc from attaching to the instance.
+
+---
+
+### Why this is the correct answer:
+
+When you launch an Amazon EC2 instance from an Amazon Machine Image (AMI), the instance automatically inherits all the **Block Device Mappings** predefined inside that AMI.
+
+- **Suppressing Default Mappings:** If an AMI includes a default mapping for a secondary storage device (such as an instance store or EBS volume assigned to `/dev/sdc`), you can explicitly override and suppress this behavior during launch.
+- **Using `none`:** Passing `/dev/sdc=none` in the launch parameters instructs the AWS hypervisor to omit that block device entirely, preventing `/dev/sdc` from being created or attached to the newly launched EC2 instance.
+
+---
+
+### Block Device Mapping Overrides at Launch:
+
+| Parameter Value                              | Action Performed                                                             |
+| :------------------------------------------- | :--------------------------------------------------------------------------- |
+| **`none`**                                   | **Suppresses the specified block device mapping defined in the AMI.**        |
+| **`ephemeral[0..3]`**                        | Maps an instance store (ephemeral) volume to the designated device name.     |
+| **`snapshot-id:size:delete-on-termination`** | Maps a specific Amazon EBS volume or snapshot to the designated device name. |
+
+### Why others are incorrect:
+
+- **Prevents /dev/sdc from creating/deleting the instance:** Block device mapping overrides modify storage attachment settings; they do not dictate whether an instance can be created or terminated.
+- **Set the value of /dev/sdc to 'zero':** `none` does not format, write zeros, or manipulate data sectors on the volume—it simply excludes the storage mapping from the instance's block device layout.
+
+## Question 39
+
+**Question:**
+Which of the following statements is true of tagging an Amazon EC2 resource?
+
+[ ] You don't need to specify the resource identifier while terminating a resource.
+
+[ ] You can terminate, stop, or delete a resource based solely on its tags.
+
+[ ] You can't terminate, stop, or delete a resource based solely on its tags.
+
+[ ] You don't need to specify the resource identifier while stopping a resource.
+
+**Correct Answer:** You can't terminate, stop, or delete a resource based solely on its tags.
+
+---
+
+### Why this is the correct answer:
+
+Amazon EC2 metadata tags are user-defined key-value labels assigned to resources to help organize, filter, track costs, and control access permissions.
+
+- **Identification vs. Management Operations:** API operations in AWS EC2 (such as `StopInstances`, `StartInstances`, or `TerminateInstances`) require explicit **Resource Identifiers** (like `i-0123456789abcdef0` or `vol-0123456789abcdef0`) to perform lifecycle modifications.
+- **No Direct Tag-Based Execution:** You cannot issue a native EC2 API command targeting a tag alone (e.g., "terminate all resources where `Environment=Dev`"). You must first query or describe the resources matching those tags to obtain their specific instance/volume IDs, and then pass those IDs to the respective management APIs.
+
+---
+
+### EC2 API Operations & Tag Usage:
+
+| Action                   | Required Input                 | Role of Tags                                                  |
+| :----------------------- | :----------------------------- | :------------------------------------------------------------ |
+| **`StopInstances`**      | Instance ID(s) (e.g., `i-xxx`) | Filtering targets via `DescribeInstances` before passing IDs. |
+| **`TerminateInstances`** | Instance ID(s) (e.g., `i-xxx`) | Grouping or searching in the console/CLI.                     |
+| **`CreateTags`**         | Resource ID(s) + Key/Value     | Appends metadata to specific instances/volumes.               |
+
+### Why others are incorrect:
+
+- **You can terminate, stop, or delete a resource based solely on its tags:** Incorrect; the underlying AWS EC2 API methods do not accept tags as a direct direct parameter for state-changing lifecycle actions.
+- **You don't need to specify the resource identifier while terminating/stopping a resource:** Incorrect; the resource ID is a strictly required parameter for these lifecycle API calls.
+
+## Question 40
+
+**Question:**
+Are Reserved Instances available for Multi-AZ Deployments?
+
+[ ] Only for Cluster Compute instances.
+
+[ ] Yes for all instance types.
+
+[ ] Only for M3 instance types.
+
+[ ] No.
+
+**Correct Answer:** Yes for all instance types.
+
+---
+
+### Why this is the correct answer:
+
+Amazon RDS allows you to purchase **Reserved Instances (RIs)** for database instances configured as **Multi-AZ deployments**:
+
+- **Full Instance Type Support:** Reserved Instances can be purchased for **all supported instance types and families** running in a Multi-AZ configuration. There is no restriction limiting RIs to specific families (like M3) or special cluster instance classes.
+- **Billing Normalization:** When you purchase a Multi-AZ Reserved Instance in Amazon RDS, AWS accounts for the cost of both the primary instance and the synchronous standby replica.
+- **Deployment Flexibility:** Thanks to RDS RI normalization factor rules, a Multi-AZ Reserved Instance can cover one Multi-AZ database instance or be split to cover two Single-AZ database instances of the same instance class and engine.
+
+---
+
+### RDS Reserved Instance Deployment Mapping:
+
+| Purchase Option                 | Coverage Provided                                                              |
+| :------------------------------ | :----------------------------------------------------------------------------- |
+| **Single-AZ Reserved Instance** | Covers 1 Single-AZ DB Instance.                                                |
+| **Multi-AZ Reserved Instance**  | Covers 1 Multi-AZ DB Instance (Primary + Standby) OR 2 Single-AZ DB Instances. |
+
+### Why others are incorrect:
+
+- **Only for Cluster Compute instances / Only for M3 instance types:** Reserved Instances are not restricted to specific families or cluster classes; they are available across all RDS-supported instance families (e.g., `t3`, `m5`, `r5`, `m6g`, etc.).
+- **No:** AWS fully supports RI billing discounts for Multi-AZ RDS deployments.
+
+## Question 41
+
+**Question:**
+An instance is launched into a VPC subnet with the network ACL configured to allow all inbound traffic and deny all outbound traffic. The instance's security group is configured to allow SSH from any IP address and deny all outbound traffic. What changes need to be made to allow SSH access to the instance?
+
+[ ] The outbound security group needs to be modified to allow outbound traffic.
+
+[ ] The outbound network ACL needs to be modified to allow outbound traffic.
+
+[ ] Nothing, it can be accessed from any IP address using S3.
+
+[ ] Both the outbound security group and outbound network ACL need to be modified to allow outbound traffic.
+<br>
+<br>
+
+**Correct Answer:** The outbound network ACL needs to be modified to allow outbound traffic.
+
+---
+
+### Why this is the correct answer:
+
+This question highlights the foundational architectural difference between **Security Groups** (stateful) and **Network Access Control Lists / NACLs** (stateless) in Amazon VPC networking:
+
+1. **Security Groups are Stateful:** When traffic is allowed inbound on a stateful firewall (e.g., SSH on port 22), the response traffic is automatically allowed outbound back to the client regardless of outbound security group rules. Thus, denying outbound traffic in the security group does **not** block the response to an allowed SSH connection.
+2. **Network ACLs are Stateless:** NACLs evaluate inbound and outbound traffic independently. Allowing inbound SSH traffic on port 22 is insufficient on its own; the return response traffic from the instance (sent on ephemeral ports 1024–65535) will be blocked if the outbound NACL rule is set to deny all outbound traffic.
+3. **Required Action:** To establish an SSH connection, the outbound Network ACL must be updated to permit return traffic.
+
+---
+
+### Stateful vs. Stateless Behavioral Comparison:
+
+| Feature                  | Security Group                                                     | Network ACL (NACL)                                                 |
+| :----------------------- | :----------------------------------------------------------------- | :----------------------------------------------------------------- |
+| **Operates At**          | Instance / ENI Level                                               | Subnet Level                                                       |
+| **State Nature**         | **Stateful:** Return traffic is automatically tracked and allowed. | **Stateless:** Outbound response traffic requires explicit rules.  |
+| **Outbound Rule Impact** | Outbound rules are ignored for inbound connection responses.       | **Outbound rules must allow traffic back out on ephemeral ports.** |
+
+### Why others are incorrect:
+
+- **The outbound security group needs to be modified...:** Unnecessary because Security Groups are stateful; response traffic flows automatically.
+- **Nothing, it can be accessed from any IP address using S3:** Irrelevant distraction; S3 is a storage service, whereas the question concerns SSH access to an EC2 instance.
+- **Both the outbound security group and outbound network ACL need to be modified...:** Incorrect because the security group's stateful nature makes modifying its outbound rules unnecessary for handling return response traffic.

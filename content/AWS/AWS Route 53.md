@@ -17,16 +17,15 @@ How can the domain's zone apex, for example, 'myzoneapexdomain.com', be pointed 
 
 [ ] By using an A record.
 
-**Correct Answer:** By using an Amazon Route 53 Alias record.**
+**Correct Answer:** By using an Amazon Route 53 Alias record.\*\*
 
-**Explanation:** This is a classic DNS challenge in AWS. 
+**Explanation:** This is a classic DNS challenge in AWS.
 
-* **The Zone Apex Restriction:** According to standard DNS protocol (RFC), you cannot create a **CNAME** record for the zone apex (the "naked" domain without the `www`). However, Elastic Load Balancers do not have a static IP address; they only provide a DNS name.
-* **The Route 53 Alias Solution:** An **Alias record** is a Route 53-specific extension to DNS. It allows you to point your zone apex to an AWS resource (like an ELB, CloudFront distribution, or S3 bucket). 
-* **How it works:** When Route 53 receives a query for an Alias record, it responds with the IP address of the underlying resource. Unlike a CNAME, the Alias record is recognized by Route 53 as being at the apex, solving the protocol restriction.
-* **Why not CNAME?** As mentioned, DNS standards forbid using a CNAME for the root domain (myzoneapexdomain.com).
-* **Why not A record?** A standard A record requires a static IP address. Since ELB IPs can change, you cannot use a standard A record.
-
+- **The Zone Apex Restriction:** According to standard DNS protocol (RFC), you cannot create a **CNAME** record for the zone apex (the "naked" domain without the `www`). However, Elastic Load Balancers do not have a static IP address; they only provide a DNS name.
+- **The Route 53 Alias Solution:** An **Alias record** is a Route 53-specific extension to DNS. It allows you to point your zone apex to an AWS resource (like an ELB, CloudFront distribution, or S3 bucket).
+- **How it works:** When Route 53 receives a query for an Alias record, it responds with the IP address of the underlying resource. Unlike a CNAME, the Alias record is recognized by Route 53 as being at the apex, solving the protocol restriction.
+- **Why not CNAME?** As mentioned, DNS standards forbid using a CNAME for the root domain (myzoneapexdomain.com).
+- **Why not A record?** A standard A record requires a static IP address. Since ELB IPs can change, you cannot use a standard A record.
 
 ## Question 2
 
@@ -44,9 +43,9 @@ Which of the following are NOT valid Route 53 Health Checks?
 
 **Explanation:** Amazon Route 53 does not have a native health check type specifically designed to monitor an SQS Queue directly. Route 53 officially supports three primary types of health checks:
 
-*   **Endpoint Health Checks:** Route 53 monitors a specific resource (via IP address or domain name) by sending regular requests using HTTP, HTTPS, or TCP.
-*   **Calculated Health Checks:** These are "parent" health checks that monitor the status of other "child" health checks. They use logical operators (AND, OR, NOT) to determine overall health based on multiple components.
-*   **CloudWatch Alarm Health Checks:** This type associates the health check with a CloudWatch alarm. Route 53 marks the resource as healthy or unhealthy based on the state of that alarm. 
+- **Endpoint Health Checks:** Route 53 monitors a specific resource (via IP address or domain name) by sending regular requests using HTTP, HTTPS, or TCP.
+- **Calculated Health Checks:** These are "parent" health checks that monitor the status of other "child" health checks. They use logical operators (AND, OR, NOT) to determine overall health based on multiple components.
+- **CloudWatch Alarm Health Checks:** This type associates the health check with a CloudWatch alarm. Route 53 marks the resource as healthy or unhealthy based on the state of that alarm.
 
 **Why SQS Queue is the correct answer:**
 While you can monitor an SQS queue using **CloudWatch Alarms** (e.g., alarming if the number of visible messages exceeds a threshold) and then point a Route 53 health check at that alarm, there is no direct "SQS Queue" health check type in the Route 53 console or API.
@@ -55,13 +54,12 @@ While you can monitor an SQS queue using **CloudWatch Alarms** (e.g., alarming i
 
 ### Summary of Route 53 Health Check Types
 
-| Health Check Type | Mechanism | Target Example |
-| :--- | :--- | :--- |
-| **Endpoint** | Global probes (HTTP/HTTPS/TCP) | Web servers, Load Balancers |
-| **Calculated** | Aggregates child check statuses | Multi-region application stacks |
-| **CloudWatch Alarm** | Monitors alarm state (OK/ALARM) | Databases, internal SQS metrics |
-| **Recovery Control** | Integration with ARC | Tightly coupled failover systems |
-
+| Health Check Type    | Mechanism                       | Target Example                   |
+| :------------------- | :------------------------------ | :------------------------------- |
+| **Endpoint**         | Global probes (HTTP/HTTPS/TCP)  | Web servers, Load Balancers      |
+| **Calculated**       | Aggregates child check statuses | Multi-region application stacks  |
+| **CloudWatch Alarm** | Monitors alarm state (OK/ALARM) | Databases, internal SQS metrics  |
+| **Recovery Control** | Integration with ARC            | Tightly coupled failover systems |
 
 ## Question 3
 
@@ -79,19 +77,19 @@ You have an application that's hosted in two different AWS Regions us-west-1 and
 
 **Explanation:** **Latency-Based Routing** is specifically designed to improve user experience by directing traffic to the AWS Region that provides the lowest network latency for the end user.
 
-*   **Dynamic Measurement:** AWS continuously measures network latency between internet users and AWS Regions. When a user makes a DNS request, Route 53 selects the region that currently offers the fastest round-trip time for that specific user.
-*   **Performance Optimization:** Unlike Geolocation (which is based purely on physical distance or boundaries), Latency routing accounts for the actual performance of the internet "pipes." Sometimes a user in one country might actually have a faster connection to a distant region than a local one due to submarine cable routing.
-*   **Global Scaling:** This policy is the standard choice for multi-region active-active architectures where "speed to first byte" is the primary priority.
+- **Dynamic Measurement:** AWS continuously measures network latency between internet users and AWS Regions. When a user makes a DNS request, Route 53 selects the region that currently offers the fastest round-trip time for that specific user.
+- **Performance Optimization:** Unlike Geolocation (which is based purely on physical distance or boundaries), Latency routing accounts for the actual performance of the internet "pipes." Sometimes a user in one country might actually have a faster connection to a distant region than a local one due to submarine cable routing.
+- **Global Scaling:** This policy is the standard choice for multi-region active-active architectures where "speed to first byte" is the primary priority.
 
 **Why the others are less ideal for this specific goal:**
-*   **Geolocation:** Routes based on the user's physical location (continent/country). While often faster, it doesn't account for real-time network congestion or performance—it is primarily used for content localization or legal compliance (like GDPR).
-*   **Weighted:** Distributes traffic based on a percentage (e.g., 50/50). It does not take the user's location or performance into account.
-*   **Multi Value:** Returns multiple healthy IP addresses to the client to allow for client-side load balancing and high availability, but it does not prioritize the "fastest" connection.
+
+- **Geolocation:** Routes based on the user's physical location (continent/country). While often faster, it doesn't account for real-time network congestion or performance—it is primarily used for content localization or legal compliance (like GDPR).
+- **Weighted:** Distributes traffic based on a percentage (e.g., 50/50). It does not take the user's location or performance into account.
+- **Multi Value:** Returns multiple healthy IP addresses to the client to allow for client-side load balancing and high availability, but it does not prioritize the "fastest" connection.
 
 ---
 
 > **Exam Tip:** If the question emphasizes **"Minimize response time"** or **"Performance,"** choose **Latency**. If it mentions **"Compliance,"** **"Language,"** or **"Restricted Content,"** choose **Geolocation**.
-
 
 ## Question 3
 
@@ -109,18 +107,18 @@ You have updated a Route 53 Record's myapp.mydomain.com value to point to a new 
 
 **Explanation:** **TTL (Time to Live)** is the primary reason why DNS changes do not take effect immediately for all users. It determines how long a DNS resolver should cache a record before querying the authoritative name servers (Route 53) again.
 
-*   **Caching Mechanism:** When a user's browser or an ISP's DNS resolver queries your domain, it caches the result for the duration of the TTL (e.g., 300 seconds). Until that time expires, the resolver will keep serving the **old ELB's IP address** even if you have already updated the record in AWS.
-*   **Propagation Delay:** While Route 53 updates its own name servers globally within 60 seconds, the "propagation" people experience is actually just waiting for thousands of local caches around the world to expire and fetch the new data.
-*   **Best Practice:** Before performing a planned migration between Load Balancers, it is a standard "Senior Dev" move to lower the TTL (e.g., to 60 seconds) a few hours in advance. This ensures that when you make the final switch, the transition happens almost instantly for your users.
+- **Caching Mechanism:** When a user's browser or an ISP's DNS resolver queries your domain, it caches the result for the duration of the TTL (e.g., 300 seconds). Until that time expires, the resolver will keep serving the **old ELB's IP address** even if you have already updated the record in AWS.
+- **Propagation Delay:** While Route 53 updates its own name servers globally within 60 seconds, the "propagation" people experience is actually just waiting for thousands of local caches around the world to expire and fetch the new data.
+- **Best Practice:** Before performing a planned migration between Load Balancers, it is a standard "Senior Dev" move to lower the TTL (e.g., to 60 seconds) a few hours in advance. This ensures that when you make the final switch, the transition happens almost instantly for your users.
 
 **Why the others are incorrect:**
-*   **Alias/CNAME records:** These are methods of mapping names to resources. While they might have different default behaviors (Alias records for ALBs typically have a fixed 60-second TTL), they are the *structure* of the record, not the *cause* of the delay.
-*   **Health Checks:** These are used for failover. If a health check fails, Route 53 stops sending traffic to that resource, but it doesn't cause a record update to "stick" to an old value.
+
+- **Alias/CNAME records:** These are methods of mapping names to resources. While they might have different default behaviors (Alias records for ALBs typically have a fixed 60-second TTL), they are the _structure_ of the record, not the _cause_ of the delay.
+- **Health Checks:** These are used for failover. If a health check fails, Route 53 stops sending traffic to that resource, but it doesn't cause a record update to "stick" to an old value.
 
 ---
 
 > **Note:** If you use an **Alias** record pointing to an AWS ALB, AWS sets the TTL to 60 seconds automatically. If you use a **CNAME**, you can set the TTL yourself, sometimes to much higher values like 3600 (1 hour), which would cause a significantly longer delay.
-
 
 ## Question 4
 
@@ -134,10 +132,10 @@ You have purchased mycoolcompany.com on Amazon Route 53 Registrar and would like
 
 **Explanation:** In AWS Route 53, an **Alias record** is the required choice when you need to point the **zone apex** (the "naked" or root domain, like `mycoolcompany.com`) to an AWS resource like an Elastic Load Balancer.
 
-*   **The Zone Apex Restriction:** Standard DNS protocols (RFC 1034) prohibit the use of a CNAME for the root domain. Since your goal is to point the top-level domain itself to the ELB, a CNAME is technically impossible.
-*   **AWS Native Integration:** Alias records are a Route 53-specific extension. They act as a pointer to the AWS resource's DNS name but appear to the outside world as a standard A record (returning the current IP addresses of the ELB).
-*   **Automatic Updates:** If the underlying IP addresses of your Elastic Load Balancer change (which happens frequently as the ELB scales), Route 53 automatically tracks these changes and updates the Alias record without any manual intervention.
-*   **Cost Efficiency:** Unlike CNAME queries, Route 53 does not charge for queries to Alias records that point to AWS resources like ELBs, CloudFront distributions, or S3 buckets.
+- **The Zone Apex Restriction:** Standard DNS protocols (RFC 1034) prohibit the use of a CNAME for the root domain. Since your goal is to point the top-level domain itself to the ELB, a CNAME is technically impossible.
+- **AWS Native Integration:** Alias records are a Route 53-specific extension. They act as a pointer to the AWS resource's DNS name but appear to the outside world as a standard A record (returning the current IP addresses of the ELB).
+- **Automatic Updates:** If the underlying IP addresses of your Elastic Load Balancer change (which happens frequently as the ELB scales), Route 53 automatically tracks these changes and updates the Alias record without any manual intervention.
+- **Cost Efficiency:** Unlike CNAME queries, Route 53 does not charge for queries to Alias records that point to AWS resources like ELBs, CloudFront distributions, or S3 buckets.
 
 **Why CNAME is incorrect:**
 While a **CNAME** can be used for subdomains (e.g., `www.mycoolcompany.com`), it cannot be used for the root domain. Additionally, using a CNAME for AWS resources incurs standard DNS query charges and requires an extra resolution step, making it less efficient than an Alias record.
@@ -146,14 +144,13 @@ While a **CNAME** can be used for subdomains (e.g., `www.mycoolcompany.com`), it
 
 ### Comparison: Alias vs. CNAME
 
-| Feature | Alias Record | CNAME Record |
-| :--- | :--- | :--- |
-| **Zone Apex Support** | **Yes (`mycoolcompany.com`)** | No (Subdomains only) |
+| Feature                      | Alias Record                      | CNAME Record         |
+| :--------------------------- | :-------------------------------- | :------------------- |
+| **Zone Apex Support**        | **Yes (`mycoolcompany.com`)**     | No (Subdomains only) |
 | **AWS Resource Integration** | Optimized for ELB, S3, CloudFront | Generic (any domain) |
-| **Query Charges** | **Free for AWS targets** | Standard query rates |
-| **Record Type** | Type A or AAAA | Type CNAME |
-| **Performance** | Faster (single lookup) | Slower (two lookups) |
-
+| **Query Charges**            | **Free for AWS targets**          | Standard query rates |
+| **Record Type**              | Type A or AAAA                    | Type CNAME           |
+| **Performance**              | Faster (single lookup)            | Slower (two lookups) |
 
 ## Question 5
 
@@ -171,26 +168,25 @@ You have a legal requirement that people in any country but France should NOT be
 
 **Explanation:** **Geolocation Routing** allows you to route traffic based on the geographic location of your users (continent, country, or even specific U.S. states).
 
-*   **Geographic Restricting (Blocking):** To satisfy a requirement like "France only," you create a record specifically for France that points to your web resources.
-*   **The "No Default" Rule:** In Route 53 Geolocation routing, if you **do not** create a "Default" record, any DNS query originating from a location that doesn't have a specific matching record will return `NODATA`. This effectively prevents users in those locations from resolving your domain name.
-*   **Compliance & Licensing:** This is the primary policy used for digital rights management (e.g., streaming content only in specific countries) or legal compliance (e.g., GDPR or localized gambling laws).
+- **Geographic Restricting (Blocking):** To satisfy a requirement like "France only," you create a record specifically for France that points to your web resources.
+- **The "No Default" Rule:** In Route 53 Geolocation routing, if you **do not** create a "Default" record, any DNS query originating from a location that doesn't have a specific matching record will return `NODATA`. This effectively prevents users in those locations from resolving your domain name.
+- **Compliance & Licensing:** This is the primary policy used for digital rights management (e.g., streaming content only in specific countries) or legal compliance (e.g., GDPR or localized gambling laws).
 
 **Why the others are incorrect:**
-*   **Latency:** Routes traffic based on the fastest connection. It does not care about national boundaries; a user in a neighboring country might still be routed to your server if the latency is low.
-*   **Simple:** Does not have any intelligence regarding the user's location; it simply returns a static value.
-*   **Multi Value:** Aimed at high availability and basic load balancing, not geographic filtering.
+
+- **Latency:** Routes traffic based on the fastest connection. It does not care about national boundaries; a user in a neighboring country might still be routed to your server if the latency is low.
+- **Simple:** Does not have any intelligence regarding the user's location; it simply returns a static value.
+- **Multi Value:** Aimed at high availability and basic load balancing, not geographic filtering.
 
 ---
 
 ### Comparison: Geolocation vs. Geoproximity
 
-| Feature | Geolocation | Geoproximity |
-| :--- | :--- | :--- |
-| **Logic** | Based on user's **Country/Continent** | Based on **Physical Distance** to resources |
-| **Control** | Precise boundary control | Uses "Bias" to expand/shrink region influence |
-| **Use Case** | **Compliance / Geo-blocking** | Shifting traffic between data centers |
-
-
+| Feature      | Geolocation                           | Geoproximity                                  |
+| :----------- | :------------------------------------ | :-------------------------------------------- |
+| **Logic**    | Based on user's **Country/Continent** | Based on **Physical Distance** to resources   |
+| **Control**  | Precise boundary control              | Uses "Bias" to expand/shrink region influence |
+| **Use Case** | **Compliance / Geo-blocking**         | Shifting traffic between data centers         |
 
 ## Question 6
 
@@ -208,27 +204,27 @@ You have deployed a new Elastic Beanstalk environment and would like to direct 5
 
 **Explanation:** **Weighted Routing** is the standard mechanism for traffic shifting, canary deployments, and A/B testing in AWS.
 
-*   **Percentage-Based Control:** You assign a numerical weight (0-255) to each record. Route 53 calculates the total weight of all healthy records and directs traffic proportionally. For a 5% split, you could set the new environment's weight to `5` and the old environment's weight to `95`.
-*   **Canary Testing:** This specific use case is called a **Canary Deployment**. It allows you to test new code on a small subset of real-world traffic to limit the "blast radius" if a bug is discovered.
-*   **Gradual Rollouts:** Once you are confident in the 5% traffic performance (checking CloudWatch metrics for 4xx/5xx errors), you can incrementally increase the weight (e.g., 25%, 50%) until you reach 100%.
-*   **Instant Rollback:** If a bug is detected, you can set the weight of the new environment to `0`, and Route 53 will immediately stop sending traffic to that endpoint.
+- **Percentage-Based Control:** You assign a numerical weight (0-255) to each record. Route 53 calculates the total weight of all healthy records and directs traffic proportionally. For a 5% split, you could set the new environment's weight to `5` and the old environment's weight to `95`.
+- **Canary Testing:** This specific use case is called a **Canary Deployment**. It allows you to test new code on a small subset of real-world traffic to limit the "blast radius" if a bug is discovered.
+- **Gradual Rollouts:** Once you are confident in the 5% traffic performance (checking CloudWatch metrics for 4xx/5xx errors), you can incrementally increase the weight (e.g., 25%, 50%) until you reach 100%.
+- **Instant Rollback:** If a bug is detected, you can set the weight of the new environment to `0`, and Route 53 will immediately stop sending traffic to that endpoint.
 
 **Why the others are incorrect:**
-*   **Simple:** Can return multiple IP addresses but has no mechanism to control the percentage of traffic; the client chooses an IP randomly.
-*   **Latency:** Routes based on network performance between the user and the AWS region, not based on a predetermined percentage.
-*   **Failover:** Used for active-passive disaster recovery (100% to primary, switching to secondary only if primary is unhealthy).
+
+- **Simple:** Can return multiple IP addresses but has no mechanism to control the percentage of traffic; the client chooses an IP randomly.
+- **Latency:** Routes based on network performance between the user and the AWS region, not based on a predetermined percentage.
+- **Failover:** Used for active-passive disaster recovery (100% to primary, switching to secondary only if primary is unhealthy).
 
 ---
 
 ### Canary Deployment Workflow
 
-| Step | Action | Result |
-| :--- | :--- | :--- |
-| **1. Deploy** | Spin up "Green" environment | Two identical environments exist |
-| **2. Initial Shift** | Set weights to 95 (Blue) / 5 (Green) | **5% of users see new version** |
-| **3. Monitor** | Check CloudWatch for errors | Validate new code with real data |
-| **4. Full Cutover** | Set weights to 0 (Blue) / 100 (Green) | Migration complete |
-
+| Step                 | Action                                | Result                           |
+| :------------------- | :------------------------------------ | :------------------------------- |
+| **1. Deploy**        | Spin up "Green" environment           | Two identical environments exist |
+| **2. Initial Shift** | Set weights to 95 (Blue) / 5 (Green)  | **5% of users see new version**  |
+| **3. Monitor**       | Check CloudWatch for errors           | Validate new code with real data |
+| **4. Full Cutover**  | Set weights to 0 (Blue) / 100 (Green) | Migration complete               |
 
 ## Question 7
 
@@ -246,26 +242,26 @@ You have purchased a domain on GoDaddy and would like to use Route 53 as the DNS
 
 **Explanation:** To use Route 53 as your DNS service while keeping your domain registration with a third-party registrar like GoDaddy, you must perform a "DNS delegation."
 
-*   **Public Hosted Zone:** Since your website needs to be reachable from the public internet, you must create a **Public Hosted Zone** in Route 53. Upon creation, AWS generates a set of four unique **Name Servers (NS records)** for that zone.
-*   **Registrar Update:** You must then log into your GoDaddy account and replace their default name servers with the four Route 53 name servers you just generated. This tells the global DNS system that Route 53 is now the "authoritative" source for your domain's records.
-*   **Registration vs. DNS:** It is important to distinguish between the **Registrar** (who you pay for the domain name) and the **DNS Provider** (who manages the traffic routing). You do not need to transfer the domain registration to AWS to use Route 53 for DNS.
+- **Public Hosted Zone:** Since your website needs to be reachable from the public internet, you must create a **Public Hosted Zone** in Route 53. Upon creation, AWS generates a set of four unique **Name Servers (NS records)** for that zone.
+- **Registrar Update:** You must then log into your GoDaddy account and replace their default name servers with the four Route 53 name servers you just generated. This tells the global DNS system that Route 53 is now the "authoritative" source for your domain's records.
+- **Registration vs. DNS:** It is important to distinguish between the **Registrar** (who you pay for the domain name) and the **DNS Provider** (who manages the traffic routing). You do not need to transfer the domain registration to AWS to use Route 53 for DNS.
 
 **Why the others are incorrect:**
-*   **Domain Transfer:** This is a separate, more complex process that moves the *ownership and billing* of the domain to AWS. While possible, it is not required just to change the DNS provider.
-*   **Private Hosted Zone:** These are used for internal DNS resolution within a VPC and are invisible to the public internet.
-*   **Update Route 53 NS records:** You don't update the records inside Route 53 to point elsewhere; you update the **Registrar (GoDaddy)** to point to Route 53.
+
+- **Domain Transfer:** This is a separate, more complex process that moves the _ownership and billing_ of the domain to AWS. While possible, it is not required just to change the DNS provider.
+- **Private Hosted Zone:** These are used for internal DNS resolution within a VPC and are invisible to the public internet.
+- **Update Route 53 NS records:** You don't update the records inside Route 53 to point elsewhere; you update the **Registrar (GoDaddy)** to point to Route 53.
 
 ---
 
 ### The 4-Step Migration Process
 
-| Step | Action | Platform |
-| :--- | :--- | :--- |
-| **1. Create Zone** | Create a Public Hosted Zone | AWS Route 53 |
-| **2. Copy NS** | Copy the 4 assigned Name Servers | AWS Route 53 |
-| **3. Update Registrar** | Replace default NS with AWS NS | **GoDaddy** |
-| **4. Verification** | Wait for propagation (TTL) | Global DNS |
-
+| Step                    | Action                           | Platform     |
+| :---------------------- | :------------------------------- | :----------- |
+| **1. Create Zone**      | Create a Public Hosted Zone      | AWS Route 53 |
+| **2. Copy NS**          | Copy the 4 assigned Name Servers | AWS Route 53 |
+| **3. Update Registrar** | Replace default NS with AWS NS   | **GoDaddy**  |
+| **4. Verification**     | Wait for propagation (TTL)       | Global DNS   |
 
 ## Question 8
 
@@ -280,7 +276,6 @@ You have created a Route 53 latency record set from your domain to a machine in 
 
 [ ] Depends on the Weighted Resource Record Sets.
 
-
 **Correct Answer:** Northern Virginia.
 
 ---
@@ -289,10 +284,50 @@ You have created a Route 53 latency record set from your domain to a machine in 
 
 This question targets how Amazon Route 53 processes **Latency-Based Routing (LBR)**.
 
-* **How Latency Routing Works:** When you use Latency-Based Routing, Route 53 routes user traffic to the AWS region that provides the **lowest round-trip network latency** for that specific end user.
-* **Geographical Proximity:** A user located in the United States will experience significantly shorter network hops and lower round-trip latency when connecting to an AWS data center in Northern Virginia (`us-east-1`) compared to one located across the Pacific Ocean in Sydney (`ap-southeast-2`). Route 53 continuously takes latency measurements over time to dynamically determine the best destination.
+- **How Latency Routing Works:** When you use Latency-Based Routing, Route 53 routes user traffic to the AWS region that provides the **lowest round-trip network latency** for that specific end user.
+- **Geographical Proximity:** A user located in the United States will experience significantly shorter network hops and lower round-trip latency when connecting to an AWS data center in Northern Virginia (`us-east-1`) compared to one located across the Pacific Ocean in Sydney (`ap-southeast-2`). Route 53 continuously takes latency measurements over time to dynamically determine the best destination.
 
 ### Why others are incorrect:
-* **Sydney:** The round-trip time (RTT) from the US to Sydney is physically much higher due to transpacific fiber distance constraints, so Route 53 will not pick this option for a US-based user.
-* **Both, Northern Virginia and Sydney:** Standard DNS queries resolve to a single endpoint at a time for the user; Route 53 does not split a single user's request to send it to two completely different global regions simultaneously.
-* **Depends on the Weighted Resource Record Sets:** The scenario explicitly states that you created a **latency record set**, not a **weighted record set**. While you can combine routing policies in complex nested configurations, a standard latency policy behaves purely on performance metrics without relying on arbitrary traffic weights.
+
+- **Sydney:** The round-trip time (RTT) from the US to Sydney is physically much higher due to transpacific fiber distance constraints, so Route 53 will not pick this option for a US-based user.
+- **Both, Northern Virginia and Sydney:** Standard DNS queries resolve to a single endpoint at a time for the user; Route 53 does not split a single user's request to send it to two completely different global regions simultaneously.
+- **Depends on the Weighted Resource Record Sets:** The scenario explicitly states that you created a **latency record set**, not a **weighted record set**. While you can combine routing policies in complex nested configurations, a standard latency policy behaves purely on performance metrics without relying on arbitrary traffic weights.
+
+## Question 9
+
+**Question:**
+You are in the process of creating a Route 53 DNS failover to direct traffic to two EC2 zones. Obviously, if one fails, you would like Route 53 to direct traffic to the other region. Each region has an ELB with some instances being distributed. What is the best way for you to configure the Route 53 health check?
+
+[ ] Route 53 doesn't support ELB with an internal health check. You need to create your own Route 53 health check of the ELB.
+
+[ ] Route 53 natively supports ELB with an internal health check. Turn 'Evaluate target health' off and 'Associate with Health Check' on and R53 will use the ELB's internal health check.
+
+[ ] Route 53 doesn't support ELB with an internal health check. You need to associate your resource record set for the ELB with your own health check.
+
+[ ] Route 53 natively supports ELB with an internal health check. Turn 'Evaluate target health' on and 'Associate with Health Check' off and R53 will use the ELB's internal health check.
+
+**Correct Answer:** Route 53 natively supports ELB with an internal health check. Turn 'Evaluate target health' on and 'Associate with Health Check' off and R53 will use the ELB's internal health check.
+
+---
+
+### Why this is the correct answer:
+
+Amazon Route 53 provides deep native integration with AWS Load Balancers through **Alias Record Sets**:
+
+- **Evaluate Target Health:** When creating an Alias record pointing to an Elastic Load Balancer (ELB), Route 53 allows you to enable the **Evaluate Target Health** setting (`Yes` / `On`).
+- **Inherited Health Metrics:** Enabling this feature directs Route 53 to inherently evaluate the load balancer's internal health indicators (which track whether the backend EC2 target instances are responding to the ELB's configured health checks). Route 53 determines the health of the entire ELB based on the availability of its underlying targets automatically.
+- **No Custom Health Check Needed:** Because Route 53 manages this implicitly for AWS Alias targets, you do **not** need to create an explicit standalone Route 53 health check resource or bind one using `Associate with Health Check` (`No` / `Off`).
+
+---
+
+### Key Settings Breakdown for Alias Records:
+
+| Setting Name                    | Value          | Purpose                                                                                                    |
+| :------------------------------ | :------------- | :--------------------------------------------------------------------------------------------------------- |
+| **Evaluate Target Health**      | **ON** (`Yes`) | Instructs Route 53 to automatically reuse the health status of the target ELB and its backend EC2 targets. |
+| **Associate with Health Check** | **OFF** (`No`) | Bypasses the need to attach a manually created external Route 53 health check probe.                       |
+
+### Why others are incorrect:
+
+- **Route 53 doesn't support ELB with an internal health check...:** False. Alias records natively support health evaluation for ELBs, CloudFront distributions, and API Gateway endpoints without manual probe setup.
+- **Turning 'Evaluate target health' off and 'Associate with Health Check' on:** This forces Route 53 to ignore the ELB's native health status and instead relies entirely on a custom Route 53 health check that you must manually create and pay for separately.

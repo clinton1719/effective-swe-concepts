@@ -1233,9 +1233,8 @@ When a company mandate requires data to be protected for a **predefined period**
 - **S3 Glacier Vault Lock:** This is used specifically for **Glacier Vaults** (the archive-only service). While it offers similar WORM protection, the question specifically asks about files stored in **S3 buckets**.
 - **Governance Mode:** As mentioned, this mode is less restrictive and allows authorized administrators to bypass the lock, which usually doesn't satisfy a "strict compliance" mandate.
 
-## Question 221
+## Question 48
 
-#bookmark
 **Question:**
 Which features can be used to restrict access to data in S3? (Choose 2 answers)
 
@@ -1277,3 +1276,109 @@ Amazon S3 provides native resource-based access control mechanisms specifically 
 - **Create a CloudFront distribution for the bucket:** CloudFront is a content delivery network used to cache content closer to end-users to reduce latency. While you can pair CloudFront with Origin Access Control (OAC) to restrict direct S3 access, CloudFront itself is an edge delivery network, not a native S3 data restriction feature.
 - **Enable IAM Identity Federation:** Identity Federation allows external identities (like Active Directory or SAML single sign-on) to assume IAM roles and obtain temporary AWS credentials. While IAM policies attached to these roles restrict what a user can do, Federation itself is an authentication strategy rather than an S3 access restriction feature.
 - **Use S3 Virtual Hosting:** S3 virtual hosting refers to the URL structure used to address S3 buckets over HTTP/HTTPS (e.g., `bucket-name.s3.amazonaws.com`). It is a DNS and REST endpoint addressing format and has nothing to do with restricting data access.
+
+## Question 49
+
+**Question:**
+For each DB Instance class, what is the maximum size of associated storage capacity?
+
+[ ] 5GB.
+
+[ ] 1TB.
+
+[ ] 2TB.
+
+[ ] 500GB.
+
+**Correct Answer:** 1TB.
+
+---
+
+### Why this is the correct answer:
+
+This question targets a legacy Amazon RDS storage limit benchmark often tested in older iterations of the AWS Solutions Architect exam.
+
+- **Historical Exam Baseline:** When Amazon RDS was originally introduced, AWS enforced a hard maximum limit of **1 TB (1024 GB)** of provisioned storage per relational database instance across all instance classes.
+- **Instance Class Uniformity:** Regardless of whether you provisioned a smaller `db.t2.micro` or a large `db.r3.8xlarge` compute class, the underlying storage engine architecture constrained individual storage allocation to a 1 TB ceiling.
+
+> **Modern AWS Context:** AWS has expanded storage capacity dramatically over time. Modern Amazon RDS instances support up to **64 TiB** for engines like MySQL, PostgreSQL, MariaDB, and Db2, and up to **256 TiB** for Oracle and SQL Server using additional storage volumes. However, on classic certification questions, **1TB** remains the historical benchmark answer.
+
+### Why others are incorrect:
+
+- **5GB:** 5 GB represents the historical _minimum_ storage allocation limit for standard DB instances (or 20 GB for engines like Oracle/SQL Server), not the maximum ceiling.
+- **2TB / 500GB:** Neither 500 GB nor 2 TB represented the legacy single-instance storage capacity limit during the early iterations of the RDS platform.
+
+## Question 50
+
+**Question:**
+A user is planning a highly available application deployment with EC2. Which of the below mentioned options will not help to achieve HA?
+
+[ ] Elastic IP address.
+
+[ ] PIOPS.
+
+[ ] AMI.
+
+[ ] Availability Zones.
+<br>
+<br>
+<br>
+
+**Correct Answer:** PIOPS.
+
+---
+
+### Why this is the correct answer:
+
+**High Availability (HA)** refers to designing a system to ensure maximum operational uptime and minimize downtime during hardware, network, or data center failures.
+
+- **PIOPS (Provisioned IOPS SSD):** Provisioned IOPS (such as EBS `io1` or `io2` volume types) is a **performance optimization feature**, not a high availability or fault tolerance feature. It allows you to specify a dedicated rate of I/O operations per second for low-latency, storage-intensive workloads (like transactional databases). Increasing IOPS does not protect an application from outages, hardware failures, or regional degradations.
+
+---
+
+### How the other options contribute to HA:
+
+- **Availability Zones (AZs):** Spreading EC2 instances across multiple geographically isolated AZs ensures that if one data center experiences a power, network, or hardware failure, instances in another AZ continue serving traffic seamlessly.
+- **Elastic IP (EIP) Address:** An Elastic IP is a static public IPv4 address that can be rapidly remapped to a healthy backup EC2 instance in the event of an active instance failure, masking the failure from end users.
+- **AMI (Amazon Machine Image):** Standardized AMIs allow Auto Scaling groups or automated recovery mechanisms to rapidly launch identical replacement EC2 instances across different Availability Zones whenever an instance becomes unhealthy.
+
+## Question 51
+
+**Question:**
+A [...] for a VPC is a collection of subnets (typically private) that you may want to designate for your backend RDS DB Instances.
+
+[ ] DB Subnet Set.
+
+[ ] RDS Subnet Group.
+
+[ ] DB Subnet Group.
+
+[ ] DB Subnet Collection.
+
+<br>
+
+**Correct Answer:** DB Subnet Group.
+
+---
+
+### Why this is the correct answer:
+
+An Amazon RDS **DB Subnet Group** is a logical construct used to designate specific subnets within an Amazon VPC where RDS database instances can be provisioned.
+
+- **Multi-AZ Availability Requirement:** A DB Subnet Group must contain subnets spanning at least **two different Availability Zones** within the selected AWS Region. This ensures that when you enable Multi-AZ replication, RDS has pre-designated network space in an alternate AZ to automatically spin up a passive standby instance.
+- **Network Isolation:** In standard production architectures, DB Subnet Groups consist exclusively of **private subnets** (subnets without direct routes to an Internet Gateway). This prevents backend relational databases from receiving direct public internet exposure.
+
+---
+
+### Key Requirements for a DB Subnet Group:
+
+| Architectural Requirement | Specification Details                                                        |
+| :------------------------ | :--------------------------------------------------------------------------- |
+| **Minimum Subnets**       | Must include at least 2 subnets in 2 separate Availability Zones.            |
+| **VPC Binding**           | All subnets in the group must belong to the same parent Amazon VPC.          |
+| **Routing Pattern**       | Typically assigned to private route tables (NAT Gateway/local routing only). |
+
+### Why others are incorrect:
+
+- **DB Subnet Set / DB Subnet Collection:** These are non-existent terms in AWS networking and database management.
+- **RDS Subnet Group:** While commonly misspoken, the explicit object name within the AWS API, Management Console, and CloudFormation (`AWS::RDS::DBSubnetGroup`) is **DB Subnet Group**.

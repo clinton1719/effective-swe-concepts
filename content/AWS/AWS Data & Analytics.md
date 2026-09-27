@@ -1,6 +1,17 @@
 ---
 title: AWS Data & Analytics Quiz
-tags: [aws, aws-redshift, aws-athena, aws-opensearch, aws-glue, aws-quicksight, aws-emr, aws-apache-flink, aws-msk]
+tags:
+  [
+    aws,
+    aws-redshift,
+    aws-athena,
+    aws-opensearch,
+    aws-glue,
+    aws-quicksight,
+    aws-emr,
+    aws-apache-flink,
+    aws-msk,
+  ]
 difficulty: medium
 date: 2026-04-12
 ---
@@ -9,15 +20,11 @@ date: 2026-04-12
 
 Which feature in Redshift forces all COPY and UNLOAD traffic moving between your cluster and data repositories through your VPCs?
 
-
 [ ] Enhanced VPC Routing
-
 
 [ ] Improved VPC Routing
 
-
 [ ] Redshift Spectrum
-
 
 **Correct Answer:** ✅ Enhanced VPC Routing
 
@@ -27,18 +34,13 @@ Which feature in Redshift forces all COPY and UNLOAD traffic moving between your
 
 Which AWS Glue feature allows you to save and track the data that has already been processed during a previous run of a Glue ETL job?
 
-
 [ ] Glue Job Bookmarks
-
 
 [ ] Glue Elastic Views
 
-
 [ ] Glue Streaming ETL
 
-
 [ ] Glue DataBrew
-
 
 **Correct Answer:** ✅ Glue Job Bookmarks
 
@@ -48,18 +50,13 @@ Which AWS Glue feature allows you to save and track the data that has already be
 
 ……………………….. makes it easy and cost-effective for data engineers and analysts to run applications built using open source big data frameworks such as Apache Spark, Hive, or Presto without having to operate or manage clusters.
 
-
 [ ] AWS Lambda
-
 
 [ ] Amazon EMR
 
-
 [ ] Amazon Athena
 
-
 [ ] Amazon OpenSearch Service
-
 
 **Correct Answer:** ✅ Amazon EMR
 
@@ -69,18 +66,13 @@ Which AWS Glue feature allows you to save and track the data that has already be
 
 An AWS service allows you to create, run, and monitor ETL (extract, transform, and load) jobs in a few clicks.
 
-
 [ ] AWS Glue
-
 
 [ ] Amazon Redshift
 
-
 [ ] Amazon RDS
 
-
 [ ] Amazon DynamoDB
-
 
 **Correct Answer:** ✅ AWS Glue
 
@@ -90,18 +82,13 @@ An AWS service allows you to create, run, and monitor ETL (extract, transform, a
 
 An e-commerce company has all its historical data such as orders, customers, revenues, and sales for the previous years hosted on a Redshift cluster. There is a requirement to generate some dashboards and reports indicating the revenues from the previous years and the total sales, so it will be easy to define the requirements for the next year. The DevOps team is assigned to find an AWS service that can help define those dashboards and have native integration with Redshift. Which AWS service is best suited?
 
-
 [ ] Amazon OpenSearch Service
-
 
 [ ] Amazon Athena
 
-
 [ ] Amazon QuickSight
 
-
 [ ] Amazon EMR
-
 
 **Correct Answer:** ✅ Amazon QuickSight
 
@@ -111,18 +98,13 @@ An e-commerce company has all its historical data such as orders, customers, rev
 
 You have a lot of log files stored in an S3 bucket that you want to perform a quick analysis, if possible Serverless, to filter the logs and find users that attempted to make an unauthorized action. Which AWS service allows you to do so?
 
-
 [ ] Amazon DynamoDB
-
 
 [ ] Amazon Redshift
 
-
 [ ] S3 Glacier
 
-
 [ ] Amazon Athena
-
 
 **Correct Answer:** ✅ Amazon Athena
 
@@ -132,18 +114,13 @@ You have a lot of log files stored in an S3 bucket that you want to perform a qu
 
 You have an on-premises application that is used together with an on-premises Apache Kafka to receive a stream of clickstream events from multiple websites. You have been tasked to migrate this application as soon as possible without any code changes. You decided to host the application on an EC2 instance. What is the best option you recommend to migrate Apache Kafka?
 
-
 [ ] Kinesis Data Streams
-
 
 [ ] AWS Glue
 
-
 [ ] Amazon MSK
 
-
 [ ] Kinesis Data Analytics
-
 
 **Correct Answer:** ✅ Amazon MSK
 
@@ -153,29 +130,23 @@ You have an on-premises application that is used together with an on-premises Ap
 
 You are running a gaming website that is using DynamoDB as its data store. Users have been asking for a search feature to find other gamers by name, with partial matches if possible. Which AWS technology do you recommend to implement this feature?
 
-
 [ ] Amazon DynamoDB
-
 
 [ ] Amazon Redshift
 
-
 [ ] Amazon OpenSearch Service
-
 
 [ ] Amazon Neptune
 
-
 **Correct Answer:** ✅ Amazon OpenSearch Service
 
-**Explanation:** While **Amazon DynamoDB** is excellent for key-value lookups, it is not optimized for complex search patterns like partial matches (fuzzy search) or full-text search across large datasets. **Amazon OpenSearch Service** (the successor to Amazon Elasticsearch Service) is specifically designed for high-performance search and analytics. It allows you to perform advanced queries, including prefix matching, "contains" searches, and ranking results by relevance. 
+**Explanation:** While **Amazon DynamoDB** is excellent for key-value lookups, it is not optimized for complex search patterns like partial matches (fuzzy search) or full-text search across large datasets. **Amazon OpenSearch Service** (the successor to Amazon Elasticsearch Service) is specifically designed for high-performance search and analytics. It allows you to perform advanced queries, including prefix matching, "contains" searches, and ranking results by relevance.
 
 In a typical architecture, you would use **DynamoDB Streams** and an **AWS Lambda** function to automatically sync data from your DynamoDB table to OpenSearch, enabling powerful search capabilities on your gamer profiles.
 
 ## Question 9
 
 A company is using AWS to host its public websites and internal applications. Those different websites and applications generate a lot of logs and traces. There is a requirement to centrally store those logs and efficiently search and analyze those logs in real-time for detection of any errors and if there is a threat. Which AWS service can help them efficiently store and analyze logs?
-
 
 [ ] Amazon S3
 
@@ -193,7 +164,6 @@ A company is using AWS to host its public websites and internal applications. Th
 
 You would like to have a database that is efficient at performing analytical queries on large sets of columnar data. You would like to connect to this Data Warehouse using a reporting and dashboard tool such as Amazon QuickSight. Which AWS technology do you recommend?
 
-
 [ ] Amazon RDS
 
 [ ] Amazon S3
@@ -206,11 +176,9 @@ You would like to have a database that is efficient at performing analytical que
 
 **Explanation:** **Amazon Redshift** is a fully managed, petabyte-scale **Data Warehouse** service. Unlike traditional relational databases (RDS) that store data in rows, Redshift uses **columnar storage**, which is highly efficient for complex analytical queries (OLAP) because it reduces the amount of data loaded from disk. It integrates seamlessly with BI tools like **Amazon QuickSight**, allowing you to run high-performance queries across massive datasets to generate business insights and dashboards.
 
-
 ## Question 11
 
 As a Solutions Architect, you have been instructed to prepare a disaster recovery plan for a Redshift cluster. What should you do?
-
 
 [ ] Enable Multi-AZ
 
@@ -225,7 +193,6 @@ As a Solutions Architect, you have been instructed to prepare a disaster recover
 ## Question 12
 
 You have data stored in RDS, S3 buckets and you are using AWS Lake Formation as a data lake to collect, move and catalog data so you can do some analytics. You have a lot of big data and ML engineers in the company and you want to control access to part of the data as it might contain sensitive information. What can you use?
-
 
 [ ] Lake Formation Fine-grained Access Control
 
@@ -243,7 +210,6 @@ You have data stored in RDS, S3 buckets and you are using AWS Lake Formation as 
 
 You are a DevOps engineer in a machine learning company which 3 TB of JSON files stored in an S3 bucket. There’s a requirement to do some analytics on those files using Amazon Athena and you have been tasked to find a way to convert those files’ format from JSON to Apache Parquet. Which AWS service is best suited?
 
-
 [ ] S3 Object Versioning
 
 [ ] Kinesis Data Streams
@@ -260,7 +226,6 @@ You are a DevOps engineer in a machine learning company which 3 TB of JSON files
 
 Which AWS service is most appropriate when you want to perform real-time analytics on streams of data?
 
-
 [ ] Amazon SQS
 
 [ ] Amazon SNS
@@ -271,7 +236,46 @@ Which AWS service is most appropriate when you want to perform real-time analyti
 
 **Correct Answer:** ✅ Amazon Kinesis Data Analytics
 
-**Explanation:** **Amazon Kinesis Data Analytics** (now largely integrated into **Amazon Managed Service for Apache Flink**) is specifically designed to process and analyze streaming data in real-time. It allows you to use SQL or Java/Scala (via Apache Flink) to perform complex analytics—such as sliding time windows, filtering, and aggregations—as the data flows through the pipeline. While Kinesis Data Firehose is used for *loading* data streams into data stores, Kinesis Data Analytics is the engine used for *analyzing* that data before it reaches its destination.
+**Explanation:** **Amazon Kinesis Data Analytics** (now largely integrated into **Amazon Managed Service for Apache Flink**) is specifically designed to process and analyze streaming data in real-time. It allows you to use SQL or Java/Scala (via Apache Flink) to perform complex analytics—such as sliding time windows, filtering, and aggregations—as the data flows through the pipeline. While Kinesis Data Firehose is used for _loading_ data streams into data stores, Kinesis Data Analytics is the engine used for _analyzing_ that data before it reaches its destination.
 
+## Question 15
 
+**Question:**
+You are deploying an application to collect votes for a very popular television show. Millions of users will submit votes using mobile devices. The votes must be collected into a durable, scalable, and highly available data store for real-time public tabulation. Which service should you use?
 
+[ ] Amazon DynamoDB.
+
+[ ] Amazon Redshift.
+
+[ ] Amazon Kinesis.
+
+[ ] Amazon Simple Queue Service.
+
+**Correct Answer:** Amazon Kinesis.
+
+---
+
+### Why this is the correct answer:
+
+This question highlights real-time streaming data ingestion and processing at massive scale.
+
+- **High-Throughput Streaming Ingestion:** **Amazon Kinesis** (specifically Kinesis Data Streams) is designed specifically to ingest, buffer, and process continuous high-volume streams of data (such as millions of votes arriving simultaneously from mobile applications) with millisecond latencies.
+- **Real-Time Tabulation:** Kinesis allows real-time processing applications (or AWS Lambda functions) to immediately consume and aggregate data as it streams in. This makes it possible to generate live leaderboards and perform real-time public vote counts without overwhelming downstream databases.
+- **Durability and Replayability:** Kinesis durably stores incoming records across multiple Availability Zones for a retention period (from 24 hours up to 365 days by default), allowing processing applications to catch up or re-process votes if a downstream failure occurs.
+
+---
+
+### Architectural Service Comparison for Voting Systems:
+
+| AWS Service         | Core Purpose                 | Fitness for Real-Time Massive Vote Ingestion                                                                                            |
+| :------------------ | :--------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------- |
+| **Amazon Kinesis**  | **Real-time Data Streaming** | **Best:** Ingests millions of simultaneous events/sec with ordered partition key routing and sub-second stream processing.              |
+| **Amazon DynamoDB** | Managed NoSQL Database       | ⚠️ High throughput writes can cause provisioning spikes or hot-key throttle issues if millions write to the same total counts directly. |
+| **Amazon SQS**      | Distributed Message Queuing  | ❌ Designed for asynchronous decoupling between worker threads, not for real-time continuous stream aggregation and analytics.          |
+| **Amazon Redshift** | Analytical Data Warehouse    | ❌ Optimized for complex batch OLAP queries across large datasets, not direct concurrent ingestion from millions of mobile clients.     |
+
+### Why others are incorrect:
+
+- **Amazon DynamoDB:** While DynamoDB is durable and scalable, writing millions of concurrent votes directly to database tables creates severe write-capacity bottlenecks and hot partition keys when updating active vote totals.
+- **Amazon Redshift:** Redshift is a column-oriented data warehouse for analytical reporting, not an ingestion gateway for millions of direct mobile web client writes.
+- **Amazon Simple Queue Service (SQS):** SQS buffers messages between decoupled components, but it lacks built-in real-time stream aggregation capability, data replay features, and time-window analytics that Kinesis natively supports for live tabulation.
