@@ -1427,7 +1427,6 @@ Cross-region network access in AWS involves specific region-bound security group
 
 **Question:**
 In the context of AWS support, why must an EC2 instance be unreachable for 20 minutes rather than allowing customers to open tickets immediately?
-#bookmark
 
 [ ] Because most reachability issues are resolved by automated processes in less than 20 minutes.
 
@@ -1458,3 +1457,176 @@ When an Amazon EC2 instance becomes unreachable due to an underlying host, netwo
 - **Because all EC2 instances are unreachable for 20 minutes every day when AWS does routine maintenance:** AWS does **not** take instances offline for 20 minutes daily for routine maintenance. Maintenance events are rare, scheduled in advance via AWS Health Dashboard, and often utilize live migration or require customer-triggered reboots.
 - **Because all EC2 instances are unreachable for 20 minutes when first launched:** Newly launched EC2 instances transition from `pending` to `running` within seconds to a couple of minutes, depending on the AMI size and configuration.
 - **Because of all the reasons listed here:** Incorrect because the 20-minute daily maintenance and initial launch delay statements are false.
+
+## Question 44
+
+**Question:**
+All Amazon EC2 instances are assigned two IP addresses at launch, out of which one can only be reached from within the Amazon EC2 network?
+
+[ ] Multiple IP address.
+
+[ ] Public IP address.
+
+[ ] Private IP address.
+
+[ ] Elastic IP Address.
+<br>
+<br>
+
+**Correct Answer:** Private IP address.
+
+---
+
+### Why this is the correct answer:
+
+In default Amazon EC2 network configurations (or default VPC subnets configured to auto-assign public IPs):
+
+- **Private IP Address:** Every EC2 instance is assigned a primary private IPv4 address from the IPv4 address range of its subnet. This private IP address is used strictly for internal communication between instances within the same Amazon VPC or connected Amazon EC2 network (or via VPN/Direct Connect). It is non-routable on the public internet and can only be reached internally.
+- **Public IP Address:** If configured, a public IPv4 address is mapped to the instance via Network Address Translation (NAT) to allow direct reachability from outside the EC2 network across the public internet.
+
+---
+
+### Comparing EC2 IP Address Types:
+
+| IP Address Type      | Internal Reachability (VPC/EC2) | Internet Reachability | Persistence Across Stops                      |
+| :------------------- | :------------------------------ | :-------------------- | :-------------------------------------------- |
+| **Private IP**       | **Yes (Exclusively)**           | ❌ No                 | Retained for instance lifecycle               |
+| **Public IP**        | Yes                             | Yes                   | ❌ Released on instance stop/termination      |
+| **Elastic IP (EIP)** | Yes                             | Yes                   | Static; persists until manually disassociated |
+
+### Why others are incorrect:
+
+- **Public IP address:** Public IP addresses are globally routable across the public internet, not limited to internal EC2 networks.
+- **Elastic IP Address:** Elastic IPs are static public IPv4 addresses assigned from AWS's pool of public IP addresses, reachable from the internet.
+- **Multiple IP address:** A generic non-technical term that does not describe AWS networking address types.
+
+## Question 45
+
+**Question:**
+When an EC2 instance that is backed by an S3-based AMI is terminated, what happens to the data on the root volume?
+
+[ ] Data is automatically saved as an EBS snapshot.
+
+[ ] Data is automatically saved as an EBS volume.
+
+[ ] Data is unavailable until the instance is restarted.
+
+[ ] Data is automatically deleted.
+<br>
+<br>
+
+**Correct Answer:** Data is automatically deleted.
+
+---
+
+### Why this is the correct answer:
+
+An **S3-backed AMI** (also known as an **Instance Store-backed instance**) uses local, physically attached block storage (**Instance Store**) for its root device volume:
+
+- **Ephemeral Storage Lifetime:** Instance store volumes are non-persistent (ephemeral) by design. The data on an instance store root volume persists only while the instance is running; the moment the instance is **terminated** (or stopped/failed), all data stored on the instance store volume is **automatically and permanently erased**.
+- **No Snapshot/EBS Backup:** Unlike EBS-backed instances—which use independent network block storage that can persist after instance termination—instance store root volumes do not generate automatic EBS snapshots or standalone EBS volumes upon termination. Any data you wish to preserve must be manually copied to durable storage (like Amazon S3 or an attached EBS volume) prior to termination.
+
+---
+
+### EBS-Backed vs. S3-Backed (Instance Store) Root Volumes:
+
+| Feature                             | EBS-Backed Instance                          | S3-Backed (Instance Store) Instance             |
+| :---------------------------------- | :------------------------------------------- | :---------------------------------------------- |
+| **Root Device Type**                | Amazon EBS Volume                            | Ephemeral Instance Store                        |
+| **Data Persistence on Termination** | Configurable via `DeleteOnTermination` flag. | ❌ **Data is automatically deleted**.           |
+| **Stop / Start Support**            | Supported (data remains intact)              | ❌ Not Supported (can only terminate or reboot) |
+| **Creation Source**                 | EBS Snapshot                                 | S3 Template/Manifest (`.tar.gz` chunks)         |
+
+### Why others are incorrect:
+
+- **Data is automatically saved as an EBS snapshot / EBS volume:** AWS does not create automatic EBS snapshots or detached volumes when an instance store root volume is terminated.
+- **Data is unavailable until the instance is restarted:** Instance store-backed instances cannot be "stopped and restarted." When terminated, the underlying hardware allocation is released and the data is permanently lost.
+
+## Question 46
+
+**Question:**
+You've created your first load balancer and have registered your EC2 instances with the load balancer. Elastic Load Balancing routinely performs health checks on all the registered EC2 instances and automatically distributes all incoming requests to the DNS name of your load balancer across your registered, healthy EC2 instances. By default, the load balancer uses the [...] protocol for checking the health of your instances.
+
+[ ] HTTPS.
+
+[ ] HTTP.
+
+[ ] ICMP.
+
+[ ] IPv6.
+<br>
+<br>
+
+**Correct Answer:** HTTP.
+
+---
+
+### Why this is the correct answer:
+
+In Elastic Load Balancing (specifically Classic Load Balancers and Application Load Balancers configured via default templates), health checks monitor the availability of registered EC2 instances:
+
+- **Default HTTP Protocol:** By default, Elastic Load Balancing uses the **HTTP** protocol to send ping requests to instances on port 80 (typically hitting a default ping path like `/index.html` or `/`). If the instance returns an `HTTP 200 OK` response within the timeout threshold, the instance is marked as **InService** / Healthy.
+- **Proactive Routing:** If an instance fails to respond or returns an HTTP error code (e.g., `404 Not Found` or `500 Internal Server Error`) across consecutive health check iterations, the load balancer automatically stops routing incoming client traffic to that un-healthy instance until it recovers.
+
+---
+
+### Health Check Parameter Defaults (Classic/ALB Baseline):
+
+| Configuration Attribute | Default Value        | Description                                                              |
+| :---------------------- | :------------------- | :----------------------------------------------------------------------- |
+| **Protocol**            | **HTTP**             | Default layer-7 health check protocol used to test application response. |
+| **Port**                | `80`                 | Default TCP port queried on target instances.                            |
+| **Ping Path**           | `/index.html` or `/` | Destination endpoint path pinged on the registered target host.          |
+| **Response Code**       | `200`                | The expected HTTP status code indicating host health.                    |
+
+### Why others are incorrect:
+
+- **HTTPS:** Requires configuring SSL/TLS certificates and encrypted endpoints on target instances; it is not the default protocol selected during wizard setup.
+- **ICMP:** ICMP (used by `ping`) operates at the Network Layer (Layer 3). Elastic Load Balancing operates at the Transport/Application layer (Layer 4/7) and does not use ICMP pings for health evaluations.
+- **IPv6:** IPv6 is a network addressing protocol, not a transport/application-layer health check protocol.
+
+## Question 47
+
+**Question:**
+Amazon Elastic Load Balancing is used to manage traffic on a fleet of Amazon EC2 instances, distributing traffic to instances across all Availability Zones within a region. Elastic Load Balancing has all the advantages of an on-premises load balancer, plus several security benefits. Which of the following is not an advantage of ELB over an on-premise load balancer?
+#bookmark
+
+[ ] ELB uses a four-tier, key-based architecture for encryption.
+
+[ ] ELB offers clients a single point of contact, and can also serve as the first line of defense against attacks on your network.
+
+[ ] ELB takes over the encryption and decryption work from the Amazon EC2 instances and manages it centrally on the load balancer.
+
+[ ] ELB supports end-to-end traffic encryption using TLS (previously SSL) on those networks that use secure HTTP (HTTPS) connections.
+<br>
+<br>
+
+**Correct Answer:** ELB uses a four-tier, key-based architecture for encryption.
+
+---
+
+### Why this is the correct answer:
+
+The statement **"ELB uses a four-tier, key-based architecture for encryption"** is completely fabricated and is **not** a feature, advantage, or architectural design of AWS Elastic Load Balancing.
+
+- **Fictitious Concept:** AWS does not use a "four-tier, key-based architecture" for load balancing encryption. SSL/TLS termination on ELB relies on standard X.509 certificates (managed via AWS Certificate Manager or uploaded to IAM) and standard TLS cipher suites.
+- **Actual Security & Offloading Benefits of ELB:**
+  1. **TLS/SSL Offloading:** ELB centralizes certificate management and decrypts inbound HTTPS requests at the load balancer layer, relieving compute overhead from backend EC2 instances.
+  2. **End-to-End Encryption:** ELB supports re-encrypting traffic back to backend target instances over HTTPS/TLS if strict compliance mandates end-to-end encryption.
+  3. **Single Point of Entry & Defense:** Serves as a entry point (integrating with AWS WAF, AWS Shield, and Security Groups) to absorb transient volume spikes and guard against distributed denial-of-service (DDoS) attacks.
+
+---
+
+### Security Capabilities of Elastic Load Balancing:
+
+| Capability                        | Architectural Benefit                                                                                       |
+| :-------------------------------- | :---------------------------------------------------------------------------------------------------------- |
+| **SSL/TLS Termination**           | Decrypts requests at the load balancer; offloads CPU-intensive cryptographic operations from EC2 instances. |
+| **AWS WAF & Shield Integration**  | Filters malicious web requests (SQLi, XSS) and absorbs volume-based DDoS attacks before reaching instances. |
+| **PFS (Perfect Forward Secrecy)** | Uses modern SSL/TLS security policies to ensure compromised long-term keys cannot decrypt past sessions.    |
+
+### Why others are incorrect:
+
+- **ELB offers clients a single point of contact...:** This is a genuine security advantage of ELB; it acts as a managed perimeter shield that absorbs traffic spikes and prevents direct internet exposure of backend instances.
+- **ELB takes over the encryption and decryption work...:** This accurately describes **SSL/TLS Offloading**, a primary efficiency and security advantage of ELB.
+- **ELB supports end-to-end traffic encryption...:** This accurately describes ELB's ability to maintain secure HTTPS connections both on the frontend (client-to-ELB) and backend (ELB-to-instance) listeners.
