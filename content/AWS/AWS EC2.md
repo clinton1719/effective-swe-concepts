@@ -1380,3 +1380,81 @@ This question highlights the foundational architectural difference between **Sec
 - **The outbound security group needs to be modified...:** Unnecessary because Security Groups are stateful; response traffic flows automatically.
 - **Nothing, it can be accessed from any IP address using S3:** Irrelevant distraction; S3 is a storage service, whereas the question concerns SSH access to an EC2 instance.
 - **Both the outbound security group and outbound network ACL need to be modified...:** Incorrect because the security group's stateful nature makes modifying its outbound rules unnecessary for handling return response traffic.
+
+## Question 42
+
+**Question:**
+A user has launched one EC2 instance in the US West region. The user wants to access the RDS instance launched in the US East region from that EC2 instance. How can the user configure the access for that EC2 instance?
+
+[ ] Configure the IP range of the US West region instance as the ingress security rule of RDS.
+
+[ ] It is not possible to access RDS of the US East region from the US West region.
+
+[ ] Open the security group of the US West region in the RDS security group's ingress rule.
+
+[ ] Create an IAM role which has access to RDS and launch an instance in the US West region with it.
+<br>
+<br>
+<br>
+
+**Correct Answer:** Configure the IP range of the US West region instance as the ingress security rule of RDS.
+
+---
+
+### Why this is the correct answer:
+
+Cross-region network access in AWS involves specific region-bound security group constraints:
+
+- **Security Group Scope is Regional:** Security Groups are regional resources. You **cannot** reference an EC2 Security Group ID (e.g., `sg-xxxxxx`) as the source in a Security Group rule residing in another AWS Region.
+- **IP-Based Ingress Authorization:** To allow an EC2 instance in `us-west` to communicate with an RDS database in `us-east`, you must authorize ingress in the RDS instance's Security Group by specifying the **Public IP address** (or CIDR block `/32`, or private CIDR if using Cross-Region VPC Peering) of the `us-west` EC2 instance.
+
+---
+
+### Cross-Region Security Group Ingress Limitations:
+
+| Traffic Source Location             | Security Group Reference Supported? | Required Ingress Configuration                      |
+| :---------------------------------- | :---------------------------------- | :-------------------------------------------------- |
+| **Same Region / Same VPC**          | Yes (e.g., `sg-0123456789abcdef0`)  | Referencing source Security Group ID or CIDR range. |
+| **Different Region (Cross-Region)** | ❌ **No**                           | Must specify explicit **IP Address / CIDR Range**.  |
+
+### Why others are incorrect:
+
+- **It is not possible to access RDS of the US East region from the US West region:** Incorrect; resources across different regions can easily communicate over the public internet or private VPC peering connections as long as proper routing and firewalls allow it.
+- **Open the security group of the US West region in the RDS security group's ingress rule:** Incorrect; security group referencing across distinct AWS regions is not supported by AWS.
+- **Create an IAM role which has access to RDS...:** IAM roles handle control-plane authorization and authentication; they do not open network-level port access (such as TCP port 3306 or 5432) through firewalls.
+
+## Question 43
+
+**Question:**
+In the context of AWS support, why must an EC2 instance be unreachable for 20 minutes rather than allowing customers to open tickets immediately?
+#bookmark
+
+[ ] Because most reachability issues are resolved by automated processes in less than 20 minutes.
+
+[ ] Because all EC2 instances are unreachable for 20 minutes every day when AWS does routine maintenance.
+
+[ ] Because all EC2 instances are unreachable for 20 minutes when first launched.
+
+[ ] Because of all the reasons listed here.
+<br>
+<br>
+
+**Correct Answer:** Because most reachability issues are resolved by automated processes in less than 20 minutes.
+
+---
+
+### Why this is the correct answer:
+
+When an Amazon EC2 instance becomes unreachable due to an underlying host, network, or hardware issue, internal AWS infrastructure monitoring and self-healing systems kick in immediately.
+
+- **Automated Recovery Mechanisms:** The majority of transient reachability issues—such as hypervisor degradation, rack-level network blips, or underlying host hardware issues—are automatically detected and resolved by AWS internal control systems within **20 minutes**.
+- **Self-Healing Infrastructure:** AWS automated recovery processes automatically migrate workloads or restore hardware connectivity without requiring manual intervention from AWS Support engineers or the customer.
+- **Support Ticket Threshold:** AWS guidelines require an instance to remain unreachable for at least 20 minutes before escalating to AWS Support, as the vast majority of issues self-correct before this window elapses.
+
+---
+
+### Why others are incorrect:
+
+- **Because all EC2 instances are unreachable for 20 minutes every day when AWS does routine maintenance:** AWS does **not** take instances offline for 20 minutes daily for routine maintenance. Maintenance events are rare, scheduled in advance via AWS Health Dashboard, and often utilize live migration or require customer-triggered reboots.
+- **Because all EC2 instances are unreachable for 20 minutes when first launched:** Newly launched EC2 instances transition from `pending` to `running` within seconds to a couple of minutes, depending on the AMI size and configuration.
+- **Because of all the reasons listed here:** Incorrect because the 20-minute daily maintenance and initial launch delay statements are false.

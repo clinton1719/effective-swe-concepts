@@ -331,3 +331,43 @@ Amazon Route 53 provides deep native integration with AWS Load Balancers through
 
 - **Route 53 doesn't support ELB with an internal health check...:** False. Alias records natively support health evaluation for ELBs, CloudFront distributions, and API Gateway endpoints without manual probe setup.
 - **Turning 'Evaluate target health' off and 'Associate with Health Check' on:** This forces Route 53 to ignore the ELB's native health status and instead relies entirely on a custom Route 53 health check that you must manually create and pay for separately.
+
+## Question 10
+
+**Question:**
+To serve Web traffic for a popular product your chief financial officer and IT director have purchased 10 m1.large heavy utilization Reserved Instances (RIs) evenly spread across two Availability Zones. Route 53 is used to deliver the traffic to an Elastic Load Balancer (ELB). After several months, the product grows even more popular and you need additional capacity. As a result, your company purchases two c3.2xlarge medium utilization RIs. You register the two c3.2xlarge instances with your ELB and quickly find that the m1.large instances are at 100% of capacity and the c3.2xlarge instances have significant capacity that's unused. Which option is the most cost effective and uses EC2 capacity most effectively?
+
+[ ] Use a separate ELB for each instance type and distribute load to ELBs with Route 53 weighted round robin.
+
+[ ] Configure Autoscaling group and Launch Configuration with ELB to add up to 10 more on-demand ml large instances when triggered by Cloudwatch. Shut off c3 2xlarge instances.
+
+[ ] Route traffic to EC2 ml large and c3 2xlarge instances directly using Route 53 latency based routing and health checks. Shut off ELB.
+
+[ ] Configure ELB with two c3 2xlarge Instances and use on-demand Autoscaling group for up to two additional c3.2xlarge instances. Shut off m1.large instances.
+
+**Correct Answer:** Use a separate ELB for each instance type and distribute load to ELBs with Route 53 weighted round robin.
+
+---
+
+### Why this is the correct answer:
+
+This question highlights Classic Elastic Load Balancer (CLB) request distribution behavior across heterogeneous (mixed) instance types:
+
+1. **ELB Round-Robin Behavior:** Classic Elastic Load Balancers distribute incoming HTTP/HTTPS traffic equally (50/50 round-robin) across all registered target EC2 instances, regardless of their compute size or processing capacity.
+2. **The Capacity Imbalance:** Placing smaller `m1.large` instances alongside significantly larger `c3.2xlarge` instances behind the same single ELB causes the `m1.large` instances to receive the exact same volume of requests as the `c3.2xlarge` instances. As a result, the smaller instances hit 100% CPU utilization while the larger instances sit largely idle.
+3. **Architectural Solution:** Creating two separate ELBs—one for the pool of `m1.large` instances and another for the pool of `c3.2xlarge` instances—allows you to use **Route 53 Weighted Resource Record Sets (WRR)**. You can assign DNS weights proportional to the processing power of each instance pool (for example, sending ~70% of traffic to the `c3.2xlarge` ELB and ~30% to the `m1.large` ELB). This utilizes all pre-purchased Reserved Instances effectively without over-saturating smaller hosts.
+
+---
+
+### Strategy Comparison:
+
+| Approach                                 | Traffic Distribution Mechanics                      | Capacity Utilization                                 | Cost-Effectiveness                           |
+| :--------------------------------------- | :-------------------------------------------------- | :--------------------------------------------------- | :------------------------------------------- |
+| **Single ELB (Heterogeneous Instances)** | Equal round-robin per instance                      | ❌ Small instances max out; large instances sit idle | Low (wastes paid RIs)                        |
+| **Dual ELBs + Route 53 WRR**             | **Proportional weighting by pool compute capacity** | **Balanced across all instances**                    | **Highest (fully uses all 12 existing RIs)** |
+
+### Why others are incorrect:
+
+- **Configure Autoscaling... and shut off c3.2xlarge instances:** Shutting down the `c3.2xlarge` instances wastes already-purchased Reserved Instance capacity while incurring additional hourly charges for new On-Demand `m1.large` instances.
+- **Route traffic directly using latency-based routing... Shut off ELB:** Latency-based routing routes traffic based on geographic network latency, not instance size or CPU utilization. Furthermore, removing the ELB eliminates high availability, fault tolerance, and health-checked load balancing.
+- **Configure ELB with two c3.2xlarge instances... Shut off m1.large instances:** Turning off 10 `m1.large` Reserved Instances wastes non-refundable pre-purchased RI capacity and forces the company to pay for additional On-Demand `c3.2xlarge` instances.

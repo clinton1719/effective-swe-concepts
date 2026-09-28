@@ -1382,3 +1382,98 @@ An Amazon RDS **DB Subnet Group** is a logical construct used to designate speci
 
 - **DB Subnet Set / DB Subnet Collection:** These are non-existent terms in AWS networking and database management.
 - **RDS Subnet Group:** While commonly misspoken, the explicit object name within the AWS API, Management Console, and CloudFormation (`AWS::RDS::DBSubnetGroup`) is **DB Subnet Group**.
+
+## Question 52
+
+**Question:**
+An existing application stores sensitive information on a non-boot Amazon EBS data volume attached to an Amazon Elastic Compute Cloud instance. Which of the following approaches would protect the sensitive data on an Amazon EBS volume?
+
+[ ] Upload your customer keys to AWS CloudHSM. Associate the Amazon EBS volume with AWS CloudHSM.
+
+[ ] Re-mount the Amazon EBS volume.
+
+[ ] Create and mount a new, encrypted Amazon EBS volume. Move the data to the new volume. Delete the old Amazon EBS volume.
+
+[ ] Unmount the EBS volume. Toggle the encryption attribute to True. Re-mount the Amazon EBS volume.
+
+[ ] Snapshot the current Amazon EBS volume. Restore the snapshot to a new, encrypted Amazon EBS volume. Mount the Amazon EBS volume.
+<br>
+<br>
+<br>
+
+**Correct Answer:** Create and mount a new, encrypted Amazon EBS volume. Move the data to the new volume. Delete the old Amazon EBS volume.
+
+---
+
+### Why this is the correct answer:
+
+Amazon EBS encryption is immutable—meaning you **cannot** directly enable encryption on an existing, unencrypted EBS volume in-place.
+
+To protect the data using native AWS EBS encryption, you must migrate the data onto an encrypted block device:
+
+1. **Provision New Encrypted Storage:** Create a new EBS volume in the same Availability Zone and set the **Encryption** attribute to `True` (using AWS KMS).
+2. **Attach and Mount:** Attach the new encrypted volume to the running EC2 instance and format/mount the file system.
+3. **Migrate and Cleanup:** Copy/move the sensitive data from the unencrypted volume to the new encrypted volume, then safely unmount and delete the unencrypted volume.
+
+---
+
+### Comparison of Encryption Approaches:
+
+| Method                            | Encrypts Existing In-Place? | Step Requirement                                                                                                                                                |
+| :-------------------------------- | :-------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **New Encrypted Volume Creation** | N/A (Direct Creation)       | **Directly creates an encrypted target volume, allowing data migration via standard file-copy tools.**                                                          |
+| **Snapshot Copy Method**          | ❌ No                       | ⚠️ Requires taking a snapshot $\rightarrow$ **copying the snapshot with encryption enabled** $\rightarrow$ restoring a new volume from that encrypted snapshot. |
+| **In-Place Attribute Toggle**     | ❌ Impossible               | AWS does not allow changing encryption attributes on existing volumes.                                                                                          |
+
+---
+
+### Why others are incorrect:
+
+- **Snapshot the current EBS volume. Restore the snapshot to a new, encrypted EBS volume...:** Restoring directly from an _unencrypted_ snapshot yields an _unencrypted_ volume. To use snapshots to convert encryption, you must take an unencrypted snapshot, **make an encrypted copy of that snapshot**, and then restore a volume from the encrypted snapshot copy.
+- **Unmount the EBS volume. Toggle the encryption attribute to True...:** AWS does not provide an in-place toggle for EBS volume encryption.
+- **Upload customer keys to AWS CloudHSM. Associate the EBS volume...:** CloudHSM provides dedicated hardware security modules for key storage, but EBS volumes cannot be directly "associated" with CloudHSM to instantly encrypt existing data volumes.
+- **Re-mount the Amazon EBS volume:** Unmounting and re-mounting a volume alters disk state/attachment but does not apply cryptographic encryption to stored data blocks.
+
+## Question 53
+
+**Question:**
+You have been asked to build AWS infrastructure for disaster recovery for your local applications and within that you should use an AWS Storage Gateway as part of the solution. Which of the following best describes the function of an AWS Storage Gateway?
+
+[ ] Accelerates transferring large amounts of data between the AWS cloud and portable storage devices.
+
+[ ] A web service that speeds up distribution of your static and dynamic web content.
+
+[ ] Connects an on-premises software appliance with cloud-based storage to provide seamless and secure integration between your on-premises IT environment and AWS's storage infrastructure.
+
+[ ] Is a storage service optimized for infrequently used data, or 'cold data'.
+<br>
+<br>
+<br>
+
+**Correct Answer:** Connects an on-premises software appliance with cloud-based storage to provide seamless and secure integration between your on-premises IT environment and AWS's storage infrastructure.
+
+---
+
+### Why this is the correct answer:
+
+**AWS Storage Gateway** is a hybrid cloud storage service that allows on-premises applications to seamlessly interact with AWS cloud storage:
+
+- **Hybrid Architecture:** It deploys as a virtual appliance (VMware ESXi, Microsoft Hyper-V, KVM) or hardware appliance directly in your on-premises data center.
+- **Standard Storage Protocols:** It exposes standard storage protocols—such as NFS/SMB (S3 File Gateway), iSCSI logical volumes (Volume Gateway), or virtual tape libraries (Tape Gateway)—allowing existing local applications to connect without requiring code changes.
+- **Disaster Recovery (DR):** For disaster recovery scenarios, local volumes backed up to AWS via Volume Gateway (as EBS Snapshots) can be restored directly into cloud-native EC2 instances if your on-premises site suffers an outage.
+
+---
+
+### Key Storage Gateway Types:
+
+| Gateway Type                       | Protocol Exposed    | Underpinning AWS Storage                    | DR / Use Case                                              |
+| :--------------------------------- | :------------------ | :------------------------------------------ | :--------------------------------------------------------- |
+| **S3 File Gateway**                | NFS / SMB           | Amazon S3 (Standard, IA, Glacier)           | File share migration, hybrid file data processing.         |
+| **Volume Gateway (Stored/Cached)** | iSCSI Block Storage | Amazon EBS Snapshots (stored in S3)         | Local application disaster recovery and cloud snapshots.   |
+| **Tape Gateway**                   | iSCSI VTL           | Amazon S3 Glacier / S3 Glacier Deep Archive | Replacing physical tape archives with digital cloud tapes. |
+
+### Why others are incorrect:
+
+- **Accelerates transferring large amounts of data between the AWS cloud and portable storage devices:** This describes **AWS Snowball / AWS Snow Family**, which uses physical ruggedized appliances to physically ship data to AWS.
+- **A web service that speeds up distribution of your static and dynamic web content:** This describes **Amazon CloudFront**, AWS's Content Delivery Network (CDN) service.
+- **Is a storage service optimized for infrequently used data, or 'cold data':** This describes long-term storage classes like **Amazon S3 Glacier** or **S3 Glacier Deep Archive**.

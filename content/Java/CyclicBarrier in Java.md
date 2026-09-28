@@ -8,9 +8,11 @@ date: 2026-03-27
 ## What is CyclicBarrier?
 
 **CyclicBarrier** is a synchronization utility from:
+
 ```
 java.util.concurrent
 ```
+
 It allows a group of threads to **wait for each other at a common barrier point**, and once all threads arrive, they are **released together**.
 
 ---
@@ -36,10 +38,13 @@ After releasing threads:
 ---
 
 ## Constructor
+
 ```
 CyclicBarrier barrier = new CyclicBarrier(int parties);
 ```
+
 Optional:
+
 ```
 CyclicBarrier barrier = new CyclicBarrier(int parties, Runnable barrierAction);
 ```
@@ -79,6 +84,7 @@ barrier.await();
 ---
 
 ## Example
+
 ```
 CyclicBarrier barrier = new CyclicBarrier(3);
 
@@ -98,36 +104,43 @@ new Thread(task).start();
 new Thread(task).start();
 new Thread(task).start();
 ```
+
 ---
 
 ## Output Flow
+
 ```
-Thread-1 reached barrier  
-Thread-2 reached barrier  
-Thread-3 reached barrier  
+Thread-1 reached barrier
+Thread-2 reached barrier
+Thread-3 reached barrier
 ```
+
 (All threads wait)
+
 ```
-Thread-1 passed barrier  
-Thread-2 passed barrier  
-Thread-3 passed barrier  
+Thread-1 passed barrier
+Thread-2 passed barrier
+Thread-3 passed barrier
 ```
+
 ---
 
 ## Example with barrierAction
+
 ```
 CyclicBarrier barrier = new CyclicBarrier(3, () -> {
     System.out.println("All threads reached barrier!");
 });
 ```
+
 ---
 
 ## How It Works
 
-1. Barrier initialized with count = 3  
-2. Each thread calls `await()`  
-3. When count reaches 3 → all threads released  
-4. Barrier resets for reuse  
+1. Barrier initialized with count = 3
+2. Each thread calls `await()`
+3. When count reaches 3 → all threads released
+4. Barrier resets for reuse
 
 ---
 
@@ -153,12 +166,12 @@ Multiple threads sync at checkpoints
 
 ## CyclicBarrier vs CountDownLatch
 
-| Feature | CyclicBarrier | CountDownLatch |
-|---|---|---|
-| Reusable | Yes | No |
-| Reset automatically | Yes | No |
-| Threads wait for each other | Yes | No (one waits for others) |
-| Coordination style | Mutual | One-directional |
+| Feature                     | CyclicBarrier | CountDownLatch            |
+| --------------------------- | ------------- | ------------------------- |
+| Reusable                    | Yes           | No                        |
+| Reset automatically         | Yes           | No                        |
+| Threads wait for each other | Yes           | No (one waits for others) |
+| Coordination style          | Mutual        | One-directional           |
 
 ---
 
@@ -191,8 +204,8 @@ If required threads never reach barrier → threads wait forever
 
 Think of a team:
 
-- All members must reach checkpoint  
-- Only when everyone arrives → team moves forward  
+- All members must reach checkpoint
+- Only when everyone arrives → team moves forward
 
 ---
 

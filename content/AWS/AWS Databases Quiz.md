@@ -809,7 +809,7 @@ Amazon Redshift is a fully managed, enterprise-class cloud data warehouse design
 
 **Question:**
 You can modify the backup retention period; valid values are 0 (for no backup retention) to a maximum of [...] days.
-#bookmark
+
 [ ] 45.
 
 [ ] 35.
@@ -847,3 +847,86 @@ In Amazon RDS, automated backups create point-in-time recovery points for your d
 ### Why others are incorrect:
 
 - **45 / 15 / 5:** None of these values represent the native upper limit constraint enforced by the Amazon RDS engine for automated backup retention windows.
+
+## Question 36
+
+**Question:**
+While creating an Amazon RDS DB, your first task is to set up a DB [...] that controls which IP address or EC2 instance can access your DB Instance.
+
+[ ] security token pool.
+
+[ ] security token.
+
+[ ] security pool.
+
+[ ] security group.
+<br>
+<br>
+
+**Correct Answer:** security group.
+
+---
+
+### Why this is the correct answer:
+
+An Amazon RDS **Security Group** acts as a virtual firewall that controls network access to a database instance:
+
+- **Inbound Traffic Control:** By default, new database instances created in Amazon RDS deny all inbound traffic. You must attach a security group with specific **ingress rules** to allow network traffic to reach the database's listener port (e.g., port 3306 for MySQL, port 5432 for PostgreSQL, port 1433 for SQL Server).
+- **Source Granularity:** Security Group rules let you restrict access by defining explicitly allowed source IP addresses/CIDR blocks (e.g., `203.0.113.5/32`) or by referencing the **Security Group ID** of your application tier EC2 instances (e.g., `sg-0123456789abcdef0`).
+
+---
+
+### RDS Firewall Types:
+
+| Firewall Type          | Scope / Usage                                                      | Key Feature                                                                                 |
+| :--------------------- | :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------ |
+| **VPC Security Group** | Standard for RDS instances inside an Amazon VPC.                   | Controls inbound/outbound IP and port traffic at the Elastic Network Interface (ENI) level. |
+| **DB Security Group**  | Legacy feature for RDS instances running in EC2-Classic (non-VPC). | Controlled ingress rules for non-VPC deployments (now deprecated).                          |
+
+### Why others are incorrect:
+
+- **security token pool / security token / security pool:** These are non-existent AWS terminology constructs in network access control and RDS resource provisioning.
+
+## Question 37
+
+**Question:**
+You need to import several hundred megabytes of data from a local Oracle database to an Amazon RDS DB instance. What does AWS recommend you use to accomplish this?
+
+[ ] Oracle export/import utilities.
+
+[ ] Oracle SQL Developer.
+
+[ ] Oracle Data Pump.
+
+[ ] DBMS_FILE_TRANSFER.
+<br>
+<br>
+
+**Correct Answer:** Oracle Data Pump.
+
+---
+
+### Why this is the correct answer:
+
+For small to medium-sized Oracle databases (from several hundred megabytes up to roughly 10 GB), AWS officially recommends using **Oracle Data Pump** for data migration to Amazon RDS for Oracle:
+
+- **High Performance & Optimization:** Data Pump (`expdp` / `impdp`) is a high-speed, parallelized utility built directly into Oracle that vastly outperforms legacy export/import utilities (`exp`/`imp`).
+- **RDS Integration:** Amazon RDS natively supports Oracle Data Pump via `DBMS_DATAPUMP` package procedures or by transferring Data Pump dump files (`.dmp`) directly to the RDS instance's `DATA_PUMP_DIR` directory (using `DBMS_FILE_TRANSFER` or Amazon S3 integration).
+- **Cross-Version & Architecture Flexibility:** It easily handles schema migration across different operating systems, byte orders, and minor engine version differences between on-premises Oracle and RDS Oracle.
+
+---
+
+### Comparison of Oracle Data Transfer Mechanisms to RDS:
+
+| Migration Method                         | Dataset Size Guidance              | Key Features / Best For                                              |
+| :--------------------------------------- | :--------------------------------- | :------------------------------------------------------------------- |
+| **Oracle Data Pump**                     | **Hundreds of MBs up to ~10 GB**   | **AWS recommended baseline for fast, full schema dump/restore.**     |
+| **AWS DMS (Database Migration Service)** | GBs to TBs with minimal downtime   | Best for continuous replication / CDC with near-zero downtime.       |
+| **Oracle SQL Developer**                 | Very small tables / schema objects | GUI-based export; slow and inefficient for full database payloads.   |
+| **Legacy `exp`/`imp`**                   | Small legacy databases             | Slower row-by-row processing; deprecated in modern Oracle workflows. |
+
+### Why others are incorrect:
+
+- **Oracle export/import utilities:** Refers to the original, legacy `exp`/`imp` tools, which are significantly slower and lack modern parallelization features provided by Data Pump.
+- **Oracle SQL Developer:** Best suited for executing queries, database administration tasks, or migrating tiny datasets manually; inefficient for transferring full database schemas of several hundred MBs.
+- **DBMS_FILE_TRANSFER:** This is a PL/SQL package used strictly to _copy_ binary files (like dump files) between database directories, not a standalone data export/import migration framework itself.
