@@ -19,7 +19,7 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
 
 <ul>
     <li>
-        <b>Situation: </b>At my previous job as a software engineer, I once found myself in disagreement with my manager over the approach to a new feature in our software application. My manager wanted to implement the feature using a certain technology that I believed was not the best choice for our long-term goals. SSR vs CSR
+        <b>Situation: </b> I once found myself in disagreement with my manager over the approach to a new feature in our software application. My manager wanted to implement the feature using a certain technology that I believed was not the best choice for our long-term goals. SSR vs CSR
     </li>
     <li>
         <b>Task: </b>My task was to effectively communicate my concerns and suggest an alternative approach that I believed was more beneficial for the project.
@@ -35,7 +35,7 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
 <summary><b> 3. Tell me about a situation when you had a conflict with a teammate.</b></summary>
 <ul>
     <li>
-        <b>Situation: </b>During a previous role as a software developer, I was part of a team working on a new feature for our company’s main product. A conflict arose with a teammate, let's call her Shubham, who disagreed with my proposed implementation approach, favoring a different, more complex solution - I wanted to design our batch jobs in eventbridge with lambdas/step functions but he wanted to make use of EC2 instances and spot instances
+        <b>Situation: </b>I was part of a team working on a new feature for our company’s main product. A conflict arose with a teammate, let's call her Shubham, who disagreed with my proposed implementation approach, favoring a different, more complex solution - I wanted to design our batch jobs in eventbridge with lambdas/step functions but he wanted to make use of EC2 instances and spot instances
     </li>
     <li>
         <b>Task: </b>My task was to resolve this conflict in a way that would not only maintain team harmony but also ensure the best technical solution was chosen for our project.
@@ -45,5 +45,21 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
     </li>
     <li>
         <b>Result: </b>The team ultimately decided that a serverless approach would work for production, and we could use spot instances in lower environments. This hybrid solution combined the robustness of Shubham's method with the simplicity of mine. This resolution not only led to the successful completion of the feature but also improved my professional relationship with Shubham. We both appreciated each other's expertise and commitment to the project. This experience taught me the value of collaboration, open communication, and the importance of considering different perspectives in problem-solving.
+    </li>
+</ul>
+
+<summary><b>4. Tell me about a time you failed. How did you deal with the situation?</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>In my role as a software developer at current company, I was responsible for developing a new feature for our application. This feature was highly anticipated and was supposed to significantly enhance user experience.
+    </li>
+    <li>
+        <b>Task: </b>The task was not only to develop the feature but also to ensure it was robust and bug-free before the scheduled release date.
+    </li>
+    <li>
+        <b>Action: </b>In my eagerness to meet the deadline and impress the team, I rushed through the testing phase, skipping some of the more thorough, time-consuming tests I usually perform. The feature was deployed in the update, but it quickly became apparent that it contained a critical bug that severely affected user experience. Realizing my mistake, I immediately took responsibility and informed my team lead. I then worked diligently to fix the bug, conducting a comprehensive review and testing process to ensure no other issues were present. I also initiated a root cause analysis to understand why the bug was missed and to prevent similar issues in the future.
+    </li>
+    <li>
+        <b>Result: </b>The bug was fixed and an updated version of the app was released within 24 hours. While the initial release did cause some user frustration, my prompt response and communication with the affected users helped mitigate the situation. This experience was a humbling lesson in the importance of maintaining rigorous quality standards, regardless of time pressures. It also highlighted the value of thorough testing and the need to balance speed with reliability in software development. Since then, I have been more diligent in my testing processes, contributing to higher overall quality in subsequent releases.
     </li>
 </ul>
