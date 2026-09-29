@@ -1589,7 +1589,6 @@ In Elastic Load Balancing (specifically Classic Load Balancers and Application L
 
 **Question:**
 Amazon Elastic Load Balancing is used to manage traffic on a fleet of Amazon EC2 instances, distributing traffic to instances across all Availability Zones within a region. Elastic Load Balancing has all the advantages of an on-premises load balancer, plus several security benefits. Which of the following is not an advantage of ELB over an on-premise load balancer?
-#bookmark
 
 [ ] ELB uses a four-tier, key-based architecture for encryption.
 
@@ -1630,3 +1629,82 @@ The statement **"ELB uses a four-tier, key-based architecture for encryption"** 
 - **ELB offers clients a single point of contact...:** This is a genuine security advantage of ELB; it acts as a managed perimeter shield that absorbs traffic spikes and prevents direct internet exposure of backend instances.
 - **ELB takes over the encryption and decryption work...:** This accurately describes **SSL/TLS Offloading**, a primary efficiency and security advantage of ELB.
 - **ELB supports end-to-end traffic encryption...:** This accurately describes ELB's ability to maintain secure HTTPS connections both on the frontend (client-to-ELB) and backend (ELB-to-instance) listeners.
+
+## Question 48
+
+**Question:**
+A web company is looking to implement an external payment service into their highly available application deployed in a VPC. Their application EC2 instances are behind a public facing ELB. Auto scaling is used to add additional instances as traffic increases. Under normal load the application runs 2 instances in the Auto Scaling group but at peak it can scale 3x in size. The application instances need to communicate with the payment service over the Internet which requires whitelisting of all public IP addresses used to communicate with it. A maximum of 4 whitelisting IP addresses are allowed at a time and can be added through an API. How should they architect their solution?
+
+[ ] Route payment requests through two NAT instances setup for High Availability and whitelist the Elastic IP addresses attached to the NAT instances.
+
+[ ] Whitelist the VPC Internet Gateway Public IP and route payment requests through the Internet Gateway.
+
+[ ] Whitelist the ELB IP addresses and route payment requests from the Application servers through the ELB.
+
+[ ] Automatically assign public IP addresses to the application instances in the Auto Scaling group and run a script on boot that adds each instance's public IP address to the payment validation whitelist API.
+<br>
+<br>
+
+**Correct Answer:** Route payment requests through two NAT instances setup for High Availability and whitelist the Elastic IP addresses attached to the NAT instances.
+
+---
+
+### Why this is the correct answer:
+
+This question highlights outbound traffic routing, Elastic IP conservation, and IP whitelisting constraints for dynamically scaled instances:
+
+1. **Whitelisting Limit Constraint:** The external payment gateway limits allowed source IP addresses to a **maximum of 4**.
+2. **Auto Scaling Dynamism:** The application scales up to 6 instances (2 baseline $\times$ 3x). If application instances connected directly to the internet using individual public IPs, a peak scale-out event would require 6 distinct IPs—exceeding the 4-IP whitelist threshold.
+3. **Outbound NAT Gateway / NAT Instance Strategy:** Placing the application instances in private subnets and routing their outbound traffic through **NAT devices (NAT Instances or Managed NAT Gateways)** attached to fixed **Elastic IP addresses (EIPs)** ensures that all outbound traffic appears to originate from those static EIPs. Using 2 NAT instances across 2 Availability Zones provides High Availability while requiring only **2 static EIPs** to be whitelisted—well within the 4-IP limit.
+
+---
+
+### Outbound Egress Design Considerations:
+
+| Approach                               | IP Count at Peak (6 Instances) | Compliance with 4-IP Limit | Architecture Suitability                                       |
+| :------------------------------------- | :----------------------------- | :------------------------- | :------------------------------------------------------------- |
+| **HA NAT Instances / Gateways + EIPs** | **2 Static EIPs** (1 per AZ)   | **Passes (2 $\le$ 4)**     | Highly available, predictable static outbound identity.        |
+| **Direct Public IPs per EC2 Instance** | 6 Dynamic Public IPs           | ❌ Fails (6 > 4)           | Exceeds whitelist quota; race conditions during scale-out.     |
+| **ELB Outbound Routing**               | N/A (Inbound Only)             | ❌ Incompatible            | ELBs handle inbound traffic distribution, not outbound egress. |
+
+---
+
+### Why others are incorrect:
+
+- **Whitelist the VPC Internet Gateway Public IP...:** An Internet Gateway (IGW) is a stateless VPC routing component, not a NAT proxy. An IGW itself does not possess a single "Public IP address"—traffic passing through an IGW carries the individual public IP/EIP assigned to the originating EC2 host.
+- **Whitelist the ELB IP addresses and route payment requests... through the ELB:** Elastic Load Balancers are designed exclusively for **inbound** connection listener distribution. They cannot act as an outbound proxy/gateway for backend EC2 instances initiating outgoing connections.
+- **Automatically assign public IP addresses... run a script on boot...:** At 3x peak scaling (6 instances), this approach requires whitelisting 6 distinct public IPs, which violates the strict payment provider constraint of a maximum of 4 whitelisted IPs. Additionally, running a boot API script introduces latency and security/race-condition risks.
+
+## Question 49
+
+**Question:**
+You are trying to launch an EC2 instance, however the instance seems to go into a terminated status immediately. What would probably not be a reason that this is happening?
+
+[ ] The AMI is missing a required part.
+
+[ ] The snapshot is corrupt.
+
+[ ] You need to create storage in EBS first.
+
+[ ] You've reached your volume limit.
+<br>
+<br>
+
+**Correct Answer:** You need to create storage in EBS first.
+
+---
+
+### Why this is the correct answer:
+
+This question tests your understanding of EC2 instance launch mechanics and instance termination troubleshooting:
+
+1. **Automatic Provisioning:** When you launch an EC2 instance, AWS automatically provisions and attaches the required EBS root volume based on the block device mapping specified in the AMI. You do **not** need to manually pre-create an EBS volume before launching an instance.
+2. **Immediate Termination Triggers:** Instances going directly from `pending` to `terminated` (or `shutting-down`) indicate a boot/provisioning failure—such as missing AMI parts, corrupt root snapshots, or exceeding EBS account volume/storage quotas.
+
+---
+
+### Why others are incorrect:
+
+- **The AMI is missing a required part:** If an underlying manifest, kernel, or partition file within the custom AMI is corrupted or missing, the instance will fail to boot and terminate instantly.
+- **The snapshot is corrupt:** If the EBS snapshot specified in the AMI's block device mapping is corrupted, AWS cannot hydrate the root volume, causing an immediate launch failure and termination.
+- **You've reached your volume limit:** Exceeding your account's regional EBS storage limit or volume quota prevents the creation of the instance's root volume, leading to immediate termination.

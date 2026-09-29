@@ -9,7 +9,6 @@ date: 2026-04-15
 
 When configuring permissions for EventBridge to configure a Lambda function as a target you should use ………………….. but when you want to configure a Kinesis Data Streams as a target you should use …………………..
 
-
 [ ] Identity-Based Policy, Resource-based Policy
 
 [ ] Resource-Based Policy, Identity-based Policy
@@ -22,13 +21,12 @@ When configuring permissions for EventBridge to configure a Lambda function as a
 
 **Explanation:** This distinction is a key concept in AWS security:
 
-* **Lambda (Resource-Based):** To allow EventBridge to trigger a Lambda function, you add a **Resource-Based Policy** to the Lambda function itself (using the `lambda:AddPermission` API). This policy tells the Lambda function, "I trust EventBridge to invoke me."
-* **Kinesis (Identity-Based):** For most other targets like Kinesis Data Streams or SQS, EventBridge needs an **IAM Role** (an **Identity-Based Policy**) with permissions to write to that specific stream. EventBridge "assumes" this role to gain the necessary permissions to push data into the Kinesis Data Stream.
+- **Lambda (Resource-Based):** To allow EventBridge to trigger a Lambda function, you add a **Resource-Based Policy** to the Lambda function itself (using the `lambda:AddPermission` API). This policy tells the Lambda function, "I trust EventBridge to invoke me."
+- **Kinesis (Identity-Based):** For most other targets like Kinesis Data Streams or SQS, EventBridge needs an **IAM Role** (an **Identity-Based Policy**) with permissions to write to that specific stream. EventBridge "assumes" this role to gain the necessary permissions to push data into the Kinesis Data Stream.
 
 ## Question 2
 
 Which of the following IAM condition key you can use only to allow API calls to a specified AWS region?
-
 
 [ ] aws:RequiredRegion
 
@@ -42,8 +40,8 @@ Which of the following IAM condition key you can use only to allow API calls to 
 
 **Explanation:** The condition key **`aws:RequestedRegion`** is used to restrict the AWS Region that the API request is targeting. For example, you can create an IAM policy that denies any action if the `aws:RequestedRegion` is not `ap-south-1`.
 
-* **`aws:SourceRegion`** is different—it identifies the region from which the request was *sent* (relevant for service-to-service calls).
-* **`aws:RequestedRegion`** identifies where the resource being acted upon is located. This is a common security best practice to ensure developers only deploy resources in approved geographic regions.
+- **`aws:SourceRegion`** is different—it identifies the region from which the request was _sent_ (relevant for service-to-service calls).
+- **`aws:RequestedRegion`** identifies where the resource being acted upon is located. This is a common security best practice to ensure developers only deploy resources in approved geographic regions.
 
 ## Question 3
 
@@ -70,7 +68,7 @@ You are managing the AWS account for your company, and you want to give one of t
 [ ] You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
 ```
 
-**Correct Answer:** ✅ You should change the resource to arn:aws:s3:::static-files-bucket-xxx/* , because this is an object-level permission
+**Correct Answer:** ✅ You should change the resource to arn:aws:s3:::static-files-bucket-xxx/\* , because this is an object-level permission
 
 **Explanation:** In AWS S3, there is a clear distinction between Bucket-level actions and Object-level actions:
 
@@ -78,14 +76,13 @@ s3:GetObject is an Object-level action. It applies to the files inside the bucke
 
 The Resource arn:aws:s3:::static-files-bucket-xxx refers to the bucket itself.
 
-To refer to the objects within the bucket, you must append /* to the ARN (e.g., arn:aws:s3:::static-files-bucket-xxx/*).
+To refer to the objects within the bucket, you must append /_ to the ARN (e.g., arn:aws:s3:::static-files-bucket-xxx/_).
 
 Without the wildcard, the policy is essentially trying to perform a "get file" action on a container, which results in an Access Denied error.
 
 ## Question 4
 
 You have 5 AWS Accounts that you manage using AWS Organizations. You want to restrict access to certain AWS services in each account. How should you do that?
-
 
 [ ] Using IAM Roles
 
@@ -95,14 +92,13 @@ You have 5 AWS Accounts that you manage using AWS Organizations. You want to res
 
 **Correct Answer:** ✅ Amazon CloudWatch
 
-**Explanation:** **Service Control Policies (SCPs)** are the primary tool for managing permissions at the organizational level. They act as **permission guardrails**, defining the maximum available permissions for all IAM users and roles within a member account. 
+**Explanation:** **Service Control Policies (SCPs)** are the primary tool for managing permissions at the organizational level. They act as **permission guardrails**, defining the maximum available permissions for all IAM users and roles within a member account.
 
 Even if a user is granted `AdministratorAccess` within their specific account, an **SCP** that denies a service (e.g., "Deny access to Amazon Redshift") will override that local permission. This allows central administrators to ensure that no account in the organization can deviate from the company's security or cost-management policies.
 
 ## Question 5
 
 You have strong regulatory requirements to only allow fully internally audited AWS services in production. You still want to allow your teams to experiment in a development environment while services are being audited. How can you best set this up?
-
 
 [ ] Provide the Dev team with a completely independent AWS account
 
@@ -114,10 +110,9 @@ You have strong regulatory requirements to only allow fully internally audited A
 
 **Correct Answer:** ✅ Create an AWS Organization and create two Prod and Dev OUs, then Apply an SCP on the Prod OU
 
-**Explanation:** The best way to manage this is using **AWS Organizations** with **Organizational Units (OUs)**. By placing Production accounts in a "Prod" OU and Development accounts in a "Dev" OU, you can apply different **Service Control Policies (SCPs)** to each. 
+**Explanation:** The best way to manage this is using **AWS Organizations** with **Organizational Units (OUs)**. By placing Production accounts in a "Prod" OU and Development accounts in a "Dev" OU, you can apply different **Service Control Policies (SCPs)** to each.
 
 For the **Prod OU**, you would apply an SCP that restricts access to only the specific audited services. For the **Dev OU**, you can leave the permissions more open to allow for experimentation. This provides a central, scalable way to enforce compliance without stifling innovation in non-production environments.
-
 
 ## Question 6
 
@@ -136,7 +131,6 @@ In regards to IAM you can edit user properties later, but you cannot use the con
 
 .
 
-
 **Correct Answer:** user name.
 
 ---
@@ -145,14 +139,48 @@ In regards to IAM you can edit user properties later, but you cannot use the con
 
 This is a classic question addressing the management limitations of the **AWS Management Console** versus programmatic tools for legacy administration patterns.
 
-* **Console Limitation:** While the modern AWS Console makes it easy to change a user's group memberships, attach new policies, or change/reset their passwords, it historically lacked a direct "Rename" option fields for existing users once they were created. 
-* **Programmatic Workaround:** To change an IAM user's name or path, you must use the **AWS CLI** via the command `aws iam update-user --user-name <OldName> --new-user-name <NewName>` or invoke the corresponding **AWS API** operation (`UpdateUser`).
-* **Default Group Concept:** It's also worth noting that AWS IAM doesn't actually have a concept of a "default group"—users are simply assigned to groups explicitly, making "default group" an invalid architectural choice.
+- **Console Limitation:** While the modern AWS Console makes it easy to change a user's group memberships, attach new policies, or change/reset their passwords, it historically lacked a direct "Rename" option fields for existing users once they were created.
+- **Programmatic Workaround:** To change an IAM user's name or path, you must use the **AWS CLI** via the command `aws iam update-user --user-name <OldName> --new-user-name <NewName>` or invoke the corresponding **AWS API** operation (`UpdateUser`).
+- **Default Group Concept:** It's also worth noting that AWS IAM doesn't actually have a concept of a "default group"—users are simply assigned to groups explicitly, making "default group" an invalid architectural choice.
 
 ### What you can modify via the Console vs. CLI:
 
-| Action | Supported in Console? | Supported in CLI/API? |
-| :--- | :---: | :---: |
-| **Change/Reset Passwords** | ✅ Yes | ✅ Yes (`update-login-profile`) |
-| **Manage Group Assignments** | ✅ Yes | ✅ Yes (`add-user-to-group`) |
-| **Rename IAM User Name** | ❌ **No** | ✅ **Yes** (`update-user`) |
+| Action                       | Supported in Console? |      Supported in CLI/API?      |
+| :--------------------------- | :-------------------: | :-----------------------------: |
+| **Change/Reset Passwords**   |        ✅ Yes         | ✅ Yes (`update-login-profile`) |
+| **Manage Group Assignments** |        ✅ Yes         |  ✅ Yes (`add-user-to-group`)   |
+| **Rename IAM User Name**     |       ❌ **No**       |   ✅ **Yes** (`update-user`)    |
+
+## Question 7
+
+**Question:**
+A company is building software on AWS that requires access to various AWS services. Which configuration should be used to ensure that AWS credentials (i.e., Access Key ID/Secret Access Key combination) are not compromised?
+
+[ ] Enable Multi-Factor Authentication for your AWS root account.
+
+[ ] Assign an IAM role to the Amazon EC2 instance.
+
+[ ] Store the AWS Access Key ID/Secret Access Key combination in software comments.
+
+[ ] Assign an IAM user to the Amazon EC2 Instance.
+<br>
+<br>
+
+**Correct Answer:** Assign an IAM role to the Amazon EC2 instance.
+
+---
+
+### Why this is the correct answer:
+
+This question tests AWS security best practices regarding application authentication and credential management:
+
+1. **Temporary Credentials:** Assigning an IAM role (via an EC2 Instance Profile) allows applications running on EC2 instances to retrieve short-lived, automatically rotated temporary security credentials via the Instance Metadata Service (IMDS).
+2. **Eliminates Hardcoded Keys:** Using IAM roles eliminates the need to hardcode or manage long-term IAM Access Key IDs and Secret Access Keys in application code, configuration files, or environment variables, preventing credential leaks and compromise.
+
+---
+
+### Why others are incorrect:
+
+- **Enable Multi-Factor Authentication for your AWS root account:** While enabling MFA on the root account is a critical security best practice, it protects account management access for human admins—it does not provide or secure application-level authentication for EC2 instances calling AWS APIs.
+- **Store the AWS Access Key ID/Secret Access Key combination in software comments:** Hardcoding long-term credentials anywhere in software or source code repository commits exposes them to extreme risk of leaks and compromise.
+- **Assign an IAM user to the Amazon EC2 Instance:** You cannot assign an IAM user directly to an EC2 instance. EC2 instances utilize IAM roles (attached through instance profiles) to delegate permissions safely.

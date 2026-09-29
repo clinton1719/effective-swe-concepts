@@ -930,3 +930,83 @@ For small to medium-sized Oracle databases (from several hundred megabytes up to
 - **Oracle export/import utilities:** Refers to the original, legacy `exp`/`imp` tools, which are significantly slower and lack modern parallelization features provided by Data Pump.
 - **Oracle SQL Developer:** Best suited for executing queries, database administration tasks, or migrating tiny datasets manually; inefficient for transferring full database schemas of several hundred MBs.
 - **DBMS_FILE_TRANSFER:** This is a PL/SQL package used strictly to _copy_ binary files (like dump files) between database directories, not a standalone data export/import migration framework itself.
+
+## Question 38
+
+**Question:**
+Your company is getting ready to do a major public announcement of a social media site on AWS. The website is running on EC2 instances deployed across multiple Availability Zones with a Multi-AZ RDS MySQL Extra Large DB Instance. The site performs a high number of small reads and writes per second and relies on an eventual consistency model. After comprehensive tests you discover that there is read contention on RDS MySQL. Which are the best approaches to meet these requirements? (Choose 2 answers)
+
+[ ] Deploy ElasticCache in-memory cache running in each Availability Zone.
+
+[ ] Implement sharding to distribute load to multiple RDS MySQL instances.
+
+[ ] Increase the RDS MySQL Instance size and Implement provisioned IOPS.
+
+[ ] Add an RDS MySQL read replica in each Availability Zone.
+<br>
+<br>
+
+**Correct Answer:** Deploy ElasticCache in-memory cache running in each Availability Zone. **AND** Add an RDS MySQL read replica in each Availability Zone.
+
+---
+
+### Why these are the correct answers:
+
+This question tests offloading read heavy workloads from a primary relational database in an eventually consistent environment:
+
+1. **Read Contention Problem:** The application is experiencing high read throughput causing database bottlenecks on the primary Multi-AZ RDS MySQL instance.
+2. **Eventual Consistency Tolerance:** Because the application explicitly relies on an eventual consistency model, microsecond/millisecond synchronization lags inherent to read replicas and caching layers are completely acceptable.
+3. **ElastiCache (In-Memory Caching):** Placing an ElastiCache cluster in front of RDS caches frequently read queries in memory, dropping query latency to sub-milliseconds and preventing repeated read traffic from hitting the database engine.
+4. **RDS Read Replicas:** Creating read replicas across Availability Zones offloads non-critical read operations from the primary database instance to asynchronously updated replicas, scaling horizontal read capacity seamlessly.
+
+---
+
+### Read Scaling Strategy Comparison:
+
+| Approach                           | Relieves Primary Read Contention | Architectural Suitability                                                     | Effort & Complexity          |
+| :--------------------------------- | :------------------------------- | :---------------------------------------------------------------------------- | :--------------------------- |
+| **ElastiCache In-Memory Cache**    | ✅ Excellent (Sub-ms latency)    | Offloads high-frequency, repetitive small reads before they reach DB.         | Low to Moderate              |
+| **RDS Read Replicas (Multi-AZ)**   | ✅ Excellent                     | Asynchronously offloads read queries across AZs; fits eventual consistency.   | Low (Native Managed Feature) |
+| **Increase Instance Size / PIOPS** | ❌ Limited                       | Vertical scaling adds head-room but does not scale horizontal read capacity.  | Low (Temporary Fix)          |
+| **Database Sharding**              | ⚠️ Overkill for Reads            | Primarily handles massive write scaling; adds extreme application complexity. | Very High                    |
+
+---
+
+### Why others are incorrect:
+
+- **Implement sharding to distribute load to multiple RDS MySQL instances:** Sharding involves horizontally partitioning data across multiple database instances. It is typically used for extreme **write** scaling and requires significant application-level refactoring. Since the problem is specifically **read contention**, sharding is unnecessary and overly complex.
+- **Increase the RDS MySQL Instance size and Implement provisioned IOPS:** Vertically scaling up instance size and adding Provisioned IOPS increases raw performance capacity and storage throughput, but it does not address the underlying issue of horizontal read scaling. It remains a single primary point for all read/write traffic and will eventually hit capacity limits during peak load.
+
+## Question 39
+
+**Question:**
+The SQL Server [...] feature is an efficient means of copying data from a source database to your DB Instance. It writes the data that you specify to a data file, such as an ASCII file.
+
+[ ] bulk copy.
+
+[ ] group copy.
+
+[ ] dual copy.
+
+[ ] mass copy.
+<br>
+<br>
+
+**Correct Answer:** bulk copy.
+
+---
+
+### Why this is the correct answer:
+
+This question tests knowledge of SQL Server data import/export utilities supported on Amazon RDS for SQL Server:
+
+1. **Native Utility:** **Bulk Copy** (commonly implemented via the `bcp` utility or Bulk Insert operations) is Microsoft SQL Server's native mechanism for efficiently transferring large volumes of data into or out of SQL Server tables using data files (such as ASCII or CSV files).
+2. **RDS Compatibility:** On Amazon RDS for SQL Server, the **bulk copy** feature allows fast data population directly into your database instance without the overhead of row-by-row transactional logging.
+
+---
+
+### Why others are incorrect:
+
+- **group copy:** Not a recognized SQL Server utility or feature name.
+- **dual copy:** Not a SQL Server data export/import mechanism.
+- **mass copy:** Terminology not used in Microsoft SQL Server architecture or AWS RDS documentation.
