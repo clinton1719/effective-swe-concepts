@@ -1477,3 +1477,50 @@ You have been asked to build AWS infrastructure for disaster recovery for your l
 - **Accelerates transferring large amounts of data between the AWS cloud and portable storage devices:** This describes **AWS Snowball / AWS Snow Family**, which uses physical ruggedized appliances to physically ship data to AWS.
 - **A web service that speeds up distribution of your static and dynamic web content:** This describes **Amazon CloudFront**, AWS's Content Delivery Network (CDN) service.
 - **Is a storage service optimized for infrequently used data, or 'cold data':** This describes long-term storage classes like **Amazon S3 Glacier** or **S3 Glacier Deep Archive**.
+
+## Question 54
+
+**Question:**
+You need to configure an Amazon S3 bucket to serve static assets for your public-facing web application. Which methods ensure that all objects uploaded to the bucket are set to public read? (Choose 2 answers)
+
+[ ] Set permissions on the object to public read during upload.
+
+[ ] Configure the bucket ACL to set all objects to public read.
+
+[ ] Configure the bucket policy to set all objects to public read.
+
+[ ] Use AWS Identity and Access Management roles to set the bucket to public read.
+
+[ ] Amazon S3 objects default to public read, so no action is needed.
+<br>
+<br>
+
+**Correct Answer:** Set permissions on the object to public read during upload. **AND** Configure the bucket policy to set all objects to public read.
+
+---
+
+### Why these are the correct answers:
+
+This question tests mechanisms for granting public read access to Amazon S3 objects for static web hosting:
+
+1. **Object-Level Permissions (Access Control Lists):** When uploading individual files via the AWS CLI, SDKs, or API, you can explicitly set the `public-read` canned ACL flag (e.g., `--acl public-read`), which makes that specific object publicly readable upon creation.
+2. **Bucket-Level Permissions (Bucket Policy):** Applying a resource-based **S3 Bucket Policy** with an `Allow` effect, `Principal: "*"` (or `{"AWS": "*"}`), and the `s3:GetObject` action automatically evaluates and grants public read permissions to **all objects** stored inside the bucket—ensuring consistent public access regardless of upload settings.
+
+---
+
+### Access Control Mechanism Comparison:
+
+| Mechanism                             | Scope                 | Enforces Public Access across All Uploads?                                          |
+| :------------------------------------ | :-------------------- | :---------------------------------------------------------------------------------- |
+| **S3 Bucket Policy (`s3:GetObject`)** | Bucket-wide           | ✅ **Yes** (Applies automatically to existing and new objects).                     |
+| **Object ACL during Upload**          | Per-object            | ✅ **Yes** (For the specific object uploaded with the flag).                        |
+| **Bucket ACL**                        | Bucket-level metadata | ❌ **No** (Grants permissions to the bucket container, not individual objects).     |
+| **IAM Policy**                        | User / Role specific  | ❌ **No** (IAM policies manage identity-based access, not anonymous public access). |
+
+---
+
+### Why others are incorrect:
+
+- **Configure the bucket ACL to set all objects to public read:** A bucket ACL grants permissions on the bucket container itself (e.g., allowing others to list objects or write to the bucket), but it does not automatically grant `GetObject` permissions on the individual objects stored within it.
+- **Use AWS Identity and Access Management roles to set the bucket to public read:** IAM roles are identity-based policies assigned to specific authenticated users, groups, or services. They cannot be used to grant unauthenticated anonymous public read access over the internet.
+- **Amazon S3 objects default to public read, so no action is needed:** All Amazon S3 buckets and objects are **private by default**. Explicit action (such as a bucket policy or public ACL) must be taken to expose objects publicly.

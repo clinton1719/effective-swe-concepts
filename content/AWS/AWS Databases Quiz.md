@@ -1010,3 +1010,90 @@ This question tests knowledge of SQL Server data import/export utilities support
 - **group copy:** Not a recognized SQL Server utility or feature name.
 - **dual copy:** Not a SQL Server data export/import mechanism.
 - **mass copy:** Terminology not used in Microsoft SQL Server architecture or AWS RDS documentation.
+
+## Question 40
+
+**Question:**
+You are developing a new mobile application and are considering storing user preferences in AWS. This would provide a more uniform cross-device experience to users using multiple mobile devices to access the application. The preference data for each user is estimated to be 50KB in size. Additionally, 5 million customers are expected to use the application on a regular basis. The solution needs to be cost-effective, highly available, scalable and secure. How would you design a solution to meet the above requirements?
+
+[ ] Setup an RDS MySQL instance in 2 Availability Zones to store the user preference data. Deploy a public facing application on a server in front of the database to manage security and access credentials.
+
+[ ] Setup a DynamoDB table with an item for each user having the necessary attributes to hold the user preferences. The mobile application will query the user preferences directly from the DynamoDB table. Utilize STS, Web Identity Federation, and DynamoDB Fine Grained Access Control to authenticate and authorize access.
+
+[ ] Setup an RDS MySQL instance with multiple read replicas in 2 Availability Zones to store the user preference data. The mobile application will query the user preferences from the read replicas. Leverage the MySQL user management and access privilege system to manage security and access credentials.
+
+[ ] Store the user preference data in S3. Setup a DynamoDB table with an item for each user and an item attribute pointing to the user's S3 object. The mobile application will retrieve the S3 URL from DynamoDB and then access the S3 object directly. Utilize STS, Web identity Federation, and S3 ACLs to authenticate and authorize access.
+<br>
+<br>
+
+**Correct Answer:** Setup a DynamoDB table with an item for each user having the necessary attributes to hold the user preferences. The mobile application will query the user preferences directly from the DynamoDB table. Utilize STS, Web Identity Federation, and DynamoDB Fine Grained Access Control to authenticate and authorize access.
+
+---
+
+### Why this is the correct answer:
+
+This question tests mobile application backend design, serverless database scaling, and secure direct-to-database access control mechanisms:
+
+1. **Scalability & Data Size:** Storing key-value user preferences for 5 million users (at 50 KB per user, total data $\approx 250\text{ GB}$) fits perfectly into **Amazon DynamoDB**, which naturally supports items up to 400 KB and offers seamless, fully managed scaling for millions of concurrent users.
+2. **Direct Mobile Access Security:** Combining **Security Token Service (STS)** with **Web Identity Federation** (e.g., Login with Amazon, Facebook, Google, or Cognito) allows untrusted mobile clients to exchange third-party tokens for temporary AWS credentials.
+3. **Fine-Grained Access Control (FGAC):** Using DynamoDB Fine-Grained Access Control policies based on substitution variables like `${cognito-identity.amazonaws.com:sub}` or `${www.amazon.com:user_id}` ensures that users can strictly read and write **only their own partition key/item** directly from the mobile app without requiring server-side backend proxies.
+
+---
+
+### Comparison of Mobile Preference Architectures:
+
+| Approach                                      | Scalability & Cost                   | Direct Mobile Security                                                        | Operational Overhead                                |
+| :-------------------------------------------- | :----------------------------------- | :---------------------------------------------------------------------------- | :-------------------------------------------------- |
+| **DynamoDB + Web Identity Federation + FGAC** | ✅ High / Serverless Pay-per-Request | ✅ Native granular row-level protection using temporary AWS credentials       | **Very Low** (No servers to manage)                 |
+| **Relational DB (RDS MySQL)**                 | ❌ Expensive scaling for 5M users    | ❌ Direct database connections from mobile clients violate security standards | **High** (Connection pooling & instance management) |
+| **DynamoDB + S3 Hybrid Model**                | ⚠️ Over-engineered for 50 KB items   | ⚠️ Double API calls required (DynamoDB lookup $\rightarrow$ S3 fetch)         | **Moderate** (Unnecessary multi-service dependency) |
+
+---
+
+### Why others are incorrect:
+
+- **Setup an RDS MySQL instance... / Setup an RDS MySQL instance with multiple read replicas...:** Relational databases are poorly suited for high-concurrency direct mobile access from millions of devices. Opening direct database connections from mobile clients is insecure, and managing database credentials for 5 million users via MySQL privilege tables is unmaintainable.
+- **Store the user preference data in S3. Setup a DynamoDB table... pointing to the user's S3 object:** DynamoDB natively supports items up to 400 KB in size. Because individual user preference objects are only 50 KB, offloading them to S3 creates an unnecessarily complex two-step query process (lookup in DynamoDB, then fetch from S3) without adding performance or cost benefits.
+
+## Question 41
+
+**Question:**
+In the Amazon RDS which uses the SQL Server engine, what is the maximum size for a Microsoft SQL Server DB Instance with SQL Server Express edition?
+
+[ ] 10GB per DB.
+
+[ ] 100GB per DB.
+
+[ ] 2TB per DB.
+
+[ ] 1TB per DB.
+<br>
+<br>
+
+**Correct Answer:** 10GB per DB.
+
+---
+
+### Why this is the correct answer:
+
+This question tests Microsoft SQL Server edition-specific engine limits on Amazon RDS:
+
+1. **Microsoft Licensing Constraints:** The database size restriction for SQL Server Express Edition is imposed directly by Microsoft's software engine limits, rather than an AWS Amazon RDS infrastructure limit.
+2. **10 GB Limit:** Microsoft SQL Server Express Edition caps the maximum size of each individual relational database to **10 GB** (increased from 4 GB in older legacy versions like SQL Server 2008). On Amazon RDS, while you can allocate additional underlying EBS storage for logs and overhead, no individual user database file can exceed 10 GB.
+
+---
+
+### Comparison of SQL Server Edition Database Limits on RDS:
+
+| SQL Server Edition     | Maximum Individual Database Size |
+| :--------------------- | :------------------------------- |
+| **Express Edition**    | **10 GB** per database           |
+| **Web Edition**        | 16 TB (RDS Storage Limit)        |
+| **Standard Edition**   | 16 TB (RDS Storage Limit)        |
+| **Enterprise Edition** | 16 TB (RDS Storage Limit)        |
+
+---
+
+### Why others are incorrect:
+
+- **100GB per DB / 1TB per DB / 2TB per DB:** These storage values exceed Microsoft's hardcoded licensing enforcement limit for SQL Server Express edition. To host databases larger than 10 GB on Amazon RDS, you must upgrade the DB engine edition to SQL Server Web, Standard, or Enterprise Edition.

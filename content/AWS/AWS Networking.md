@@ -598,3 +598,231 @@ This question tests fundamental AWS VPC Security Group rules and default state b
 - **Allow all inbound traffic and allow no outbound traffic:** Completely opposite of security group mechanics. Allowing all inbound traffic by default would create an immediate security vulnerability.
 - **Allow inbound traffic on port 80 only and allow all outbound traffic:** Port 80 (HTTP) is not open by default. Inbound rules must be explicitly added to open specific ports (e.g., HTTP on 80, HTTPS on 443, SSH on 22).
 - **Allow all inbound traffic and allow all outbound traffic:** This describes an open Network Access Control List (NACL) default for a custom VPC or default security group self-referential ingress rules, not the default ruleset of a newly created custom security group.
+
+## Question 26
+
+**Question:**
+I am designing Internet connectivity for your VPC. The Web servers must be available on the Internet. The application must have a highly available architecture. Which alternatives should you consider? (Choose 2 answers)
+
+[ ] Configure a NAT instance in your VPC Create a default route via the NAT instance and associate it with all subnets Configure a DNS A record that points to the NAT instance public IP address.
+
+[ ] Configure a CloudFront distribution and configure the origin to point to the private IP addresses of your Web servers Configure a Route 53 CNAME record to your CloudFront distribution.
+
+[ ] Place all your web servers behind ELB Configure a Route 53 CNAME to point to the ELB DNS name.
+
+[ ] Assign EIPs to all web servers. Configure a Route 53 record set with all EIPs. With health checks and DNS failover.
+
+[ ] Configure ELB with an EIP Place all your Web servers behind ELB Configure a Route 53 A record that points to the EIP.
+<br>
+<br>
+
+**Correct Answer:** Configure a CloudFront distribution and configure the origin to point to the private IP addresses of your Web servers Configure a Route 53 CNAME record to your CloudFront distribution. **AND** Place all your web servers behind ELB Configure a Route 53 CNAME to point to the ELB DNS name.
+
+---
+
+### Why these are the correct answers:
+
+This question tests public internet entry-point design and high-availability architecture patterns for web workloads in Amazon VPC:
+
+1. **Elastic Load Balancing (ELB) Architecture:** Placing web servers in multiple subnets/AZs behind an Elastic Load Balancer provides automatic traffic distribution and high availability. Since ELBs do not have static IP addresses, traffic is routed to them by configuring a Route 53 CNAME (or Alias record) pointing to the ELB’s DNS name.
+2. **Amazon CloudFront CDN Fronting:** CloudFront acts as a global Content Delivery Network (CDN) edge entry point. It can securely forward requests to web servers running in private subnets, keeping the origin instances shielded while distributing incoming global traffic highly effectively. Route 53 CNAME records easily point domain traffic to the CloudFront distribution domain.
+
+---
+
+### Comparison of Public Entry-Point Options:
+
+| Architecture Alternative                                         | High Availability          | Security / VPC Best Practice                                                 | Verdict     |
+| :--------------------------------------------------------------- | :------------------------- | :--------------------------------------------------------------------------- | :---------- |
+| **Route 53 $\rightarrow$ CloudFront $\rightarrow$ Private EC2s** | ✅ **Native HA**           | Origins stay private; global edge caching and DDoS protection.               | **Correct** |
+| **Route 53 $\rightarrow$ ELB $\rightarrow$ EC2 Auto Scaling**    | ✅ **Native HA**           | Load balancer distributes across AZs; handles instance failures.             | **Correct** |
+| **Direct EIPs on Web Servers**                                   | ❌ Poor HA                 | Exposes all web servers directly to internet; manual DNS failover.           | Incorrect   |
+| **Routing Inbound via NAT Instance**                             | ❌ Single Point of Failure | NAT instances are for _outbound_ egress traffic, not inbound load balancing. | Incorrect   |
+
+---
+
+### Why others are incorrect:
+
+- **Configure a NAT instance in your VPC...:** NAT instances (and NAT Gateways) are designed exclusively for **outbound** internet egress for private subnet instances. They do not act as inbound load balancers or high-availability entry points.
+- **Assign EIPs to all web servers...:** Assigning static public Elastic IPs directly to every web server increases attack surface and relies on DNS-level failover rather than dynamic, active load balancing.
+- **Configure ELB with an EIP...:** AWS Elastic Load Balancers (ALB/CLB) do not support assigning a single static Elastic IP address directly to the load balancer (unlike Network Load Balancers which use static IPs per AZ). Furthermore, DNS routing to standard ELBs should always use DNS names (CNAME or Alias A-records).
+
+## Question 27
+
+**Question:**
+You have deployed a web application targeting a global audience across multiple AWS Regions under the domain name example.com. You decide to use Route 53 Latency-Based Routing to serve web requests to users from the region closest to the user. To provide business continuity in the event of server downtime you configure weighted record sets associated with two web servers in separate Availability Zones per region. During a DR test you notice that when you disable all web servers in one of the regions Route 53 does not automatically direct all users to the other region. What could be happening? (Choose 2 answers)
+
+[ ] Latency resource record sets cannot be used in combination with weighted resource record sets.
+
+[ ] You did not setup an HTTP health check for one or more of the weighted resource record sets associated with the disabled web servers.
+
+[ ] The value of the weight associated with the latency alias resource record set in the region with the disabled servers is higher than the weight for the other region.
+
+[ ] One of the two working web servers in the other region did not pass its HTTP health check.
+
+[ ] You did not set 'Evaluate Target Health' to 'Yes' on the latency alias resource record set associated with example.com in the region where you disabled the servers.
+<br>
+<br>
+
+**Correct Answer:** You did not setup an HTTP health check for one or more of the weighted resource record sets associated with the disabled web servers. **AND** You did not set 'Evaluate Target Health' to 'Yes' on the latency alias resource record set associated with example.com in the region where you disabled the servers.
+
+---
+
+### Why these are the correct answers:
+
+This question tests multi-region DNS failover architecture, complex Route 53 record set nesting, and health check evaluation mechanics:
+
+1. **Missing Health Checks on Child Records:** Route 53 needs explicit health checks attached to the individual weighted records (the web servers) to detect that they are down. If no health check is associated, Route 53 assumes the weighted targets are healthy and continues serving DNS responses for that region.
+2. **Evaluate Target Health Setting:** When combining Latency Routing (top-level) with Weighted Routing (child-level) via Alias records, the top-level Latency Alias record must have **Evaluate Target Health** set to **Yes**. Without this setting enabled, Route 53 ignores the health status of the underlying weighted targets and routes latency-matched traffic to the region even if all web servers inside it are unhealthy.
+
+---
+
+### Route 53 Nested Failover Dependency Matrix:
+
+| Component Level                    | Required Configuration                            | Behavior if Misconfigured                                                       |
+| :--------------------------------- | :------------------------------------------------ | :------------------------------------------------------------------------------ |
+| **Child Records (Weighted)**       | Must have active Route 53 Health Checks attached. | Route 53 cannot detect server failure in the local AZ/region.                   |
+| **Parent Alias Records (Latency)** | Must have **Evaluate Target Health = Yes**.       | Route 53 will not trigger cross-region failover even if all child targets fail. |
+
+---
+
+### Why others are incorrect:
+
+- **Latency resource record sets cannot be used in combination with weighted resource record sets:** AWS explicitly supports nesting routing policies (such as Latency-based alias records pointing to Weighted record sets) to build multi-tier global failover architectures.
+- **The value of the weight associated with the latency alias resource record set...:** Latency-based records evaluate user proximity/latency measurements across regions—weights are applied within a weighted record group, not used to override latency-based parent routing.
+- **One of the two working web servers in the other region did not pass its HTTP health check:** As long as at least one server in the healthy secondary region passes its health check, Route 53 considers that target region available and routes failover traffic to it.
+
+## Question 28
+
+**Question:**
+You've been hired to enhance the overall security posture for a very large e-commerce site. They have a well architected multi-tier application running in a VPC that uses ELBs in front of both the web and the app tier with static assets served directly from S3. They are using a combination of RDS and DynamoDB for their dynamic data and then archiving nightly into S3 for further processing with EMR. They are concerned because they found questionable log entries and suspect someone is attempting to gain unauthorized access. Which approach provides a cost effective scalable mitigation to this kind of attack?
+
+[ ] Recommend that they lease space at a DirectConnect partner location and establish a 1G DirectConnect connection to their VPC. They would then establish Internet connectivity into their space, filter the traffic in hardware Web Application Firewall (WAF), and then pass the traffic through the DirectConnect connection into their application running in their VPC.
+
+[ ] Add previously identified hostile source IPs as an explicit INBOUND DENY NACL to the web tier sub net.
+
+[ ] Add a WAF tier by creating a new ELB and an AutoScaling group of EC2 Instances running a host based WAF. They would redirect Route 53 to resolve to the new WAF tier ELB. The WAF tier would then pass the traffic to the current web tier. The web tier Security Groups would be updated to only allow traffic from the WAF tier Security Group.
+
+[ ] Remove all but TLS 1.2 from the web tier ELB and enable Advanced Protocol Filtering. This will enable the ELB itself to perform WAF functionality.
+<br>
+<br>
+
+**Correct Answer:** Add a WAF tier by creating a new ELB and an AutoScaling group of EC2 Instances running a host based WAF. They would redirect Route 53 to resolve to the new WAF tier ELB. The WAF tier would then pass the traffic to the current web tier. The web tier Security Groups would be updated to only allow traffic from the WAF tier Security Group.
+
+---
+
+### Why this is the correct answer:
+
+This question tests cost-effective, scalable Web Application Firewall (WAF) design in classic AWS architectures before AWS WAF became a native, fully managed service:
+
+1. **Scalable Application-Layer Protection:** Suspicious log entries attempting unauthorized access (such as SQL injection, cross-site scripting, or application-layer exploits) require deep packet/HTTP payload inspection. Introducing an Auto Scaling tier of EC2 instances running host-based software WAFs (e.g., ModSecurity, nginx-WAF) allows the security layer to scale dynamically alongside application traffic.
+2. **Layered VPC Security:** Placing an Auto Scaling WAF proxy tier behind an ELB and chaining security groups ensures that the web tier only accepts traffic originating from the WAF tier security group, securing the application while keeping infrastructure scalable within AWS.
+
+---
+
+### Security Mitigation Strategy Comparison:
+
+| Approach                                 | Inspection Level          | Scalability & Cost                                         | Suitability                                                |
+| :--------------------------------------- | :------------------------ | :--------------------------------------------------------- | :--------------------------------------------------------- |
+| **Auto Scaling Host-Based WAF Tier**     | **Layer 7 (Application)** | ✅ High (Scales with Auto Scaling; pay-as-you-go)          | **Correct** (Cost-effective, native in-cloud WAF pattern). |
+| **Network ACL IP Blocking**              | **Layer 3/4 (Network)**   | ❌ Low (Manual IP lists hit NACL rule limits)              | Reactive, easily bypassed by dynamic IPs.                  |
+| **On-Prem / DirectConnect Hardware WAF** | **Layer 7**               | ❌ Extremely Low (High capital expense & colocation costs) | Inefficient, introduces latency and complex routing.       |
+| **ELB SSL/TLS Tuning**                   | **Layer 4 (Transport)**   | ✅ High                                                    | Does not filter application payload attacks.               |
+
+---
+
+### Why others are incorrect:
+
+- **Recommend that they lease space at a DirectConnect partner location...:** Backhauling all public internet traffic through an external colocation facility to pass through hardware firewalls over DirectConnect is excessively expensive, introduces physical single points of failure, and ruins cloud scalability.
+- **Add previously identified hostile source IPs as an explicit INBOUND DENY NACL...:** Network Access Control Lists (NACLs) operate strictly at Layers 3/4 (IP and port). Blocking specific IPs manually is a reactive "cat-and-mouse" approach that easily hits NACL entry quotas (typically 20–40 rules) and cannot protect against complex application-layer (Layer 7) attacks from changing IP addresses.
+- **Remove all but TLS 1.2 from the web tier ELB and enable Advanced Protocol Filtering...:** Updating TLS security policies only enforces encryption protocols. ELBs do not natively possess a feature named "Advanced Protocol Filtering" to inspect and mitigate Layer 7 application attacks.
+
+## Question 29
+
+**Question:**
+You are designing the network infrastructure for an application server in Amazon VPC. Users will access all the application instances from the Internet as well as from an on-premises network. The on-premises network is connected to your VPC over an AWS Direct Connect link. How would you design routing to meet the above requirements?
+
+[ ] Configure a single routing Table with a default route via the Internet gateway. Propagate a default route via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
+
+[ ] Configure a single routing table with a default route via the internet gateway. Propagate specific routes for the on-premises networks via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
+
+[ ] Configure a single routing table with two default routes: one to the internet via an Internet gateway, the other to the on-premises network via the VPN gateway. Use this routing table across all subnets in your VPC.
+
+[ ] Configure two routing tables: one that has a default route via the Internet gateway and another that has a default route via the VPN gateway. Associate both routing tables with each VPC subnet.
+<br>
+<br>
+
+**Correct Answer:** Configure a single routing table with a default route via the internet gateway. Propagate specific routes for the on-premises networks via BGP on the AWS Direct Connect customer router. Associate the routing table with all VPC subnets.
+
+---
+
+### Why this is the correct answer:
+
+This question tests hybrid VPC routing principles using AWS Direct Connect and Internet Gateways:
+
+1. **Internet Traffic Routing:** A default route (`0.0.0.0/0`) pointing to an Internet Gateway (IGW) ensures that public internet traffic reaches the application servers directly.
+2. **On-Premises Traffic Routing:** BGP Route Propagation dynamically advertises the specific internal IP CIDR ranges of the on-premises network (e.g., `10.0.0.0/8` or `172.16.0.0/12`) to the VPC route table via the Virtual Private Gateway (VGW) attached to Direct Connect.
+3. **Longest Prefix Match Rule:** Because specific on-premises routes (e.g., `10.1.0.0/16`) are more specific than the default route (`0.0.0.0/0`), VPC routers always prioritize sending corporate traffic over Direct Connect while sending all other public internet traffic through the IGW.
+
+---
+
+### VPC Routing Table Configuration Summary:
+
+| Destination CIDR                          | Target / Gateway                       | Traffic Path                             |
+| :---------------------------------------- | :------------------------------------- | :--------------------------------------- |
+| **`10.0.0.0/16`** (Example VPC CIDR)      | `local`                                | Internal VPC communications              |
+| **`192.168.1.0/24`** (Propagated via BGP) | `vgw-xxxxxx` (Virtual Private Gateway) | Corporate On-Premises via Direct Connect |
+| **`0.0.0.0/0`** (Default Route)           | `igw-xxxxxx` (Internet Gateway)        | Public Internet Inbound & Outbound       |
+
+---
+
+### Why others are incorrect:
+
+- **Configure a single routing Table... Propagate a default route via BGP...:** Propagating `0.0.0.0/0` via BGP creates conflicting default routes in the route table, potentially causing asymmetric routing or forcing all internet traffic back through the on-premises network rather than out the IGW.
+- **Configure a single routing table with two default routes...:** VPC route tables do not allow entering duplicate identical destination prefixes (`0.0.0.0/0`) pointing to two different gateway targets.
+- **Configure two routing tables... Associate both routing tables with each VPC subnet:** A subnet in an Amazon VPC can only be associated with **one** route table at a time.
+
+## Question 30
+
+**Question:**
+You have multiple VPN connections and want to provide secure communication between sites using the AWS VPN CloudHub. Which statement is the most accurate in describing what you must do to set this up correctly?
+#bookmark
+
+[ ] Create a virtual private gateway with multiple customer gateways, each with unique Border Gateway Protocol (BGP) Autonomous System Numbers (ASNs).
+
+[ ] Create a virtual private gateway with multiple customer gateways, each with a unique set of keys.
+
+[ ] Create a virtual public gateway with multiple customer gateways, each with a unique Private subnet.
+
+[ ] Create a virtual private gateway with multiple customer gateways, each with unique subnet id.
+<br>
+<br>
+
+**Correct Answer:** Create a virtual private gateway with multiple customer gateways, each with unique Border Gateway Protocol (BGP) Autonomous System Numbers (ASNs).
+
+---
+
+### Why this is the correct answer:
+
+This question tests AWS VPN CloudHub architecture and requirement dependencies:
+
+1. **Hub-and-Spoke VPN Architecture:** AWS VPN CloudHub operates on a hub-and-spoke model that enables secure inter-site communication between remote offices/sites through an AWS Virtual Private Gateway (VGW).
+2. **Dynamic Routing Requirement:** AWS VPN CloudHub relies on **dynamic BGP peering** to route traffic between sites. Each customer gateway (spoke site) must be configured with a unique BGP Autonomous System Number (ASN) so that BGP routes can be properly advertised, distinguished, and propagated across the hubs.
+
+---
+
+### AWS VPN CloudHub Key Requirements:
+
+| Requirement              | Details                                                                                         |
+| :----------------------- | :---------------------------------------------------------------------------------------------- |
+| **AWS Target Component** | Single Virtual Private Gateway (VGW) attached to a VPC.                                         |
+| **Routing Protocol**     | Dynamic Routing via **BGP (Border Gateway Protocol)**.                                          |
+| **BGP ASN Rules**        | Each site/Customer Gateway must use a **unique ASN** (or unique public/private ASN allocation). |
+| **IP Addressing**        | Non-overlapping IP ranges across all connected remote sites.                                    |
+
+---
+
+### Why others are incorrect:
+
+- **Create a virtual private gateway... each with a unique set of keys:** While pre-shared keys are used for IPSec authentication, possessing unique keys does not satisfy the essential architectural requirement of dynamic BGP ASN assignment needed for CloudHub routing.
+- **Create a virtual public gateway...:** AWS has no service or component named a "Virtual Public Gateway." AWS site-to-site VPNs terminate on a Virtual Private Gateway (VGW) or Transit Gateway (TGW).
+- **Create a virtual private gateway... each with unique subnet id:** Subnet IDs are VPC-level construct resources within AWS. Remote customer sites use internal corporate IP CIDR ranges, not AWS Subnet IDs.
