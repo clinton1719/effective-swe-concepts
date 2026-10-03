@@ -1524,3 +1524,94 @@ This question tests mechanisms for granting public read access to Amazon S3 obje
 - **Configure the bucket ACL to set all objects to public read:** A bucket ACL grants permissions on the bucket container itself (e.g., allowing others to list objects or write to the bucket), but it does not automatically grant `GetObject` permissions on the individual objects stored within it.
 - **Use AWS Identity and Access Management roles to set the bucket to public read:** IAM roles are identity-based policies assigned to specific authenticated users, groups, or services. They cannot be used to grant unauthenticated anonymous public read access over the internet.
 - **Amazon S3 objects default to public read, so no action is needed:** All Amazon S3 buckets and objects are **private by default**. Explicit action (such as a bucket policy or public ACL) must be taken to expose objects publicly.
+
+## Question 55
+
+**Question:**
+Which of the following are true regarding encrypted Amazon Elastic Block Store (EBS) volumes? (Choose 2 answers)
+
+[ ] Supported on all Amazon EBS volume types.
+
+[ ] Snapshots are automatically encrypted.
+
+[ ] Available to all instance types.
+
+[ ] Existing volumes can be encrypted.
+
+[ ] Shared volumes can be encrypted.
+<br>
+<br>
+
+**Correct Answer:** Supported on all Amazon EBS volume types. **AND** Snapshots are automatically encrypted.
+
+---
+
+### Why these are the correct answers:
+
+This question tests the behavior and capabilities of Amazon EBS encryption:
+
+1. **All Volume Types Supported:** EBS encryption is available and supported across all Amazon EBS volume types, including General Purpose SSD (`gp2`/`gp3`), Provisioned IOPS SSD (`io1`/`io2`), Throughput Optimized HDD (`st1`), Cold HDD (`sc1`), and Standard (magnetic).
+2. **Automatic Snapshot Encryption:** Any EBS snapshot taken from an encrypted EBS volume is automatically encrypted using the same AWS Key Management Service (AWS KMS) key. Furthermore, volumes restored from an encrypted snapshot are also automatically encrypted.
+
+---
+
+### EBS Encryption Feature Summary:
+
+| Feature / Aspect                          | Support Status           | Notes                                                                              |
+| :---------------------------------------- | :----------------------- | :--------------------------------------------------------------------------------- |
+| **All Volume Types**                      | ✅ **Supported**         | `gp2`, `gp3`, `io1`, `io2`, `st1`, `sc1`, magnetic.                                |
+| **Automatic Snapshot Encryption**         | ✅ **Supported**         | Inherits key from parent volume; snapshots remain encrypted.                       |
+| **Direct Encryption of Existing Volumes** | ❌ **Not Supported**     | Must create a copy/snapshot and encrypt during the copy operation.                 |
+| **Instance Type Availability**            | ❌ **Limited on legacy** | Supported on all modern instance families, but restricted on some legacy families. |
+
+---
+
+### Why others are incorrect:
+
+- **Available to all instance types:** While all modern EC2 instance families support EBS encryption, older legacy/previous-generation instance types (such as `t1.micro`, `m1.small`, or `c1.medium`) do not support EBS encryption.
+- **Existing volumes can be encrypted:** You cannot directly encrypt an existing unencrypted EBS volume in place. To encrypt data on an unencrypted volume, you must take a snapshot, copy the snapshot while enabling encryption, and restore a new encrypted volume from that copy.
+- **Shared volumes can be encrypted:** Standard EBS volumes are block-level storage devices attached to a single EC2 instance at a time (excluding `io1`/`io2` Multi-Attach volumes). The term "shared volumes" in this context is misleading, and raw encrypted snapshots cannot be shared publicly without re-encrypting or sharing customer-managed KMS keys specifically.
+
+## Question 74
+
+**Question:**
+A user wants to increase the durability and availability of the EBS volume. Which of the below mentioned actions should he perform?
+
+[ ] Take regular snapshots.
+
+[ ] Create an AMI.
+
+[ ] Create EBS with higher capacity.
+
+[ ] Access EBS regularly.
+<br>
+<br>
+
+**Correct Answer:** Take regular snapshots.
+
+---
+
+### Why this is the correct answer:
+
+This question tests data protection, disaster recovery, and durability mechanisms for Amazon Elastic Block Store (EBS):
+
+1. **Storage Location and Redundancy:** EBS volumes are localized block devices tied to a single Availability Zone (AZ). EBS Snapshots, however, are stored in **Amazon S3**, which automatically replicates data across multiple Availability Zones within an AWS Region, achieving **99.999999999% (11 9's) of durability**.
+2. **Point-in-Time Recovery:** Taking regular point-in-time snapshots protects data against accidental deletion, file corruption, or underlying hardware failures by enabling rapid restoration of volumes across different AZs or regions.
+
+---
+
+### Key Attributes of EBS Volumes vs. EBS Snapshots:
+
+| Metric / Feature      | EBS Volume                                              | EBS Snapshot                             |
+| :-------------------- | :------------------------------------------------------ | :--------------------------------------- |
+| **Primary Location**  | Single Availability Zone (AZ)                           | Amazon S3 (Multi-AZ regional redundancy) |
+| **Durability Target** | 99.8% – 99.9% annual durability (varies by volume type) | 99.999999999% (11 9's) durability        |
+| **Availability / DR** | Confined to parent AZ                                   | Multi-AZ and cross-region restorable     |
+
+---
+
+### Why others are incorrect:
+
+- **Create an AMI:** An Amazon Machine Image (AMI) is designed to launch new EC2 computing instances (including boot drive configurations), rather than managing continuous backups or data durability for standalone secondary EBS data volumes.
+- **Create EBS with higher capacity:** Increasing the provisioned size of an EBS volume adds storage space and IOPS capabilities, but it does not change the volume's underlying single-AZ durability characteristics or protect against data corruption.
+- **Access EBS regularly:** Accessing or reading data on an EBS volume has no impact on its underlying infrastructure durability or hardware availability.

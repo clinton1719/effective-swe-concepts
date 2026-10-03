@@ -1708,3 +1708,180 @@ This question tests your understanding of EC2 instance launch mechanics and inst
 - **The AMI is missing a required part:** If an underlying manifest, kernel, or partition file within the custom AMI is corrupted or missing, the instance will fail to boot and terminate instantly.
 - **The snapshot is corrupt:** If the EBS snapshot specified in the AMI's block device mapping is corrupted, AWS cannot hydrate the root volume, causing an immediate launch failure and termination.
 - **You've reached your volume limit:** Exceeding your account's regional EBS storage limit or volume quota prevents the creation of the instance's root volume, leading to immediate termination.
+
+## Question 50
+
+**Question:**
+A user is aware that a huge download is occurring on his instance. He has already set the Auto Scaling policy to increase the instance count when the network I/O increases beyond a certain limit. How can the user ensure that this temporary event does not result in scaling?
+
+[ ] The network I/O are not affected during data download.
+
+[ ] The policy cannot be set on the network I/O.
+
+[ ] There is no way the user can stop scaling as it is already configured.
+
+[ ] Suspend scaling.
+<br>
+<br>
+
+**Correct Answer:** Suspend scaling.
+
+---
+
+### Why this is the correct answer:
+
+This question tests Auto Scaling process management and administrative controls during temporary maintenance or known heavy traffic spikes:
+
+1. **Suspending Auto Scaling Processes:** Amazon EC2 Auto Scaling allows you to suspend and resume specific Auto Scaling processes (such as `Launch`, `Terminate`, `HealthCheck`, `AlarmNotification`, or `ScheduledActions`) using the AWS Management Console, CLI (`aws autoscaling suspend-processes`), or SDKs.
+2. **Preventing Unnecessary Scale-Out:** By suspending the `AlarmNotification` or `Launch` process before initiating a known temporary high-bandwidth event (like a manual large file download), you prevent the CloudWatch alarm from launching unwanted extra instances. Once the event completes, scaling processes can be resumed safely.
+
+---
+
+### Key Auto Scaling Processes That Can Be Suspended:
+
+| Process                 | Effect When Suspended                                                           |
+| :---------------------- | :------------------------------------------------------------------------------ |
+| **`Launch`**            | Prevents the Auto Scaling group from adding new EC2 instances for any reason.   |
+| **`Terminate`**         | Prevents the group from terminating existing EC2 instances.                     |
+| **`AlarmNotification`** | Disables scaling responses triggered by Amazon CloudWatch alarms.               |
+| **`AZRebalance`**       | Prevents rebalancing instances across Availability Zones when imbalances occur. |
+
+---
+
+### Why others are incorrect:
+
+- **The network I/O are not affected during data download:** Heavy data downloads directly increase network inbound/outbound metric counters (`NetworkIn` / `NetworkOut`), triggering any configured network threshold alarms.
+- **The policy cannot be set on the network I/O:** Amazon CloudWatch natively tracks `NetworkIn` and `NetworkOut` metrics for EC2 instances, which can be freely used as dynamic Auto Scaling policy triggers.
+- **There is no way the user can stop scaling as it is already configured:** False. Auto Scaling is fully configurable and allows manual process suspension, policy modification, or deletion at any time.
+
+## Question 51
+
+**Question:**
+The Amazon EC2 web service can be accessed using the [...] web services messaging protocol. This interface is described by a Web Services Description Language (WSDL) document.
+
+[ ] SOAP.
+
+[ ] DCOM.
+
+[ ] CORBA.
+
+[ ] XML-RPC.
+<br>
+<br>
+
+**Correct Answer:** SOAP.
+
+---
+
+### Why this is the correct answer:
+
+This question tests legacy AWS API architecture protocols and service interface specifications:
+
+1. **SOAP and WSDL Integration:** Amazon EC2 historically provided a **SOAP (Simple Object Access Protocol)** API interface alongside its REST/Query API. SOAP APIs rely strictly on XML messaging and use a **WSDL (Web Services Description Language)** document to define formal contracts, request/response schemas, and endpoint bindings.
+2. **Legacy AWS API History:** Early AWS services (including EC2 and S3) exposed WSDL files allowing developers to generate strongly typed client code using SOAP frameworks. While AWS later deprecated SOAP in favor of RESTful HTTP/Query APIs and JSON-based SDKs, certification questions occasionally reference this foundational architectural interface.
+
+---
+
+### Comparison of Web Service Protocols in Cloud Architectures:
+
+| Protocol / Framework  | Uses WSDL?                                       | AWS Historical / Modern Usage                                     |
+| :-------------------- | :----------------------------------------------- | :---------------------------------------------------------------- |
+| **SOAP**              | ✅ **Yes** (Strict WSDL contract definition)     | Legacy AWS API interface (Deprecated).                            |
+| **REST / HTTP Query** | ❌ No (Uses OpenAPI / JSON / XML schemas)        | Standard modern AWS API communication mechanism.                  |
+| **DCOM / CORBA**      | ❌ No (Uses IDL - Interface Definition Language) | Enterprise distributed component technology (Non-web/AWS native). |
+| **XML-RPC**           | ❌ No (Uses simple XML payloads without WSDLs)   | Early remote procedure call protocol.                             |
+
+---
+
+### Why others are incorrect:
+
+- **DCOM:** Distributed Component Object Model is a Microsoft proprietary technology for software component communication over networks. It does not use HTTP/WSDL web service standards and is not an AWS API protocol.
+- **CORBA:** Common Object Request Broker Architecture is an older middleware standard for object interoperability using IDL (Interface Definition Language), not WSDL-described web services.
+- **XML-RPC:** XML Remote Procedure Call uses simple XML formatting for calls over HTTP, but it does not use WSDL documents for formal web service interface definition.
+
+## Question 52
+
+**Question:**
+If I want my instance to run on a single-tenant hardware, which value do I have to set the instance's tenancy attribute to?
+
+[ ] Dedicated.
+
+[ ] Isolated.
+
+[ ] One.
+
+[ ] Reserved.
+<br>
+<br>
+
+**Correct Answer:** Dedicated.
+
+---
+
+### Why this is the correct answer:
+
+This question tests Amazon EC2 instance placement and tenancy configurations:
+
+1. **Single-Tenant Hardware:** Amazon EC2 **Dedicated Instances** run on hardware dedicated to a single customer. Physical servers hosting Dedicated Instances are isolated at the hardware level from instances belonging to other AWS accounts.
+2. **Tenancy Attribute Value:** To configure an EC2 instance to run on single-tenant hardware, the instance tenancy attribute must be set to `dedicated` (valid API/CLI values for tenancy are `default`, `dedicated`, or `host`).
+
+---
+
+### Comparison of EC2 Instance Tenancy Options:
+
+| Tenancy Attribute | Hardware Model                 | Description                                                                                                                  |
+| :---------------- | :----------------------------- | :--------------------------------------------------------------------------------------------------------------------------- |
+| **`default`**     | Multi-tenant                   | Shares underlying physical hardware with instances from other AWS accounts.                                                  |
+| **`dedicated`**   | Single-tenant                  | Runs on physical hardware isolated exclusively for your AWS account.                                                         |
+| **`host`**        | Single-tenant (Dedicated Host) | Runs on a dedicated physical server with full visibility and control over sockets/cores (useful for BYOL software licenses). |
+
+---
+
+### Why others are incorrect:
+
+- **Isolated:** "Isolated" is not a valid EC2 instance tenancy attribute value in AWS.
+- **One:** "One" is not a valid parameter for the tenancy configuration field.
+- **Reserved:** "Reserved" refers to a billing model (Reserved Instances / Savings Plans) for obtaining capacity discounts, not a physical hardware tenancy setting.
+
+## Question 53
+
+**Question:**
+In the 'Detailed' monitoring data available for your Amazon EBS volumes, Provisioned IOPS volumes automatically send [...] minute metrics to Amazon CloudWatch.
+#bookmark
+
+[ ] 3.
+
+[ ] 1.
+
+[ ] 5.
+
+[ ] 2.
+<br>
+<br>
+
+**Correct Answer:** 1.
+
+---
+
+### Why this is the correct answer:
+
+This question tests Amazon CloudWatch monitoring metrics and frequency intervals for Amazon EBS volume types:
+
+1. **Automatic Detailed Monitoring:** Provisioned IOPS SSD (`io1`/`io2`) volumes automatically send 1-minute detailed metrics to Amazon CloudWatch by default, at no additional charge.
+2. **Standard vs. Detailed Monitoring:** General Purpose SSD (`gp2`/`gp3`) and HDD-backed volumes send standard metrics at 5-minute intervals by default, whereas Provisioned IOPS volumes require higher-granularity 1-minute monitoring to ensure accurate tracking of performance against provisioned throughput limits.
+
+---
+
+### EBS CloudWatch Monitoring Granularity Summary:
+
+| EBS Volume Type                         | Default Monitoring Granularity  | Metric Interval |
+| :-------------------------------------- | :------------------------------ | :-------------- |
+| **Provisioned IOPS SSD (`io1`/`io2`)**  | Detailed Monitoring (Automatic) | **1 minute**    |
+| **General Purpose SSD (`gp2`/`gp3`)**   | Basic / Standard Monitoring     | 5 minutes       |
+| **Throughput / Cold HDD (`st1`/`sc1`)** | Basic / Standard Monitoring     | 5 minutes       |
+
+---
+
+### Why others are incorrect:
+
+- **3 / 5 / 2:** CloudWatch metrics operate at standard pre-defined sampling intervals (primarily 1-minute for detailed monitoring and 5-minute for basic/standard monitoring). Intervals of 2, 3, or 5 minutes do not represent the automated detailed monitoring frequency for Provisioned IOPS volumes.

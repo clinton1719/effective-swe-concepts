@@ -1097,3 +1097,137 @@ This question tests Microsoft SQL Server edition-specific engine limits on Amazo
 ### Why others are incorrect:
 
 - **100GB per DB / 1TB per DB / 2TB per DB:** These storage values exceed Microsoft's hardcoded licensing enforcement limit for SQL Server Express edition. To host databases larger than 10 GB on Amazon RDS, you must upgrade the DB engine edition to SQL Server Web, Standard, or Enterprise Edition.
+
+## Question 42
+
+**Question:**
+Is Federated Storage Engine currently supported by Amazon RDS for MySQL?
+
+[ ] Only for Oracle RDS instances.
+
+[ ] Yes.
+
+[ ] No.
+
+[ ] Only in VPC.
+<br>
+<br>
+
+**Correct Answer:** Yes.
+
+---
+
+### Why this is the correct answer:
+
+This question tests storage engine support capabilities in Amazon RDS for MySQL:
+
+1. **Federated Storage Engine Capability:** Amazon RDS for MySQL supports the **FEDERATED storage engine**, which allows a local MySQL server to access data from remote tables on other MySQL database servers without using replication or cluster technology.
+2. **Enabling FEDERATED on RDS:** The FEDERATED storage engine is disabled by default in MySQL DB instances on RDS. However, database administrators can easily enable it by setting the `federated` parameter to `1` (or `ON`) in a custom DB Parameter Group attached to the RDS instance and rebooting the database.
+
+---
+
+### RDS MySQL Engine Configuration Summary:
+
+| Feature / Engine | Supported on RDS MySQL? | Enabling Mechanism                               |
+| :--------------- | :---------------------- | :----------------------------------------------- |
+| **InnoDB**       | ✅ **Yes** (Default)    | Native default storage engine.                   |
+| **MyISAM**       | ✅ **Yes**              | Native storage engine support.                   |
+| **FEDERATED**    | ✅ **Yes**              | Enable via DB Parameter Group (`federated = 1`). |
+| **MEMORY / CSV** | ✅ **Yes**              | Supported engine types.                          |
+
+---
+
+### Why others are incorrect:
+
+- **Only for Oracle RDS instances:** Oracle RDS uses Oracle Database engines (e.g., PL/SQL, DB links), not MySQL storage engines. The FEDERATED engine is a MySQL-specific feature.
+- **No:** Incorrect, as Amazon RDS fully supports enabling and running the FEDERATED storage engine for MySQL workloads.
+- **Only in VPC:** FEDERATED engine support is driven by the MySQL database engine parameters rather than network containment in a VPC (though running RDS inside a VPC is standard security best practice).
+
+## Question 43
+
+**Question:**
+What is the default maximum throughput limit for Write Capacity Units (WCUs) per DynamoDB table in a single AWS region before requesting a quota increase?
+
+[ ] 1,000 write capacity units.
+
+[ ] 100,000 write capacity units.
+
+[ ] Dynamic DB is designed to scale without limits, but if you go beyond 10,000 you have to contact AWS first.
+
+[ ] 10,000 write capacity units.
+<br>
+<br>
+
+**Correct Answer:** 10,000 write capacity units.
+
+---
+
+### Why this is the correct answer:
+
+This question tests default service limits and capacity quotas in Amazon DynamoDB:
+
+1. **Default Account/Table Quotas:** By default, Amazon DynamoDB sets an initial soft limit of **10,000 Read Capacity Units (RCUs)** and **10,000 Write Capacity Units (WCUs)** per table in standard AWS regions (and 40,000 RCUs/WCUs combined per account).
+2. **Limit Increases:** DynamoDB is architected to scale horizontally without upper bounds. If an application requires throughput exceeding 10,000 WCUs for a single table, the account holder can request a service quota increase directly via the Service Quotas console or AWS Support.
+
+---
+
+### DynamoDB Provisioned Throughput Limits Summary:
+
+| Quota Level              | Default Provisioned RCU Limit         | Default Provisioned WCU Limit         |
+| :----------------------- | :------------------------------------ | :------------------------------------ |
+| **Per Table**            | 10,000 RCUs                           | **10,000 WCUs**                       |
+| **Per Account (Region)** | 40,000 RCUs                           | 40,000 WCUs                           |
+| **Quota Adjustment**     | Soft limit (Increasable upon request) | Soft limit (Increasable upon request) |
+
+---
+
+### Why others are incorrect:
+
+- **1,000 write capacity units:** This value is far lower than the default soft quota provisioned per table by AWS.
+- **100,000 write capacity units:** 100,000 WCUs requires requesting an explicit quota increase from AWS and is not the default starting limit.
+- **Dynamic DB is designed to scale without limits, but if you go beyond 10,000...:** While the statement correctly mentions the 10,000 threshold, "Dynamic DB" is an incorrect naming representation of Amazon DynamoDB.
+
+## Question 44
+
+**Question:**
+You need to set up a high level of security for an Amazon Relational Database Service (RDS) you have just built in order to protect the confidential information stored in it. What are all the possible security groups that RDS uses?
+
+[ ] DB security groups, VPC security groups, and EC2 security groups.
+
+[ ] DB security groups only.
+
+[ ] EC2 security groups only.
+
+[ ] VPC security groups, and EC2 security groups.
+<br>
+<br>
+
+**Correct Answer:** DB security groups, VPC security groups, and EC2 security groups.
+
+---
+
+### Why this is the correct answer:
+
+This question tests the historical classification and structural types of security groups associated with Amazon RDS deployment models:
+
+1. **DB Security Groups:** Used historically to control access to EC2-Classic DB instances that are not in a VPC.
+2. **VPC Security Groups:** Used to control network access (inbound and outbound rules) to DB instances deployed inside an Amazon Virtual Private Cloud (VPC).
+3. **EC2 Security Groups:** Used to control access to EC2 instances that connect to the RDS DB instance, often referenced inside VPC or DB security group rules as source authorizing targets.
+
+---
+
+### Comparison of Amazon RDS Security Group Types:
+
+| Security Group Type     | Deployment Context           | Primary Function                                                    |
+| :---------------------- | :--------------------------- | :------------------------------------------------------------------ |
+| **DB Security Groups**  | Legacy EC2-Classic (Non-VPC) | Controls inbound traffic to DB instances outside a VPC.             |
+| **VPC Security Groups** | VPC-based Deployments        | Controls inbound and outbound traffic to DB instances within a VPC. |
+| **EC2 Security Groups** | EC2 Compute Layer            | Controls access to application/web servers connecting into RDS.     |
+
+---
+
+### Why others are incorrect:
+
+- **DB security groups only:** Incorrect because RDS instances inside a Virtual Private Cloud (VPC) require VPC Security Groups, not standalone legacy DB Security Groups.
+- **EC2 security groups only:** Incorrect because EC2 security groups target EC2 instances directly, whereas RDS instances require VPC or DB security group associations to manage database port access.
+- **VPC security groups, and EC2 security groups:** Incorrect because this omits DB Security Groups, which remain part of the architectural classification for non-VPC RDS instance types.

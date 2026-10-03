@@ -313,3 +313,90 @@ This question tests orchestrating hybrid human/automated workflows combined with
 - **Use AWS Data Pipeline...:** AWS Data Pipeline is built for scheduled, data-driven batch ETL processes and moving data between storage services (e.g., S3, DynamoDB, RDS). It lacks native support for coordinating complex stateful workflows involving human intervention and step-level decision logic.
 - **Use Amazon Simple Workflow (SWF)... C3 instances with SR-IOV:** C3 instances are CPU-optimized compute instances without discrete GPUs. They do not support CUDA acceleration needed to model failure modes using graphics processing units.
 - **Use AWS data Pipeline... C3 instances...:** Fails on both counts—Data Pipeline cannot coordinate human-in-the-loop assessments, and C3 instances lack GPU/CUDA hardware acceleration.
+
+## Question 10
+
+**Question:**
+A customer needs to capture all client connection information from their load balancer every five minutes. The company wants to use this data for analyzing traffic patterns and troubleshooting their applications. Which of the following options meets the customer requirements?
+
+[ ] Enable AWS CloudTrail for the load balancer.
+
+[ ] Enable access logs on the load balancer.
+
+[ ] Install the Amazon CloudWatch Logs agent on the load balancer.
+
+[ ] Enable Amazon CloudWatch metrics on the load balancer.
+<br>
+<br>
+
+**Correct Answer:** Enable access logs on the load balancer.
+
+---
+
+### Why this is the correct answer:
+
+This question tests load balancer monitoring and logging options in AWS:
+
+1. **Detailed Client Data:** Elastic Load Balancing access logs capture detailed information about requests sent to your load balancer, including the time the request was received, client IP address, latencies, request paths, and server responses.
+2. **Periodic Delivery:** Access logging is an optional feature of ELB that is disabled by default. When enabled, ELB captures the logs and delivers them as compressed log files to a specified Amazon S3 bucket at user-configured intervals (every 5 minutes or 60 minutes).
+
+---
+
+### Load Balancer Telemetry Options:
+
+| Mechanism              | Primary Purpose                        | Information Captured                                                           |
+| :--------------------- | :------------------------------------- | :----------------------------------------------------------------------------- |
+| **ELB Access Logs**    | Traffic analysis & troubleshooting     | Detailed request records (Client IP, request URL, latency, HTTP codes).        |
+| **CloudWatch Metrics** | System health & performance monitoring | Aggregated numeric data (RequestCount, HTTPCode_ELB_5XX, Latency).             |
+| **AWS CloudTrail**     | Audit & governance                     | Control plane API activity (e.g., `CreateLoadBalancer`, `DeleteLoadBalancer`). |
+
+---
+
+### Why others are incorrect:
+
+- **Enable AWS CloudTrail for the load balancer:** AWS CloudTrail captures API calls made to manage AWS resources (control plane events), not individual client HTTP requests or connection details passing through the load balancer (data plane traffic).
+- **Install the Amazon CloudWatch Logs agent on the load balancer:** Elastic Load Balancers are fully managed AWS network appliances. You do not have access to the underlying OS or instance infrastructure to install custom software or log agents.
+- **Enable Amazon CloudWatch metrics on the load balancer:** CloudWatch metrics provide aggregated numerical performance metrics (such as latency or request counts), but they do not capture individual client connection details, source IP addresses, or full HTTP request headers.
+
+## Question 11
+
+**Question:**
+Can the string value of 'Key' be prefixed with 'aws:'?
+
+[ ] Only in GovCloud.
+
+[ ] Only for S3 not EC2.
+
+[ ] Yes.
+
+[ ] No.
+<br>
+<br>
+
+**Correct Answer:** No.
+
+---
+
+### Why this is the correct answer:
+
+This question tests AWS resource tagging rules, constraints, and naming conventions:
+
+1. **Reserved Prefix Rule:** Across all AWS services and environments, tag keys prefixed with `aws:` (in any case combination, such as `aws:`, `AWS:`, or `aWs:`) are **strictly reserved for internal AWS system use**.
+2. **Prohibited User Creation:** Users cannot create, edit, or delete tag keys using the `aws:` prefix. System-generated tags (such as `aws:cloudformation:stack-name` or `aws:createdBy`) are automatically managed by AWS services and applied to resources on your behalf.
+
+---
+
+### Standard AWS Tagging Restrictions:
+
+| Constraint / Property  | Rule                                                                   |
+| :--------------------- | :--------------------------------------------------------------------- |
+| **Reserved Prefix**    | `aws:` prefix is prohibited for user-defined tags across all services. |
+| **Case Sensitivity**   | Tag keys and values are case-sensitive.                                |
+| **Key Length Limit**   | Maximum 128 Unicode characters.                                        |
+| **Value Length Limit** | Maximum 256 Unicode characters.                                        |
+
+---
+
+### Why others are incorrect:
+
+- **Only in GovCloud / Only for S3 not EC2 / Yes:** The prohibition of user-defined `aws:` tag key prefixes is a universal restriction enforced across all AWS regions (including AWS GovCloud) and across all taggable AWS services without exception.

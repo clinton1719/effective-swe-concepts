@@ -785,7 +785,6 @@ This question tests hybrid VPC routing principles using AWS Direct Connect and I
 
 **Question:**
 You have multiple VPN connections and want to provide secure communication between sites using the AWS VPN CloudHub. Which statement is the most accurate in describing what you must do to set this up correctly?
-#bookmark
 
 [ ] Create a virtual private gateway with multiple customer gateways, each with unique Border Gateway Protocol (BGP) Autonomous System Numbers (ASNs).
 
