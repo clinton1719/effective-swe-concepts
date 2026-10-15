@@ -15,6 +15,7 @@ I am always eager to learn and grow. Apart from my project work, I regularly eng
 
 In my free time, I enjoy attending tech meetups and seminars, which helps me stay connected with the tech community and continuously learn from my peers. I also have a keen interest in AI. I also love bike rides and hiking trips.
 
+<details>
 <summary><b> 2. Tell me about a time you had a disagreement with your manager.</b></summary>
 
 <ul>
@@ -31,7 +32,8 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
         <b>Result: </b>My manager appreciated the thorough analysis and was impressed with the initiative I had taken to research the alternatives. After further discussion and consultation with the team, we decided to adopt a hybrid approach, incorporating elements from both our suggestions. This incident not only led to a more robust solution for our project but also strengthened my relationship with my manager. It taught me the importance of open communication, thorough preparation, and respect for different viewpoints in resolving professional disagreements.
     </li>
 </ul>
-
+</details>
+<details>
 <summary><b> 3. Tell me about a situation when you had a conflict with a teammate.</b></summary>
 <ul>
     <li>
@@ -47,7 +49,8 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
         <b>Result: </b>The team ultimately decided that a serverless approach would work for production, and we could use spot instances in lower environments. This hybrid solution combined the robustness of Shubham's method with the simplicity of mine. This resolution not only led to the successful completion of the feature but also improved my professional relationship with Shubham. We both appreciated each other's expertise and commitment to the project. This experience taught me the value of collaboration, open communication, and the importance of considering different perspectives in problem-solving.
     </li>
 </ul>
-
+</details>
+<details>
 <summary><b>4. Tell me about a time you failed. How did you deal with the situation?</b></summary>
 <ul>
     <li>
@@ -63,3 +66,21 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
         <b>Result: </b>The bug was fixed and an updated version of the app was released within 24 hours. While the initial release did cause some user frustration, my prompt response and communication with the affected users helped mitigate the situation. This experience was a humbling lesson in the importance of maintaining rigorous quality standards, regardless of time pressures. It also highlighted the value of thorough testing and the need to balance speed with reliability in software development. Since then, I have been more diligent in my testing processes, contributing to higher overall quality in subsequent releases.
     </li>
 </ul>
+</details>
+<details>
+<summary><b>5. Describe a time when you led a team. What was the outcome?</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>I was appointed as the lead developer temporarily for a critical project. The project's goal was to refactor a complicated legacy project to simplyify and modernise
+    </li>
+    <li>
+        <b>Task: </b>My task was to lead a team of 3 developers to deliver the project within a four-month timeframe. This involved not only technical leadership but also coordinating with other departments, managing timelines, and ensuring the team remained motivated and productive.
+    </li>
+    <li>
+        <b>Action: </b>To effectively manage this project, I started by organizing a kickoff meeting to align everyone with the project goals and timelines. I established clear communication channels and regular check-ins to monitor progress. I encouraged open discussions, allowing team members to voice their ideas and concerns, fostering a collaborative environment. Recognizing the strengths of each team member, I delegated tasks accordingly, ensuring an efficient workflow. To maintain morale and manage workloads, I implemented flexible working hours and regular team-building activities. I also liaised with other department heads to ensure our work was in sync with the company's overall objectives and timelines.
+    </li>
+    <li>
+        <b>Result: </b>The team worked cohesively and efficiently under this structure. We successfully completed the project two weeks ahead of schedule and within budget. The new feature was well-received by clients. The project's success also led to my team being recognized by the company’s senior management, and several team members were subsequently promoted. This experience reinforced my skills in leadership, project management, and team collaboration, and it was a significant milestone in my professional development.
+    </li>
+</ul>
+</details>
