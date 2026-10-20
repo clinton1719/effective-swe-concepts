@@ -84,3 +84,20 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
     </li>
 </ul>
 </details>
+<details>
+<summary><b>Tell me about a time you worked well under pressure.</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>At my previous position as a software developer, our company faced a critical situation when a major client reported a significant bug in our software, which was affecting their day-to-day operations. The bug needed to be resolved urgently to maintain our client relationship and reputation.
+    </li>
+    <li>
+        <b>Task: </b>As part of the development team, it was my responsibility to quickly identify and fix the bug. The pressure was immense due to the high stakes involved and the tight deadline set by the client, who needed the issue resolved within 48 hours and also needed to be tested well.
+    </li>
+    <li>
+        <b>Action: </b>I immediately began working on the issue, meticulously combing through the code to identify the source of the bug. To manage the pressure, I broke down the task into smaller, manageable parts and set mini-deadlines for each. I stayed in constant communication with my team, updating them on my progress and seeking their input when necessary. I also coordinated with the client's technical team to better understand the issue from their perspective. After long hours of focused work, I identified a flaw in the recent update that caused the bug. I worked on the fix, rigorously tested it to ensure it wouldn't lead to other issues, and then deployed it.
+    </li>
+    <li>
+        <b>Result: </b>The bug was resolved well within the 48-hour deadline. The client was extremely pleased with the prompt and efficient response, and our swift action helped strengthen their trust in our company. This experience not only demonstrated my ability to work effectively under pressure but also reinforced the importance of clear communication, teamwork, and a methodical approach to problem-solving in high-pressure situations. It was a significant learning experience and a testament to my resilience and technical skills.
+    </li>
+</ul>
+</details>
