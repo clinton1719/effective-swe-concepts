@@ -85,7 +85,7 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
 </ul>
 </details>
 <details>
-<summary><b>Tell me about a time you worked well under pressure.</b></summary>
+<summary><b>6. Tell me about a time you worked well under pressure.</b></summary>
 <ul>
     <li>
         <b>Situation: </b>At my previous position as a software developer, our company faced a critical situation when a major client reported a significant bug in our software, which was affecting their day-to-day operations. The bug needed to be resolved urgently to maintain our client relationship and reputation.
@@ -98,6 +98,23 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
     </li>
     <li>
         <b>Result: </b>The bug was resolved well within the 48-hour deadline. The client was extremely pleased with the prompt and efficient response, and our swift action helped strengthen their trust in our company. This experience not only demonstrated my ability to work effectively under pressure but also reinforced the importance of clear communication, teamwork, and a methodical approach to problem-solving in high-pressure situations. It was a significant learning experience and a testament to my resilience and technical skills.
+    </li>
+</ul>
+</details>
+<details>
+<summary><b>7. Provide an example of a time when you had to make a difficult decision.</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>We were working on a major update for one of our key products. During the development phase, I discovered that the database schema we adopted was not fully compatible with our system design. 
+    </li>
+    <li>
+        <b>Task: </b>As the lead developer, it was my responsibility to decide whether to change the DB schema, which would be time-consuming and potentially delay our release, or to proceed with the existing schema, which would limit the functionality of the new features.
+    </li>
+    <li>
+        <b>Action: </b>After a thorough analysis, I concluded that changing the schema was essential for the long-term success and scalability of the product. I presented my findings to the team and management, outlining the benefits of refactoring against the potential risks and delays. This involved a detailed explanation of the technical challenges and the implications for product performance. I advocated for a phased approach to the refactor, which would allow us to manage the workload more effectively and minimize disruption.
+    </li>
+    <li>
+        <b>Result: </b>My decision was supported by the team and management. The refactoring process took an additional sprint, but the outcome was a more robust, efficient, and scalable product. This decision not only improved the current update but also streamlined future development efforts, as the new codebase was much easier to work with. The product's performance metrics improved significantly, and the feedback from clients was overwhelmingly positive. This experience taught me the importance of making forward-thinking decisions, even when they involve difficult trade-offs, and reinforced the value of clear communication and strategic planning in software development.
     </li>
 </ul>
 </details>
