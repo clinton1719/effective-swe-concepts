@@ -118,3 +118,40 @@ In my free time, I enjoy attending tech meetups and seminars, which helps me sta
     </li>
 </ul>
 </details>
+<details>
+<summary><b>8. Describe a time when you went above and beyond the requirements for a project.</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>There was a requirement for making significant changes on a legacy project but it used old SQL server syntaxes and code which made it difficult for unit testing. 
+    </li>
+    <li>
+        <b>Task: </b>My initial responsibility was to develop several features of the app within the set timeline. However, I recognized an opportunity to not only meet but exceed the project requirements by adding unit tests through developing a plugin to embed a DB in unit tests by translating SQL server syntax to H2 during runtime before it reaches the embedded DB. 
+    </li>
+    <li>
+        <b>Action: </b>We were able to acheive 95% test coverage for this application which never had any unit test coverage before. We also documented business flows as a result. 
+    </li>
+    <li>
+        <b>Result: </b>We were able to test it thoroughly before even it went to pilot. We were even able to catch some existing bugs and newer introduced bugs through this and it made development 5x faster and was able to deliver the feature with no production issues
+    </li>
+</ul>
+</details>
+<details>
+<summary><b>9. How do you handle a situation where you don't know the answer to a question?</b></summary>
+<ul>
+    <li>
+        <b>Situation: </b>I was asked about integrating our software with a technology I was not familiar with.
+    </li>
+    <li>
+        <b>Task: </b>It was important to handle the situation professionally without losing the client's confidence in our team's expertise.
+    </li>
+    <li>
+        <b>Action: </b>I acknowledged that I didn’t have the information on hand but assured them of my commitment to finding a solution. I explained the steps I would take to get the necessary information: firstly, researching the technology myself, and secondly, consulting with my team who might have relevant experience or insights. I requested a short period to gather the information and scheduled a follow-up meeting. After the client meeting, I delved into researching the technology, learning its fundamentals, and how it could potentially integrate with our software. I also reached out to a colleague who had experience with similar integrations and gathered valuable insights.
+    </li>
+    <li>
+        <b>Result: </b>Within two days, I was able to not only understand the technology but also developed a preliminary integration strategy. In the follow-up meeting, I presented this strategy to the client, which not only met their requirements but also showcased our team's adaptability and commitment to providing tailored solutions. The client was impressed with the quick turnaround and the thoroughness of the response, which further strengthened our relationship. This experience reinforced the importance of honest communication, proactive problem-solving, and leveraging team knowledge in my professional development.
+
+        Which technology - using spring batch for batch jobs
+    </li>
+
+</ul>
+</details>
