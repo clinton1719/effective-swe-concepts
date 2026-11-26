@@ -324,6 +324,42 @@
     "topic": "AWS"
   },
   {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz 10",
+    "title": "AWS Quiz 10",
+    "tags": [
+      "aws",
+      "aws-quiz"
+    ],
+    "difficulty": "medium",
+    "date": "2026-11-24T00:00:00.000Z",
+    "content": "\r\n![AWS QUIZ 10](aws-quiz-10.png)\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz 11",
+    "title": "AWS Quiz 11",
+    "tags": [
+      "aws",
+      "aws-quiz"
+    ],
+    "difficulty": "medium",
+    "date": "2026-11-24T00:00:00.000Z",
+    "content": "\r\n![AWS QUIZ 11](aws-quiz-11.png)\r\n",
+    "topic": "AWS"
+  },
+  {
+    "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz 12",
+    "title": "AWS Quiz 11",
+    "tags": [
+      "aws",
+      "aws-quiz"
+    ],
+    "difficulty": "medium",
+    "date": "2026-11-25T00:00:00.000Z",
+    "content": "\r\n![AWS QUIZ 11](aws-quiz-11-1.png)\r\n![AWS QUIZ 11](aws-quiz-11-2.png)\r\n![AWS QUIZ 11](aws-quiz-11-3.png)\r\n![AWS QUIZ 11](aws-quiz-11-4.png)\r\n![AWS QUIZ 11](aws-quiz-11-5.png)\r\n![AWS QUIZ 11](aws-quiz-11-6.png)\r\n",
+    "topic": "AWS"
+  },
+  {
     "slug": "C:\\Users\\Clinton\\Projects\\effective-swe-concepts\\content\\AWS\\AWS Quiz 2",
     "title": "AWS Quiz 2",
     "tags": [
